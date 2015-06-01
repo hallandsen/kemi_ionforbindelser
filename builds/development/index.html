@@ -1,0 +1,81 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+    <!-- http://www.robotstxt.org/meta.html  -->  
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Ionforbindelser</title>
+    <meta name="author" content="ato" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Midlertidig: Nedenstående skal ikke køres fra CDN -->
+<!-- 
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+ -->
+
+    <link rel="stylesheet" href="../../../library/css/styles.css" type="text/css" />
+    
+    <link rel="stylesheet" href="ionforbindelser.css" type="text/css" />
+    <!-- Date: 2012-08-07 -->
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <h3>Hypotetisk test</h3>
+        <h4>Formeløveren - step 1: Sammensæt simple ioner</h4>
+        
+        <div class="col-xs-12">
+
+            <div class="DropZone"> 
+                <div class="DropPlus lbox droppable"> 
+                </div>
+                <div class="DropMinus lbox droppable"> 
+                </div>
+            </div>
+            <!-- DROP ZONE ENDS -->
+            <div class="ionsWrapper">
+                <div class="ion minus draggable"><h3>Br-</h3><img src="img/minus_Br1.png"></div>
+                <div class="ion minus draggable"><h3>CI-</h3><img src="img/minus_Cl1.png"></div>
+                <div class="ion minus draggable"><h3>I-</h3><img src="img/minus_I1.png"></div>
+                <div class="ion minus draggable"><h3>O2-</h3><img src="img/minus_O2.png"></div>
+                <div class="ion minus draggable"><h3>S2-</h3><img src="img/minus_S2.png"></div>
+                <div class="ion plus draggable"><h3>Ag+</h3><img src="img/plus_Ag1.png"></div>
+                <div class="ion plus draggable"><h3>Cu2+</h3><img src="img/plus_Cu2plus.png"></div>
+                <div class="ion plus draggable"><h3>Fe2+</h3><img src="img/plus_Fe2plus.png"></div>
+                <div class="ion plus draggable"><h3>Fe3+</h3><img src="img/plus_Fe3plus.png"></div>
+                <div class="ion plus draggable"><h3>Mg2+</h3><img src="img/plus_Mg2plus.png"></div>
+                <div class="ion plus draggable"><h3>Na+</h3><img src="img/plus_Na1.png"></div>
+                <div class="ion plus draggable"><h3>Zn2+</h3><img src="img/plus_Zn2plus.png"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Midlertidig: Nedenstående skal ikke køres fra CDN -->  
+<!--     
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+ -->
+    <script src="../../../library/vendor_scripts.js"></script>
+    <script src="ionforbindelser.js"></script>
+   
+    <script>
+        // alert ($.fn.jquery); 
+        loadData("ionforbindelser.json");
+    </script>
+<!-- 
+    <script src="../../shared components/shared_functions.js"></script>
+    <script type="text/javascript">
+       /* $(document).ready(function() {
+            GeneralOverlayObj.ApplyOverlay_why(".embed-responsive", "vid_an");
+            GeneralOverlayObj.ApplyOverlay_how(".embed-responsive", "vid_an");
+            footer();
+        });*/
+    </script>
+ -->    
+</body>
+
+</html>
