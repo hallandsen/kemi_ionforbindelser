@@ -24,14 +24,12 @@ function loadData(url) {
         async: false, // <------ VIGTIGT: Sikring af at JSON hentes i den rigtige raekkefoelge (ikke asynkront). 
         success: function(data, textStatus, jqXHR) {
 
-            console.log("data: " + JSON.stringify(data));
             JsonObj = JSON.parse(JSON.stringify(data));
-            console.log("JsonObj 1 : " + JSON.stringify(JsonObj));
-
+            
             AjaxCallback(JsonObj);
 
             for(var key in data){
-                console.log("JsonObj[key].name: " + JsonObj[key].name);
+                //console.log("JsonObj[key].name: " + JsonObj[key].name);
                 NameArray.push( JsonObj[key].name );
             }
 
@@ -60,8 +58,6 @@ function FontSizeScaler(FontSizeStr, LineHeight, Selector){
 }
 
 function CreateIons(JsonObj) {
-    
-    
     for ( var i =0; i <=11; i++) {
         var HTML = '';
         var ion = '';
@@ -69,14 +65,8 @@ function CreateIons(JsonObj) {
         var imgSrc = '';
         var chargeClass ='';
         ion = JsonObj[i].ion;
-        console.log('ion: '+ion);
-
-        charge = JsonObj[i].charge;
-        console.log('charge: '+ charge);
-        
-        imgSrc = JsonObj[i].imgSrc;
-        console.log('img src: '+imgSrc);
-        
+        charge = JsonObj[i].charge;       
+        imgSrc = JsonObj[i].imgSrc;       
         chargeValue = charge.slice(-1); 
         if (chargeValue == '+' ) {
             chargeClass = 'plus';
@@ -100,9 +90,6 @@ function CreateIons(JsonObj) {
 
 
 $( document ).ready(function() {
-
-
-    console.log("JsonObj: " + JSON.stringify(JsonObj));
 
     console.log("NameArray 2: " + NameArray);
 
