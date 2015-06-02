@@ -95,63 +95,27 @@ $( document ).ready(function() {
 
     CreateIons(JsonObj);
 
-    // Get CSS font-sizes
-    var AtomSymbolFontSizeStr = $( ".AtomSymbol" ).css("font-size");
-    var ElementBoxFontSizeStr = $( ".ElementBox" ).css("font-size");
-
-    // Get CSS line-height
-    var LineHeight = $( ".ElementBox" ).css("line-height");
-
-   // $( document ).on('mousedown', ".ElementBox", function(event){
-        // $(".AtomNum, .AtomName, .AtomWeight", this).css("display", "none");
-        // // $(".AtomNum, .AtomName, .AtomWeight", this).css("color", "#FFF");
-        // $(".AtomSymbol", this).css("font-size", "400%");
-   // });
-
-
     $( ".draggable" ).draggable({ 
         revert: 'invalid',  // Makes the draggable revert back if does not have class "Elem_OK", "Coeff_OK", "Char_OK" or "Index_OK". 
         helper: 'clone',
         stop: function (e, ui) {
-           $('.draggable').draggable().data()["ui-draggable"].cancelHelperRemoval = true;
-            $(ui.helper).addClass('ionClone');
+            $('.draggable').draggable().data()["ui-draggable"].cancelHelperRemoval = true;
         }
     });
-
-
-    // $( ".draggable" ).draggable({ 
-    //     revert: 'invalid',  // Makes the draggable revert back if does not have class "Elem_OK", "Coeff_OK", "Char_OK" or "Index_OK". 
-    //     helper: 'clone'
-    //     // start: function(e,ui){
-    //     //     $(ui.helper).addClass("draggable-clone");
-    //     // }
-    // });
-
-    // $( ".DropMinus" ).droppable({
-    //     accept: ".minus",
-    //     drop: function(ev, ui) {
-    //         $(ui.draggable).detach().css({top: -20,left: 0, margin:0}).appendTo(this);
-    //     }
-    // });
-
-    // $( ".DropPlus" ).droppable({
-    //     accept: ".plus",
-    //     drop: function(ev, ui) {
-    //         $(ui.draggable).detach().css({top: 0,left: 0, margin:0}).appendTo(this);
-    //     }
-    // });
 
     $( ".DropMinus" ).droppable({
         accept: ".minus",
         drop: function(ev, ui) {
-            $(ui.draggable.clone()).detach().css({top: -20,left: 0, margin:0}).appendTo(this);
+            $(ui.draggable.clone()).detach().css({top: -20,left: 0, margin:0}).appendTo(this).addClass('clone');
+            // $(ui.draggable.clone()).draggable('disable');
         }
     });
 
     $( ".DropPlus" ).droppable({
         accept: ".plus",
         drop: function(ev, ui) {
-            $(ui.draggable.clone()).css({top: 0,left: 0, margin:0}).appendTo(this);
+            $(ui.draggable.clone()).css({top: 0,left: 0, margin:0}).appendTo(this).addClass('clone');
+            // $(ui.draggable.clone()).draggable({ disabled: true });
         }
     });
 });
