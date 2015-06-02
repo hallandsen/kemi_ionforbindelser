@@ -1,5 +1,3 @@
-
-
 //########################################################################
 //                          Funktioner
 //########################################################################
@@ -44,14 +42,6 @@ function loadData(url) {
         }
     });
 
-// function ionBrick(src, ionName){   
-//     var HTML = '<div class="ionBrick draggable">' + 
-//                     '<img src="'+ src '">' +
-//                     '<div class="ionName">' + ionName + '</div>' +
-//                 '</div>';
-//     return HTML;
-// }
-
 }
 function FontSizeScaler(FontSizeStr, LineHeight, Selector){
     var FontSizeNum = parseInt(FontSizeStr.replace(/px/g, ''));
@@ -69,8 +59,39 @@ function FontSizeScaler(FontSizeStr, LineHeight, Selector){
     console.log("ElementBoxFontSizeNum : " + FontSizeNum);
 }
 
-function CreateIons() {
+function CreateIons(JsonObj) {
+    
+    
+    for ( var i =0; i <=11; i++) {
+        var HTML = '';
+        var ion = '';
+        var charge = '';
+        var imgSrc = '';
+        var chargeClass ='';
+        ion = JsonObj[i].ion;
+        console.log('ion: '+ion);
 
+        charge = JsonObj[i].charge;
+        console.log('charge: '+ charge);
+        
+        imgSrc = JsonObj[i].imgSrc;
+        console.log('img src: '+imgSrc);
+        
+        chargeValue = charge.slice(-1); 
+        if (chargeValue == '+' ) {
+            chargeClass = 'plus';
+        }
+        else if (chargeValue == '-' ) {
+            chargeClass = 'minus';
+        }
+
+        HTML += '<div class="ion draggable '+ chargeClass + '">';
+        HTML += '<h3>'+ ion + '<sup>'+ charge + '</sup></h3>';
+        HTML +='<img src="'+ imgSrc +'"></div>';
+        console.log('HTML: '+HTML);
+        $('.ionsWrapper').append(HTML);
+
+    }
 }
 
 //########################################################################
@@ -85,6 +106,8 @@ $( document ).ready(function() {
 
     console.log("NameArray 2: " + NameArray);
 
+    CreateIons(JsonObj);
+
     // Get CSS font-sizes
     var AtomSymbolFontSizeStr = $( ".AtomSymbol" ).css("font-size");
     var ElementBoxFontSizeStr = $( ".ElementBox" ).css("font-size");
@@ -92,11 +115,11 @@ $( document ).ready(function() {
     // Get CSS line-height
     var LineHeight = $( ".ElementBox" ).css("line-height");
 
-    $( document ).on('mousedown', ".ElementBox", function(event){
+   // $( document ).on('mousedown', ".ElementBox", function(event){
         // $(".AtomNum, .AtomName, .AtomWeight", this).css("display", "none");
         // // $(".AtomNum, .AtomName, .AtomWeight", this).css("color", "#FFF");
         // $(".AtomSymbol", this).css("font-size", "400%");
-    });
+   // });
 
 
     $( ".draggable" ).draggable({ 
@@ -114,8 +137,6 @@ $( document ).ready(function() {
         accept: ".plus",
         drop: function( event, ui ) {
             $( this ).addClass( "DropHighlight" );
-            // console.log("event: " + JSON.stringify(event));
-            // console.log("ui: " + JSON.stringify(ui));
         }
     });
 
@@ -129,7 +150,5 @@ $( document ).ready(function() {
             $(ui.draggable).detach().css({top: -20,left: 0, margin:0}).appendTo(this);
         }
     });
-
-    // console.log("inputObj 2: " + JSON.stringify(inputObj.NameArray));
 });
 

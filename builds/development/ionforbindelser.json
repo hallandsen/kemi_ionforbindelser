@@ -1,8 +1,14 @@
 [
-{"name": "Hydrogen",  "src":"minus_1.png", "num":1, "ladning": "+"},
-{"name": "Helium",    "src":"minus_2.png", "num":18, "ladning": "+"},
-{"name": "Lithium",   "src":"minus_3.png", "num":19, "ladning": "+"},
-{"name": "Beryllium", "src":"plus_1.png", "num":20, "ladning": "-"},
-{"name": "Bor",       "src":"plus_2.png", "num":31, "ladning": "-"},
-{"name": "Carbon",    "src":"plus_3.png", "num":32, "ladning": "-"}
+{"name": "Br1",  		"imgSrc":"img/minus_Br1.png", 		"ion":"Br", 	"charge": "-"},
+{"name": "Cl1",    		"imgSrc":"img/minus_Cl1.png", 		"ion":"Cl", 	"charge": "-"},
+{"name": "I1",   		"imgSrc":"img/minus_I1.png", 		"ion":"I", 		"charge": "-"},
+{"name": "O2", 			"imgSrc":"img/minus_O2.png", 		"ion":"O", 		"charge": "2-"},
+{"name": "S2",       	"imgSrc":"img/minus_S2.png", 		"ion":"S", 		"charge": "2-"},
+{"name": "Ag1",	    	"imgSrc":"img/plus_Ag1.png", 		"ion":"Ag", 	"charge": "+"},
+{"name": "Cu2+",	    "imgSrc":"img/plus_Cu2plus.png", 	"ion":"Cu", 	"charge": "2+"},
+{"name": "Fe2+",	    "imgSrc":"img/plus_Fe2plus.png", 	"ion":"Fe", 	"charge": "2+"},
+{"name": "Fe3+",    	"imgSrc":"img/plus_Fe3plus.png", 	"ion":"Fe", 	"charge": "3+"},
+{"name": "Mg2+",	    "imgSrc":"img/plus_Mg2plus.png", 	"ion":"Mg", 	"charge": "2+"},
+{"name": "Na1+",	   	"imgSrc":"img/plus_Na1.png", 		"ion":"Na", 	"charge": "+"},
+{"name": "Zn2+",	    "imgSrc":"img/plus_Zn2plus.png", 	"ion":"Zn", 	"charge": "2+"}
 ]
