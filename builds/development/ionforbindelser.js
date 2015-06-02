@@ -25,7 +25,7 @@ function loadData(url) {
         success: function(data, textStatus, jqXHR) {
 
             JsonObj = JSON.parse(JSON.stringify(data));
-            
+
             AjaxCallback(JsonObj);
 
             for(var key in data){
@@ -110,31 +110,48 @@ $( document ).ready(function() {
 
 
     $( ".draggable" ).draggable({ 
-        revert: 'invalid'  // Makes the draggable revert back if does not have class "Elem_OK", "Coeff_OK", "Char_OK" or "Index_OK". 
+        revert: 'invalid',  // Makes the draggable revert back if does not have class "Elem_OK", "Coeff_OK", "Char_OK" or "Index_OK". 
+        helper: 'clone',
+        stop: function (e, ui) {
+           $('.draggable').draggable().data()["ui-draggable"].cancelHelperRemoval = true;
+            $(ui.helper).addClass('ionClone');
+        }
     });
+
+
+    // $( ".draggable" ).draggable({ 
+    //     revert: 'invalid',  // Makes the draggable revert back if does not have class "Elem_OK", "Coeff_OK", "Char_OK" or "Index_OK". 
+    //     helper: 'clone'
+    //     // start: function(e,ui){
+    //     //     $(ui.helper).addClass("draggable-clone");
+    //     // }
+    // });
+
+    // $( ".DropMinus" ).droppable({
+    //     accept: ".minus",
+    //     drop: function(ev, ui) {
+    //         $(ui.draggable).detach().css({top: -20,left: 0, margin:0}).appendTo(this);
+    //     }
+    // });
+
+    // $( ".DropPlus" ).droppable({
+    //     accept: ".plus",
+    //     drop: function(ev, ui) {
+    //         $(ui.draggable).detach().css({top: 0,left: 0, margin:0}).appendTo(this);
+    //     }
+    // });
 
     $( ".DropMinus" ).droppable({
         accept: ".minus",
-        drop: function( event, ui ) {
-            $( this ).addClass( "DropHighlight" );
+        drop: function(ev, ui) {
+            $(ui.draggable.clone()).detach().css({top: -20,left: 0, margin:0}).appendTo(this);
         }
     });
 
     $( ".DropPlus" ).droppable({
         accept: ".plus",
-        drop: function( event, ui ) {
-            $( this ).addClass( "DropHighlight" );
-        }
-    });
-
-    $('.DropPlus').droppable({
         drop: function(ev, ui) {
-            $(ui.draggable).detach().css({top: 0,left: 0, margin:0}).appendTo(this);
-        }
-    });
-    $('.DropMinus').droppable({
-        drop: function(ev, ui) {
-            $(ui.draggable).detach().css({top: -20,left: 0, margin:0}).appendTo(this);
+            $(ui.draggable.clone()).css({top: 0,left: 0, margin:0}).appendTo(this);
         }
     });
 });
