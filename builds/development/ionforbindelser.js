@@ -88,9 +88,8 @@ function CreateIons(JsonObj) {
 //                        Run code....
 //########################################################################
 
-var outSide;
 
-$( document ).ready(function() {
+$(document).ready(function() {
 
     //console.log("NameArray 2: " + NameArray);
 
@@ -100,16 +99,27 @@ $( document ).ready(function() {
         original = true;
     })
 
-    $(".draggable").draggable({ 
+    $('.draggable').draggable({ 
         revert: 'invalid',  // Makes the draggable revert back if does not have class plus or minus and is dropped in the corresponding div 
         helper: 'clone',
-        stop: function (e, ui) {
-            $('.draggable').draggable().data()["ui-draggable"].cancelHelperRemoval = true;
+        stop: function () {
+            $('.draggable').draggable().data()['ui-draggable'].cancelHelperRemoval = true;
         }
     });
-    $(".DropMinus").droppable({
-        accept: ".minus",
-        drop: function(ev, ui) {
+    // $('.ui-draggable').draggable ({
+    //     revert: true,
+    //     start: function () {
+    //         $(this).css({'z-index':'10'});
+    //         console.log('Im getting higher');
+    //     },
+    //     stop: function () {
+    //         $(this).css({'z-index':'auto'});
+    //     }
+    // });
+    $('.DropMinus').droppable({
+        accept: '.minus',
+        tolerance: 'intersect',
+        drop: function(event, ui) {
             if(original) {
                 $(ui.draggable.clone()).detach().css({top: -20,left: 0, margin:0}).appendTo(this).addClass('clone');
                 original = false;
@@ -117,15 +127,13 @@ $( document ).ready(function() {
                     revert: true,
                 })
             }
-            console.log('outside: '+outSide);
         },
         out: function (event, ui) {
             if (!original){
                 $(ui.draggable).fadeTo('fast', 0.5);
-                outSide = true;
                 $('.clone').draggable({
                     revert: false,
-                    stop: function (e, ui) {
+                    stop: function () {
                         $(this).remove();
                     }
                 })
@@ -134,13 +142,22 @@ $( document ).ready(function() {
         over: function (event, ui) {
             if (!original){
                 $(ui.draggable).fadeTo('fast', 1.0);
-                outSide = false;
+                $('.clone').draggable ({
+                    revert: true,
+                    start: function () {
+                        $(this).css({'z-index':'10'});
+                    },
+                    stop: function () {
+                        $(this).css({'z-index':'auto'});
+                    }
+                });
             }
         }
     });
-    $(".DropPlus").droppable({
-        accept: ".plus",
-        drop: function(ev, ui) {
+    $('.DropPlus').droppable({
+        accept: '.plus',
+        tolerance: 'intersect',
+        drop: function(event, ui) {
             if(original) {
                 $(ui.draggable.clone()).detach().css({top: 0,left: 0, margin:0}).appendTo(this).addClass('clone');
                 original = false;
@@ -148,15 +165,13 @@ $( document ).ready(function() {
                     revert: true,
                 })
             }
-            console.log('outside: '+outSide);
         },
         out: function (event, ui) {
             if (!original){
                 $(ui.draggable).fadeTo('fast', 0.5);
-                outSide = true;
                 $('.clone').draggable({
                     revert: false,
-                    stop: function (e, ui) {
+                    stop: function () {
                         $(this).remove();
                     }
                 })
@@ -165,9 +180,16 @@ $( document ).ready(function() {
         over: function (event, ui) {
             if (!original){
                 $(ui.draggable).fadeTo('fast', 1.0);
-                outSide = false;
+                $('.clone').draggable ({
+                    revert: true,
+                    start: function () {
+                        $(this).css({'z-index':'10'});
+                    },
+                    stop: function () {
+                        $(this).css({'z-index':'auto'});
+                    }
+                });
             }
         }
     });
 });
-
