@@ -68,6 +68,7 @@ body{}
 	margin: 5px;
 	vertical-align: bottom;
 	position: relative;
+	cursor: grab;
 }
 .ion h3 {
 	position: absolute;
@@ -94,12 +95,11 @@ body{}
 }
 #overlay {
     border: 1px solid #C0C0C0;
-    background-color: rgba(248, 248, 246, 0.9);
+    background-color: rgba(248, 248, 246, 0.7);
     border-radius: 3px;
     top: 0;
     right:none;
     margin-left:none !important;
-/*    cursor: pointer;*/
     width: 580px;
     height:192px;
     padding: 20px;
@@ -113,13 +113,15 @@ body{}
 	text-align: center;
 	line-height: 150px;
 }
-#overlay .glyphicon {
+#overlay .btn {
 	right: 10px;
 	top: auto;
 	bottom: 10px;
 	position: absolute;
 	font-size: 25px;
 	cursor: pointer;
+	line-height: 1;
+	margin:0;
 }
 a:active {
     outline: none;

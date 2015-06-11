@@ -2,17 +2,26 @@
 //                          Funktioner
 //########################################################################
 var CorrectAnswers = {
-"NaCl":{"minus":"Cl", "minusCount":"1", "plus":"Na", "plusCount":"1"}
+"NaCl":{"plus":"Na",    "plusCharge":"+",  "plusCount":"1",     "minus":"Cl",   "minusCharge":"-",  "minusCount":"1",   "html":"NaCl"},
+"Fea3":{"plus":"Fe",    "plusCharge":"3+", "plusCount":"1",     "minus":"a",    "minusCharge":"-",  "minusCount":"3",   "html":"Fe<sub>1</sub>a<sub>3</sub>"},
+"Na2O":{"plus":"Na",    "plusCharge":"+",  "plusCount":"2",     "minus":"O",    "minusCharge":"2-", "minusCount":"1",   "html":"Na<sub>2</sub>O"},
+"CuI2":{"plus":"Cu",    "plusCharge":"2+", "plusCount":"1",     "minus":"I",    "minusCharge":"-",  "minusCount":"2",   "html":"CuI<sub>2</sub>"},
+"Ag2S":{"plus":"Ag",    "plusCharge":"+",  "plusCount":"2",     "minus":"S",    "minusCharge":"2-", "minusCount":"1",   "html":"Ag<sub>2</sub>S"},
+"FeBr3":{"plus":"Fe",   "plusCharge":"3+", "plusCount":"1",     "minus":"Br",   "minusCharge":"-",  "minusCount":"3",   "html":"FeBr<sub>3</sub>"}
+//indsæt svarmuligheder
+
 };
+
+
 var JsonObj;
-var thisAnswer = 'NaCl';
+var thisAnswer = 'CuI2'; //vælg den aktuelle opgaveløsning
 var answersArray;
 var minusCount = 0;
 var plusCount= 0;
 var finalMinusCount = CorrectAnswers[thisAnswer].minusCount;
-console.log(finalMinusCount);
+console.log('finalMinusCount: '+ finalMinusCount);
 var finalPlusCount = CorrectAnswers[thisAnswer].plusCount;
-console.log(finalMinusCount);
+console.log('finalPlusCount: '+ finalPlusCount);
 
 function AjaxCallback(JSONdata){
     //console.log("JsonObj - AjaxCallback: " + JSON.stringify(JSONdata));
@@ -33,24 +42,14 @@ function loadData(url) {
         }
     });
 }
-// function loadAnswers(url){
-//     $.ajax({
-//         url: url,
-//         dataType: 'json',
-//         async: false,
-//         success: function(data, textStatus, jqXHR){
-//             CorrectAnswers = JSON.parse(JSON.stringify(data));
-//             AjaxCallback(CorrectAnswers);
-//             for (var key in data) {
-//                 answersArray.push(CorrectAnswers[key].correct);
-//                 console.log('answersArray: '+answersArray);
-//             }
-//         },
-//         error: function(jqXHR, textStatus, errorThrown) {
-//             console.log("Error!!!\njqXHR:" + jqXHR + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-//         }
-//     });
-// }
+
+//opgavetekst genereres
+function opgaveTekst (CorrectAnswers) {
+    var HTML='';
+    HTML += 'Byg ionforbindelsen der består af '+CorrectAnswers[thisAnswer].plus+'<sup>'+CorrectAnswers[thisAnswer].plusCharge+'</sup> og '
+    +CorrectAnswers[thisAnswer].minus+'<sup>'+CorrectAnswers[thisAnswer].minusCharge+'</sup>';
+    $('#opgaveFormulering').append(HTML); 
+}
 
 // ion elementer genereres
 function CreateIons(JsonObj) {
@@ -81,8 +80,11 @@ function CheckMinus(CorrectAnswers, CurrentIon, element){
     var correctMinus = CorrectAnswers[thisAnswer].minus;
     console.log(correctMinus);
     if (correctMinus == CurrentIon) {
-        $(element).addClass('correctMinus');
-        console.log('correctMinus added');
+        if(minusCount<finalMinusCount) {
+            $(element).addClass('correctMinus');
+            console.log('correctMinus added');
+            console.log('minusCount: '+minusCount);
+        }
     }
 }
 //check om den negative ion brugeren dragger er den rigtige positive ion
@@ -90,8 +92,11 @@ function CheckPlus(CorrectAnswers, CurrentIon, element){
     var correctPlus = CorrectAnswers[thisAnswer].plus;
     console.log(correctPlus);
     if (correctPlus == CurrentIon) {
-        $(element).addClass('correctPlus');
-        console.log('correctPlus added');
+        if(plusCount<finalPlusCount) {
+            $(element).addClass('correctPlus');
+            console.log('correctPlus added');
+            console.log('plusCount: '+plusCount);
+        }
     }
 }
 //læg overlay på dropzonen hvis de er nok af de rigtige ion elementer i dropzonen.
@@ -104,8 +109,8 @@ function CheckAnswer (minusCount, plusCount){
 function feedbackOverlay(thisAnswer){
 
     var HTML = "<div id='overlay'>";
-    HTML +="<h2>"+thisAnswer+"</h2>";
-    HTML += '<span class="glyphicon glyphicon-volume-up playAnswer"></span>';
+    HTML +="<h2>"+CorrectAnswers[thisAnswer].html;+"</h2>";
+    HTML += '<div class ="btn btn-default"><span class="glyphicon glyphicon-volume-up playAnswer"></span></div>';
     HTML += '<audio src="audio/NaCl.mp3" id="audioAnswer"></audio>';
     HTML += "</div>";
     $('.DropZone').prepend(HTML);
@@ -113,7 +118,6 @@ function feedbackOverlay(thisAnswer){
     
     //læs op funktionaliteter
     var audioElement = $("#audioAnswer")[0];
-    console.log(audioElement);
     $('.glyphicon-volume-up').click(function(){
         $('.playAnswer').addClass('activeSound');
         console.log('playing audio');
@@ -122,12 +126,6 @@ function feedbackOverlay(thisAnswer){
             $('.playAnswer').removeClass('activeSound');       
         });
     });
-
-    // $("#overlay").click(function(){
-    //     $("#overlay").fadeOut(200,function(){
-    //         $(this).remove();
-    //     });
-    // });
 }
 //########################################################################
 //                        Run code....
@@ -135,6 +133,7 @@ function feedbackOverlay(thisAnswer){
 
 
 $(document).ready(function() {
+    opgaveTekst(CorrectAnswers);
     CreateIons(JsonObj);
     
     $('.draggable').mousedown(function(){
@@ -153,6 +152,8 @@ $(document).ready(function() {
         },
         stop: function () {
             $('.draggable').draggable().data()['ui-draggable'].cancelHelperRemoval = true; //behold clone
+            $(this).removeClass('correctMinus');
+            $(this).removeClass('correctPlus');
         }
     });
     $('.DropMinus').droppable({
@@ -171,11 +172,12 @@ $(document).ready(function() {
         },
         out: function (event, ui) {
             if (!original){
-                $(ui.draggable).fadeTo('fast', 0.5);
-                $('.clone, .correctMinus').draggable({
+                $('.correctMinus').fadeTo('fast', 0.5);
+                $('.correctMinus').draggable({
                     revert: false,
                     stop: function () {
-                        $(this).remove();
+                        $('.correctMinus').remove();
+                        minusCount--;
                     }
                 })
             }
@@ -212,11 +214,12 @@ $(document).ready(function() {
         },
         out: function (event, ui) {
             if (!original){
-                $(ui.draggable).fadeTo('fast', 0.5);
-                $('.clone, .correctMinus').draggable({
+                $('.correctPlus').fadeTo('fast', 0.5);
+                $('.correctPlus').draggable({
                     revert: false,
                     stop: function () {
                         $(this).remove();
+                        plusCount--;
                     }
                 })
             }
@@ -237,9 +240,3 @@ $(document).ready(function() {
         }
     });
 });
-
-
-
-
-
-
