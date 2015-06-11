@@ -10,5 +10,6 @@
 {"name": "Fe3+",    	"imgSrc":"img/plus_Fe3plus.png", 	"ion":"Fe", 	"charge": "3+"},
 {"name": "Mg2+",	    "imgSrc":"img/plus_Mg2plus.png", 	"ion":"Mg", 	"charge": "2+"},
 {"name": "Na1+",	   	"imgSrc":"img/plus_Na1.png", 		"ion":"Na", 	"charge": "+"},
-{"name": "Zn2+",	    "imgSrc":"img/plus_Zn2plus.png", 	"ion":"Zn", 	"charge": "2+"}
+{"name": "Zn2+",	    "imgSrc":"img/plus_Zn2plus.png", 	"ion":"Zn", 	"charge": "2+"},
+{"correct": "NaCl",  	"minus":"Cl", 						"plus":"Na", 	"charge": "-"}
 ]

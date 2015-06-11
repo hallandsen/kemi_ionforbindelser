@@ -72,6 +72,7 @@ body{}
 .ion h3 {
 	position: absolute;
 	text-align: center;
+	color:white;
 }
 .minus h3 {
 	top:20px;
@@ -91,3 +92,39 @@ body{}
 .onTop {
 	z-index: 10;
 }
+#overlay {
+    border: 1px solid #C0C0C0;
+    background-color: rgba(248, 248, 246, 0.9);
+    border-radius: 3px;
+    top: 0;
+    right:none;
+    margin-left:none !important;
+/*    cursor: pointer;*/
+    width: 580px;
+    height:192px;
+    padding: 20px;
+    left: 0px;
+    position: absolute;
+	z-index: 10;
+}
+#overlay h2 {
+	margin:0;
+	display: block;
+	text-align: center;
+	line-height: 150px;
+}
+#overlay .glyphicon {
+	right: 10px;
+	top: auto;
+	bottom: 10px;
+	position: absolute;
+	font-size: 25px;
+	cursor: pointer;
+}
+a:active {
+    outline: none;
+}
+.activeSound {
+	color: rgba(0,0,0,0.5);
+}
+
