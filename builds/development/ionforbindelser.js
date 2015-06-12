@@ -1,5 +1,5 @@
 //########################################################################
-//                          Data og star variable
+//                          Data og indledende variable
 //########################################################################
 var CorrectAnswers = [
 {"name": "natriumklorid",   "plus":"Na",    "plusName":"natrium",   "plusCharge":"+",  "plusCount":"1",     "minus":"Cl",
