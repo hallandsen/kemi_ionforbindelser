@@ -127,10 +127,15 @@ body{}
 a:active {
     outline: none;
 }
-.activeSound, .activeSound:hover {
+.activeSound, .activeSound:hover, #active {
 	color: #FFF;
 	background-color: #1DA6DB;
 	border-color: #1DA6DB;
+}
+#active:hover{
+	color: #ffffff;
+	background-color: #1784ae;
+	border-color: #167da5;
 }
 .opgaveFormulering {
 	color:#999;

@@ -1,28 +1,27 @@
 //########################################################################
-//                          Funktioner
+//                          Data og star variable
 //########################################################################
-
 var CorrectAnswers = [
-{"name": "Natriumklorid",   "plus":"Na",    "plusName":"Natrium",   "plusCharge":"+",  "plusCount":"1",     "minus":"Cl",
-"minusName":"Klor",    "minusCharge":"-",   "minusCount":"1",       "html":"NaCl"},
+{"name": "natriumklorid",   "plus":"Na",    "plusName":"natrium",   "plusCharge":"+",  "plusCount":"1",     "minus":"Cl",
+"minusName":"klor",    "minusCharge":"-",   "minusCount":"1",       "html":"NaCl"},
 
-{"name": "Jernklorid",      "plus":"Fe",    "plusName":"Jern",      "plusCharge":"2+", "plusCount":"1",     "minus":"Cl",
-"minusName":"Klor",    "minusCharge":"-",   "minusCount":"2",       "html":"Fe<sub>1</sub>Cl<sub>3</sub>"},
+{"name": "jernklorid",      "plus":"Fe",    "plusName":"jern",      "plusCharge":"2+", "plusCount":"1",     "minus":"Cl",
+"minusName":"klor",    "minusCharge":"-",   "minusCount":"2",       "html":"FeCl<sub>2</sub>"},
 
-{"name": "Natriumoxid",     "plus":"Na",    "plusName":"Natrium",   "plusCharge":"+",  "plusCount":"2",     "minus":"O",
-"minusName":"Ilt",     "minusCharge":"2-",  "minusCount":"1",       "html":"Na<sub>2</sub>O"},
+{"name": "natriumoxid",     "plus":"Na",    "plusName":"natrium",   "plusCharge":"+",  "plusCount":"2",     "minus":"O",
+"minusName":"ilt",     "minusCharge":"2-",  "minusCount":"1",       "html":"Na<sub>2</sub>O"},
 
-{"name": "Kobberjod",       "plus":"Cu",    "plusName":"Kobber",    "plusCharge":"2+", "plusCount":"1",     "minus":"I",
-"minusName":"Jod",     "minusCharge":"-",   "minusCount":"2",       "html":"CuI<sub>2</sub>"},
+{"name": "kobberjod",       "plus":"Cu",    "plusName":"kobber",    "plusCharge":"2+", "plusCount":"1",     "minus":"I",
+"minusName":"jod",     "minusCharge":"-",   "minusCount":"2",       "html":"CuI<sub>2</sub>"},
 
-{"name": "Sølvsulfid",      "plus":"Ag",    "plusName":"Sølv",      "plusCharge":"+",  "plusCount":"2",     "minus":"S",
-"minusName":"Svovl",   "minusCharge":"2-",  "minusCount":"1",       "html":"Ag<sub>2</sub>S"},
+{"name": "sølvsulfid",      "plus":"Ag",    "plusName":"sølv",      "plusCharge":"+",  "plusCount":"2",     "minus":"S",
+"minusName":"svovl",   "minusCharge":"2-",  "minusCount":"1",       "html":"Ag<sub>2</sub>S"},
 
-{"name": "JernBromid",      "plus":"Fe",    "plusName":"Jern",      "plusCharge":"3+", "plusCount":"1",     "minus":"Br",
-"minusName":"Brom",    "minusCharge":"-",   "minusCount":"3",       "html":"FeBr<sub>3</sub>"},
+{"name": "jernbromid",      "plus":"Fe",    "plusName":"jern",      "plusCharge":"3+", "plusCount":"1",     "minus":"Br",
+"minusName":"brom",    "minusCharge":"-",   "minusCount":"3",       "html":"FeBr<sub>3</sub>"},
 
-{"name": "MagnesiumBromid", "plus":"Mg",    "plusName":"Magnesium", "plusCharge":"2+",  "plusCount":"1",    "minus":"Br",
-"minusName":"Brom",     "minusCharge":"-",  "minusCount":"2",       "html":"MgBr<sub>2</sub>"}
+{"name": "magnesiumbromid", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "minus":"Br",
+"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "html":"MgBr<sub>2</sub>"}
 ];
 
 var JsonObj;
@@ -33,6 +32,12 @@ var plusCount= 0;
 var finalMinusCount = CorrectAnswers[thisAnswer].minusCount;
 var finalPlusCount = CorrectAnswers[thisAnswer].plusCount;
 var step = $('#active').html().slice(5,7);
+
+
+//########################################################################
+//                          Funktioner
+//########################################################################
+
 
 function AjaxCallback(JSONdata){
     //console.log("JsonObj - AjaxCallback: " + JSON.stringify(JSONdata));
@@ -75,15 +80,12 @@ function opgaveTekst3 (CorrectAnswers) {
 // ion elementer genereres
 function CreateIons(JsonObj) {
     for ( var i =0; i <=11; i++) {
-        var HTML = '';
-        var ion = '';
-        var charge = '';
-        var imgSrc = '';
+        var ion = JsonObj[i].ion;
+        var charge = JsonObj[i].charge;
+        var imgSrc = imgSrc = JsonObj[i].imgSrc;
+        var chargeValue = charge.slice(-1);
         var chargeClass ='';
-        ion = JsonObj[i].ion;
-        charge = JsonObj[i].charge;       
-        imgSrc = JsonObj[i].imgSrc;       
-        chargeValue = charge.slice(-1); 
+        var HTML = '';
         if (chargeValue == '+' ) {
             chargeClass = 'plus';
         }
@@ -131,13 +133,13 @@ function feedbackOverlay(thisAnswer){
 
     var HTML = "<div id='overlay'>";
     if(step == '1') {           //hvis step 1 så:
-        HTML +="<h2>"+CorrectAnswers[thisAnswer].html;+"</h2>";    
+        HTML +="<h2>"+CorrectAnswers[thisAnswer].html+"</h2>";    
     }
     else if (step == '2'){      //hvis step 2 så:
-        HTML +="<h2>"+CorrectAnswers[thisAnswer].name;+"</h2>";
+        HTML +="<h2>"+CorrectAnswers[thisAnswer].name+"</h2>";
     }
     else if (step == '3') {     //hvis step 3 så:
-        HTML += '<h2>Hvad skal vi tage og skrive her?</h2>'
+        HTML += '<h2>'+CorrectAnswers[thisAnswer].html+'</h2>'
     }
     HTML += '<div class ="btn btn-default sound-btn"><span class="glyphicon glyphicon-volume-up playAnswer"></span></div>';
     HTML += '<audio src="audio/NaCl.mp3" id="audioAnswer"></audio>'; //erstat med nedenstående når lyd er blevet indspillet
