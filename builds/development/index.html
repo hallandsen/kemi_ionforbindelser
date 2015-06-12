@@ -15,11 +15,10 @@
     <div class="container-fluid">
         <div class="col-xs-8">
             <h3>Formeløveren</h3>
-            <a href="index.html"><div class="btn btn-default">Step 1</div></a>
+            <a href="index.html"><div class="btn btn-default" id="active">Step 1</div></a>
             <a href="step2.html"><div class="btn btn-default">Step 2</div></a>
             <a href="step3.html"><div class="btn btn-default">Step 3</div></a>
-            <a href="step4.html"><div class="btn btn-default">Step 4</div></a>
-            <h4 id="opgaveFormulering"></h4>
+            <h4 id="opgaveFormulering1"></h4>
         </div>
         <div class="col-xs-12">
             <div class="DropZone"> 
@@ -36,7 +35,7 @@
     <script src="ionforbindelser.js"></script>
     <script>
         loadData("ionforbindelser.json");
-        // loadAnswers("opgType1.json");
+        opgaveTekst1(CorrectAnswers);
     </script>
 </body>
 </html>

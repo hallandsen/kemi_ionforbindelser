@@ -17,9 +17,8 @@
             <h3>Formeløveren</h3>
             <a href="index.html"><div class="btn btn-default">Step 1</div></a>
             <a href="step2.html"><div class="btn btn-default">Step 2</div></a>
-            <a href="step3.html"><div class="btn btn-default">Step 3</div></a>
-            <a href="step4.html"><div class="btn btn-default">Step 4</div></a>
-            <h4>Hvor mange Chloridioner skal der til for at danne saltet Fe(III)Chlorid</h4>
+            <a href="step3.html"><div class="btn btn-default" id="active">Step 3</div></a>
+            <h4 id="opgaveFormulering3"></h4>    
         </div>
         <div class="col-xs-12">
             <div class="DropZone"> 
@@ -36,12 +35,7 @@
     <script src="ionforbindelser.js"></script>
     <script>
         loadData("ionforbindelser.json");
-        // loadAnswers("opgType1.json");
+        opgaveTekst3(CorrectAnswers);
     </script>
 </body>
 </html>
-<!-- 
-<audio controls>
-    <source src="" type="audio/mpeg">
-    <source src="" type="audio/mpeg">
-</audio> -->
