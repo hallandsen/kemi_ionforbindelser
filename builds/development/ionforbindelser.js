@@ -3,24 +3,36 @@
 //########################################################################
 
 var CorrectAnswers = [
-{"name": "Natriumklorid",   "plus":"Na",    "plusName":"Natrium",   "plusCharge":"+",  "plusCount":"1",     "minus":"Cl",       "minusName":"Klor",    "minusCharge":"-",   "minusCount":"1",   "html":"NaCl",               "sound":"audio/NaCl.mp3"},
-{"name": "Jernklorid",      "plus":"Fe",    "plusName":"Jern",      "plusCharge":"2+", "plusCount":"1",     "minus":"Cl",       "minusName":"Klor",    "minusCharge":"-",   "minusCount":"2",   "html":"Fe<sub>1</sub>Cl<sub>3</sub>", "sound":"audio/FeCl.mp3"}, 
-{"name": "Natriumoxid",     "plus":"Na",    "plusName":"Natrium",   "plusCharge":"+",  "plusCount":"2",     "minus":"O",        "minusName":"Ilt",     "minusCharge":"2-",  "minusCount":"1",   "html":"Na<sub>2</sub>O",    "sound":"audio/NaO.mp3"},
-{"name": "Kobberjod",       "plus":"Cu",    "plusName":"Kobber",    "plusCharge":"2+", "plusCount":"1",     "minus":"I",        "minusName":"Jod",     "minusCharge":"-",   "minusCount":"2",   "html":"CuI<sub>2</sub>",    "sound":"audio/CuI.mp3"},
-{"name": "Sølvsulfid",      "plus":"Ag",    "plusName":"Sølv",      "plusCharge":"+",  "plusCount":"2",     "minus":"S",        "minusName":"Svovl",   "minusCharge":"2-",  "minusCount":"1",   "html":"Ag<sub>2</sub>S",    "sound":"audio/AgS.mp3"},
-{"name": "JernBromid",      "plus":"Fe",    "plusName":"Jern",      "plusCharge":"3+", "plusCount":"1",     "minus":"Br",       "minusName":"Brom",    "minusCharge":"-",   "minusCount":"3",   "html":"FeBr<sub>3</sub>",   "sound":"audio/FeBr.mp3"},
-{"name": "",                "plus":"Ag",    "plusName":"Sølv",      "plusCharge":"+",  "plusCount":"2",     "minus":"S",        "minusName":"Natrium", "minusCharge":"2-",  "minusCount":"1",   "html":"Ag<sub>2</sub>S"}
+{"name": "Natriumklorid",   "plus":"Na",    "plusName":"Natrium",   "plusCharge":"+",  "plusCount":"1",     "minus":"Cl",
+"minusName":"Klor",    "minusCharge":"-",   "minusCount":"1",       "html":"NaCl"},
+
+{"name": "Jernklorid",      "plus":"Fe",    "plusName":"Jern",      "plusCharge":"2+", "plusCount":"1",     "minus":"Cl",
+"minusName":"Klor",    "minusCharge":"-",   "minusCount":"2",       "html":"Fe<sub>1</sub>Cl<sub>3</sub>"},
+
+{"name": "Natriumoxid",     "plus":"Na",    "plusName":"Natrium",   "plusCharge":"+",  "plusCount":"2",     "minus":"O",
+"minusName":"Ilt",     "minusCharge":"2-",  "minusCount":"1",       "html":"Na<sub>2</sub>O"},
+
+{"name": "Kobberjod",       "plus":"Cu",    "plusName":"Kobber",    "plusCharge":"2+", "plusCount":"1",     "minus":"I",
+"minusName":"Jod",     "minusCharge":"-",   "minusCount":"2",       "html":"CuI<sub>2</sub>"},
+
+{"name": "Sølvsulfid",      "plus":"Ag",    "plusName":"Sølv",      "plusCharge":"+",  "plusCount":"2",     "minus":"S",
+"minusName":"Svovl",   "minusCharge":"2-",  "minusCount":"1",       "html":"Ag<sub>2</sub>S"},
+
+{"name": "JernBromid",      "plus":"Fe",    "plusName":"Jern",      "plusCharge":"3+", "plusCount":"1",     "minus":"Br",
+"minusName":"Brom",    "minusCharge":"-",   "minusCount":"3",       "html":"FeBr<sub>3</sub>"},
+
+{"name": "MagnesiumBromid", "plus":"Mg",    "plusName":"Magnesium", "plusCharge":"2+",  "plusCount":"1",    "minus":"Br",
+"minusName":"Brom",     "minusCharge":"-",  "minusCount":"2",       "html":"MgBr<sub>2</sub>"}
 ];
 
 var JsonObj;
-var thisAnswer = Math.floor(Math.random() * 5);
+var thisAnswer = Math.floor(Math.random() * 6);
 var answersArray;
 var minusCount = 0;
 var plusCount= 0;
 var finalMinusCount = CorrectAnswers[thisAnswer].minusCount;
 var finalPlusCount = CorrectAnswers[thisAnswer].plusCount;
 var step = $('#active').html().slice(5,7);
-console.log(step);
 
 function AjaxCallback(JSONdata){
     //console.log("JsonObj - AjaxCallback: " + JSON.stringify(JSONdata));
@@ -45,19 +57,19 @@ function loadData(url) {
 //opgavetekst genereres
 function opgaveTekst1 (CorrectAnswers) {
     var HTML='';
-    HTML += 'Byg ionforbindelsen der består af '+CorrectAnswers[thisAnswer].plus+'<sup>'+CorrectAnswers[thisAnswer].plusCharge+
-    '</sup> og '+CorrectAnswers[thisAnswer].minus+'<sup>'+CorrectAnswers[thisAnswer].minusCharge+'</sup>';
+    HTML += 'Byg ionforbindelsen der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plus+'<sup>'+CorrectAnswers[thisAnswer].plusCharge+
+    '</sup></span> og <span class="QuestionTask">'+CorrectAnswers[thisAnswer].minus+'<sup>'+CorrectAnswers[thisAnswer].minusCharge+'</sup></span>';
     $('#opgaveFormulering1').append(HTML); 
 }
 function opgaveTekst2 (CorrectAnswers) {
     var HTML='';
-    HTML += 'Byg ionforbindelsen der består af '+CorrectAnswers[thisAnswer].plusName+' og '
-    +CorrectAnswers[thisAnswer].minusName+' og afstem formlen.';
+    HTML += 'Byg ionforbindelsen der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plusName+'</span> og <span class="QuestionTask">'
+    +CorrectAnswers[thisAnswer].minusName+'</span> og afstem formlen.';
     $('#opgaveFormulering2').append(HTML); 
 }
 function opgaveTekst3 (CorrectAnswers) {
     var HTML='';
-    HTML += 'Byg ionforbindelsen '+CorrectAnswers[thisAnswer].name;
+    HTML += 'Byg ionforbindelsen <span class="QuestionTask">'+CorrectAnswers[thisAnswer].name +'</span>';
     $('#opgaveFormulering3').append(HTML); 
 }
 // ion elementer genereres
@@ -125,11 +137,11 @@ function feedbackOverlay(thisAnswer){
         HTML +="<h2>"+CorrectAnswers[thisAnswer].name;+"</h2>";
     }
     else if (step == '3') {     //hvis step 3 så:
-        HTML += '<h2>HVAD SKAL DER STÅ HER?</h2>'
+        HTML += '<h2>Hvad skal vi tage og skrive her?</h2>'
     }
-    HTML += '<div class ="btn btn-default"><span class="glyphicon glyphicon-volume-up playAnswer"></span></div>';
+    HTML += '<div class ="btn btn-default sound-btn"><span class="glyphicon glyphicon-volume-up playAnswer"></span></div>';
     HTML += '<audio src="audio/NaCl.mp3" id="audioAnswer"></audio>'; //erstat med nedenstående når lyd er blevet indspillet
-    HTML += '<audio src="'+ CorrectAnswers[thisAnswer].sound + '" id="audioAnswer"></audio>';
+    //HTML += '<audio src="audio/'+ CorrectAnswers[thisAnswer].plus+CorrectAnswers[thisAnswer].minus+'.mp3" id="audioAnswer"></audio>';
     HTML += "</div>";
     $('.DropZone').prepend(HTML);
     $("#overlay").fadeIn( "slow" );
@@ -137,11 +149,11 @@ function feedbackOverlay(thisAnswer){
     //læs op funktionaliteter
     var audioElement = $("#audioAnswer")[0];
     $('.glyphicon-volume-up').click(function(){
-        $('.playAnswer').addClass('activeSound');
+        $('.sound-btn').addClass('activeSound');
         console.log('playing audio');
         audioElement.play();
         $('#audioAnswer').bind("ended", function(){
-            $('.playAnswer').removeClass('activeSound');       
+            $('.sound-btn').removeClass('activeSound');       
         });
     });
 }

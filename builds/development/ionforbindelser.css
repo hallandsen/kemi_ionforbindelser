@@ -107,6 +107,7 @@ body{}
     position: absolute;
 	z-index: 10;
 }
+
 #overlay h2 {
 	margin:0;
 	display: block;
@@ -126,7 +127,11 @@ body{}
 a:active {
     outline: none;
 }
-.activeSound {
-	color: rgba(0,0,0,0.5);
+.activeSound, .activeSound:hover {
+	color: #FFF;
+	background-color: #1DA6DB;
+	border-color: #1DA6DB;
 }
-
+.opgaveFormulering {
+	color:#999;
+}
