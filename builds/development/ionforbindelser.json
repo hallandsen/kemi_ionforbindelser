@@ -1,14 +1,20 @@
-[
-{"name": "Br1",  		"imgSrc":"img/minus_Br1.png", 		"ion":"Br", 	"charge": "-"},
-{"name": "Cl1",    		"imgSrc":"img/minus_Cl1.png", 		"ion":"Cl", 	"charge": "-"},
-{"name": "I1",   		"imgSrc":"img/minus_I1.png", 		"ion":"I", 		"charge": "-"},
-{"name": "O2", 			"imgSrc":"img/minus_O2.png", 		"ion":"O", 		"charge": "2-"},
-{"name": "S2",       	"imgSrc":"img/minus_S2.png", 		"ion":"S", 		"charge": "2-"},
-{"name": "Ag1",	    	"imgSrc":"img/plus_Ag1.png", 		"ion":"Ag", 	"charge": "+"},
-{"name": "Cu2+",	    "imgSrc":"img/plus_Cu2plus.png", 	"ion":"Cu", 	"charge": "2+"},
-{"name": "Fe2+",	    "imgSrc":"img/plus_Fe2plus.png", 	"ion":"Fe", 	"charge": "2+"},
-{"name": "Fe3+",    	"imgSrc":"img/plus_Fe3plus.png", 	"ion":"Fe", 	"charge": "3+"},
-{"name": "Mg2+",	    "imgSrc":"img/plus_Mg2plus.png", 	"ion":"Mg", 	"charge": "2+"},
-{"name": "Na1+",	   	"imgSrc":"img/plus_Na1.png", 		"ion":"Na", 	"charge": "+"},
-{"name": "Zn2+",	    "imgSrc":"img/plus_Zn2plus.png", 	"ion":"Zn", 	"charge": "2+"}
-]
+{
+	"ions": {
+		"minus": [
+			{"name": "Br1",  		"imgSrc":"img/minus_Br1.png", 		"ion":"Br", 	"charge": "-"},
+			{"name": "Cl1",    		"imgSrc":"img/minus_Cl1.png", 		"ion":"Cl", 	"charge": "-"},
+			{"name": "I1",   		"imgSrc":"img/minus_I1.png", 		"ion":"I", 		"charge": "-"},
+			{"name": "O2", 			"imgSrc":"img/minus_O2.png", 		"ion":"O", 		"charge": "2-"},
+			{"name": "S2",       	"imgSrc":"img/minus_S2.png", 		"ion":"S", 		"charge": "2-"}
+		],
+		"plus": [
+			{"name": "Ag1",	    	"imgSrc":"img/plus_Ag1.png", 		"ion":"Ag", 	"charge": "+"},
+			{"name": "Cu2+",	    "imgSrc":"img/plus_Cu2plus.png", 	"ion":"Cu", 	"charge": "2+"},
+			{"name": "Fe2+",	    "imgSrc":"img/plus_Fe2plus.png", 	"ion":"Fe", 	"charge": "2+"},
+			{"name": "Fe3+",    	"imgSrc":"img/plus_Fe3plus.png", 	"ion":"Fe", 	"charge": "3+"},
+			{"name": "Mg2+",	    "imgSrc":"img/plus_Mg2plus.png", 	"ion":"Mg", 	"charge": "2+"},
+			{"name": "Na1+",	   	"imgSrc":"img/plus_Na1.png", 		"ion":"Na", 	"charge": "+"},
+			{"name": "Zn2+",	    "imgSrc":"img/plus_Zn2plus.png", 	"ion":"Zn", 	"charge": "2+"}
+		]
+	}
+}

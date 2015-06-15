@@ -31,9 +31,16 @@ var minusCount = 0;
 var plusCount= 0;
 var finalMinusCount = CorrectAnswers[thisAnswer].minusCount;
 var finalPlusCount = CorrectAnswers[thisAnswer].plusCount;
-var step = $('#active').html().slice(5,7);
+var step = $('.opgaveFormulering').html().slice(5,6);
+var neededPlus = CorrectAnswers[thisAnswer].plus;
+console.log('neededPlus: '+neededPlus);
+var neededMinus = CorrectAnswers[thisAnswer].minus;
+console.log('neededMinus: '+neededMinus);
 
-
+//flow variabler
+var roundCounter = 0;
+var maxRounds = 10;
+var correct = 0;
 //########################################################################
 //                          Funktioner
 //########################################################################
@@ -62,38 +69,56 @@ function loadData(url) {
 //opgavetekst genereres
 function opgaveTekst1 (CorrectAnswers) {
     var HTML='';
-    HTML += 'Byg ionforbindelsen der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plus+'<sup>'+CorrectAnswers[thisAnswer].plusCharge+
+    HTML += ' Byg ionforbindelsen der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plus+'<sup>'+CorrectAnswers[thisAnswer].plusCharge+
     '</sup></span> og <span class="QuestionTask">'+CorrectAnswers[thisAnswer].minus+'<sup>'+CorrectAnswers[thisAnswer].minusCharge+'</sup></span>';
     $('#opgaveFormulering1').append(HTML); 
 }
 function opgaveTekst2 (CorrectAnswers) {
     var HTML='';
-    HTML += 'Byg ionforbindelsen der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plusName+'</span> og <span class="QuestionTask">'
+    HTML += ' Byg ionforbindelsen der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plusName+'</span> og <span class="QuestionTask">'
     +CorrectAnswers[thisAnswer].minusName+'</span> og afstem formlen.';
     $('#opgaveFormulering2').append(HTML); 
 }
 function opgaveTekst3 (CorrectAnswers) {
     var HTML='';
-    HTML += 'Byg ionforbindelsen <span class="QuestionTask">'+CorrectAnswers[thisAnswer].name +'</span>';
+    HTML += ' Byg ionforbindelsen <span class="QuestionTask">'+CorrectAnswers[thisAnswer].name +'</span>';
     $('#opgaveFormulering3').append(HTML); 
 }
+//feedback felt med antal rigtige genereres og opdateres
+function feedbackTekst (roundCounter, correct) {
+    $('.feedback').empty();
+    var HTML='';
+    HTML += '<span class="QuestionTask">'+correct+'</span> ud af <span class="QuestionTask">'+maxRounds+'</span> rigtige';
+    $('.feedback').append(HTML);
+}
+
 // ion elementer genereres
 function CreateIons(JsonObj) {
-    for ( var i =0; i <=11; i++) {
-        var ion = JsonObj[i].ion;
-        var charge = JsonObj[i].charge;
-        var imgSrc = imgSrc = JsonObj[i].imgSrc;
+    //genererer de positive ioner
+    for ( var i =0; i <=6; i++) {
+        var plusIon = JsonObj.ions.plus[i].ion;
+        var charge = JsonObj.ions.plus[i].charge;
+        var imgSrc = imgSrc = JsonObj.ions.plus[i].imgSrc;
         var chargeValue = charge.slice(-1);
         var chargeClass ='';
         var HTML = '';
-        if (chargeValue == '+' ) {
-            chargeClass = 'plus';
-        }
-        else if (chargeValue == '-' ) {
-            chargeClass = 'minus';
-        }
+        chargeClass = 'plus';
         HTML += '<div class="ion draggable '+ chargeClass + '">';
-        HTML += '<h3>'+ ion + '<sup>'+ charge + '</sup></h3>';
+        HTML += '<h3>'+ plusIon + '<sup>'+ charge + '</sup></h3>';
+        HTML +='<img src="'+ imgSrc +'"></div>';
+        $('.ionsWrapper').append(HTML);
+    }
+    //genererer de negative ioner
+    for ( var i =0; i <=4; i++) {
+        var minusIon = JsonObj.ions.minus[i].ion;
+        var charge = JsonObj.ions.minus[i].charge;
+        var imgSrc = imgSrc = JsonObj.ions.minus[i].imgSrc;
+        var chargeValue = charge.slice(-1);
+        var chargeClass ='';
+        var HTML = '';
+        chargeClass = 'minus';        
+        HTML += '<div class="ion draggable '+ chargeClass + '">';
+        HTML += '<h3>'+ minusIon + '<sup>'+ charge + '</sup></h3>';
         HTML +='<img src="'+ imgSrc +'"></div>';
         $('.ionsWrapper').append(HTML);
     }
@@ -125,6 +150,8 @@ function CheckPlus(CorrectAnswers, CurrentIon, element){
 //læg overlay på dropzonen hvis de er nok af de rigtige ion elementer i dropzonen.
 function CheckAnswer (minusCount, plusCount){
     if (minusCount == finalMinusCount && plusCount == finalPlusCount) {
+        correct++;
+        feedbackTekst (roundCounter, correct);
         feedbackOverlay(thisAnswer);
     }
 }
@@ -144,6 +171,7 @@ function feedbackOverlay(thisAnswer){
     HTML += '<div class ="btn btn-default sound-btn"><span class="glyphicon glyphicon-volume-up playAnswer"></span></div>';
     HTML += '<audio src="audio/NaCl.mp3" id="audioAnswer"></audio>'; //erstat med nedenstående når lyd er blevet indspillet
     //HTML += '<audio src="audio/'+ CorrectAnswers[thisAnswer].plus+CorrectAnswers[thisAnswer].minus+'.mp3" id="audioAnswer"></audio>';
+    HTML += '<div class="btn btn-default btn-next">Næste opgave</div>'
     HTML += "</div>";
     $('.DropZone').prepend(HTML);
     $("#overlay").fadeIn( "slow" );
@@ -158,6 +186,9 @@ function feedbackOverlay(thisAnswer){
             $('.sound-btn').removeClass('activeSound');       
         });
     });
+    //næste opg btn:
+
+    $('#overlay')
 }
 //########################################################################
 //                        Run code....
@@ -165,6 +196,7 @@ function feedbackOverlay(thisAnswer){
 
 
 $(document).ready(function() {
+    feedbackTekst(roundCounter, correct);
     CreateIons(JsonObj);
     $('.draggable').mousedown(function(){
         original = true;

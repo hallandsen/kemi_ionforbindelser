@@ -13,28 +13,10 @@ body{}
 	border: 1px solid #00F; 
 	line-height: 1.4;
 }  /* NOTE: 90/18 = 5%, og 5/18 = 0.27777% */
-.DummyElement{
-	position: relative;
-	width: 5%;
-	margin: 0.27777%;
-	padding: 3px;
-	display: inline-block;
-}
-.AtomNum {
-	position: relative;
-}
-.AtomName {
-	position: relative;
-}
-.AtomSymbol {
-	position: relative;
-	font-size: 18px;
-}
-.AtomWeight {
-	position: relative;
-}
 
-.lbox{
+
+
+/*.lbox{
 	width: 12%;
 }
 .xlbox{
@@ -42,7 +24,7 @@ body{}
 }
 .sbox{
 	width: 33%;
-}
+}*/
 .DropZone {
 	width: 580px;
 	padding:20px;
@@ -124,6 +106,16 @@ body{}
 	line-height: 1;
 	margin:0;
 }
+#overlay .btn-next {
+	right: 10px;
+	top: auto;
+	bottom: 10px;
+	position: absolute;
+	font-size: 14px;
+	cursor: pointer;
+	line-height: 1;
+	margin:0;
+}
 a:active {
     outline: none;
 }
@@ -137,6 +129,6 @@ a:active {
 	background-color: #1784ae;
 	border-color: #167da5;
 }
-.opgaveFormulering {
+.opgaveFormulering, .feedback {
 	color:#999;
 }
