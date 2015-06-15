@@ -21,20 +21,31 @@ var CorrectAnswers = [
 "minusName":"brom",    "minusCharge":"-",   "minusCount":"3",       "html":"FeBr<sub>3</sub>"},
 
 {"name": "magnesiumbromid", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "minus":"Br",
-"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "html":"MgBr<sub>2</sub>"}
+"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "html":"MgBr<sub>2</sub>"},
+
+{"name": "zinkbromid",      "plus":"Zn",    "plusName":"zink",      "plusCharge":"2+",  "plusCount":"1",    "minus":"Br",
+"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "html":"ZnBr<sub>2</sub>"}
 ];
 
 var JsonObj;
-var thisAnswer = Math.floor(Math.random() * 6);
+var thisAnswer = Math.floor(Math.random() * 8);
 var answersArray;
 var minusCount = 0;
 var plusCount= 0;
 var finalMinusCount = CorrectAnswers[thisAnswer].minusCount;
 var finalPlusCount = CorrectAnswers[thisAnswer].plusCount;
 var step = $('.opgaveFormulering').html().slice(5,6);
+
 var neededPlus = CorrectAnswers[thisAnswer].plus;
+var neededPlusNumber = CorrectAnswers[thisAnswer].plusCharge;
+neededPlusNumber = neededPlusNumber.replace('+','');
+neededPlus = neededPlus+neededPlusNumber;
 console.log('neededPlus: '+neededPlus);
+
 var neededMinus = CorrectAnswers[thisAnswer].minus;
+var neededMinusNumber = CorrectAnswers[thisAnswer].minusCharge;
+neededMinusNumber = neededMinusNumber.replace('-','');
+neededMinus = neededMinus+neededMinusNumber;
 console.log('neededMinus: '+neededMinus);
 
 //flow variabler
@@ -88,14 +99,69 @@ function opgaveTekst3 (CorrectAnswers) {
 function feedbackTekst (roundCounter, correct) {
     $('.feedback').empty();
     var HTML='';
-    HTML += '<span class="QuestionTask">'+correct+'</span> ud af <span class="QuestionTask">'+maxRounds+'</span> rigtige';
+    HTML += '<span class="QuestionTask">'+correct+'</span> / <span class="QuestionTask">'+maxRounds+'</span><div class="btn btn-default btn-next">Næste opgave</div>';
     $('.feedback').append(HTML);
 }
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
+
 // ion elementer genereres
 function CreateIons(JsonObj) {
-    //genererer de positive ioner
-    for ( var i =0; i <=6; i++) {
+
+    var plusPresent = false;
+    var minusPresent = false;
+    var numberOfIons = 1;
+
+    for ( var i =0; i <=numberOfIons+2; i++) {
+        //hvis ikke den positive ion man skal bruge for at klare opgaven er i objektet, så fjern et objekt og tilføj den rigtige ion
+        var actualPlus = JsonObj.ions.plus[i].ion;
+        var actualPlusCharge = JsonObj.ions.plus[i].charge;
+        actualPlusCharge = actualPlusCharge.replace('+','');
+        actualPlus = actualPlus + actualPlusCharge;
+        //console.log('actualPlus: '+actualPlus);
+        // console.log('neededPlus: '+neededPlus);
+        // console.log('actualPlus: '+actualPlus);
+
+        if (neededPlus == actualPlus) {
+            console.log('the correct positive ion is present');
+            plusPresent = true;
+
+        }
+        
+    }
+    if (plusPresent == false) {
+            
+            //hvilket random element skal erstattes:
+            var replacedObj = Math.floor(Math.random() * numberOfIons);
+            //console.log('replacedObj: '+replacedObj);
+            
+            //hent og erstat ion navnet
+            var plus = CorrectAnswers[thisAnswer].plus;
+            JsonObj.ions.plus[replacedObj].ion = plus;
+            console.log(JsonObj.ions.plus[replacedObj].ion);
+            
+            //hent og erstat ionens ladning
+            var charge = CorrectAnswers[thisAnswer].plusCharge;
+            JsonObj.ions.plus[replacedObj].charge = charge;
+            console.log(JsonObj.ions.plus[replacedObj].charge);
+            
+            //hent og erstat img src
+            charge = charge.replace('+','');
+            var img = 'img/plus_' + plus + charge + '.png';
+            console.log(img);  
+            JsonObj.ions.plus[replacedObj].imgSrc = img;
+        }
+    //generer de positive ioner
+    for ( var i =0; i <=numberOfIons+2; i++) { 
         var plusIon = JsonObj.ions.plus[i].ion;
         var charge = JsonObj.ions.plus[i].charge;
         var imgSrc = imgSrc = JsonObj.ions.plus[i].imgSrc;
@@ -107,9 +173,47 @@ function CreateIons(JsonObj) {
         HTML += '<h3>'+ plusIon + '<sup>'+ charge + '</sup></h3>';
         HTML +='<img src="'+ imgSrc +'"></div>';
         $('.ionsWrapper').append(HTML);
+    
     }
+    for ( var i =0; i <=numberOfIons+2; i++) {
+        //hvis ikke den negative ion man skal bruge for at klare opgaven er i objektet, så fjern et objekt og tilføj den rigtige ion
+        var actualMinus = JsonObj.ions.minus[i].ion;
+        var actualMinusCharge = JsonObj.ions.minus[i].charge;
+        actualMinusCharge = actualMinusCharge.replace('-','');
+        actualMinus = actualMinus + actualMinusCharge;
+        console.log('neededMinus: '+neededMinus);
+        console.log('actualMinus: '+actualMinus);
+
+        if (neededMinus == actualMinus) {
+            console.log('the correct negative ion is present');
+            minusPresent= true;
+        }
+    }
+    if (minusPresent == false) {
+            
+            //hvilket random element skal erstattes:
+            var replacedObj = Math.floor(Math.random() * numberOfIons);
+            //console.log('replacedObj: '+replacedObj);
+            
+            //hent og erstat ion navnet
+            var minus = CorrectAnswers[thisAnswer].minus;
+            JsonObj.ions.minus[replacedObj].ion = minus;
+            console.log(JsonObj.ions.minus[replacedObj].ion);
+            
+            //hent og erstat ionens ladning
+            var charge = CorrectAnswers[thisAnswer].minusCharge;
+            JsonObj.ions.minus[replacedObj].charge = charge;
+            console.log(JsonObj.ions.minus[replacedObj].charge);
+            
+            //hent og erstat img src
+            charge = charge.replace('-','');
+            var img = 'img/minus_' + minus + charge + '.png';
+            console.log(img);  
+            JsonObj.ions.minus[replacedObj].imgSrc = img;
+    }
+
     //genererer de negative ioner
-    for ( var i =0; i <=4; i++) {
+    for ( var i =0; i <=numberOfIons+2; i++) {
         var minusIon = JsonObj.ions.minus[i].ion;
         var charge = JsonObj.ions.minus[i].charge;
         var imgSrc = imgSrc = JsonObj.ions.minus[i].imgSrc;
@@ -123,11 +227,14 @@ function CreateIons(JsonObj) {
         $('.ionsWrapper').append(HTML);
     }
 }
+
+
 //check om den negative ion brugeren dragger er den rigtige negative ion
 function CheckMinus(CorrectAnswers, CurrentIon, element){
-    var correctMinus = CorrectAnswers[thisAnswer].minus;
-    console.log(correctMinus);
-    if (correctMinus == CurrentIon) {
+    //var correctMinus = CorrectAnswers[thisAnswer].minus;
+    console.log('neededMinus: '+neededMinus);
+    // console.log('correctMinus: '+correctMinus);
+    if (neededMinus == CurrentIon) {
         if(minusCount<finalMinusCount) {
             $(element).addClass('correctMinus');
             console.log('correctMinus added');
@@ -137,9 +244,9 @@ function CheckMinus(CorrectAnswers, CurrentIon, element){
 }
 //check om den negative ion brugeren dragger er den rigtige positive ion
 function CheckPlus(CorrectAnswers, CurrentIon, element){
-    var correctPlus = CorrectAnswers[thisAnswer].plus;
-    console.log(correctPlus);
-    if (correctPlus == CurrentIon) {
+    //var correctPlus = CorrectAnswers[thisAnswer].plus;
+    console.log('neededPlus: '+neededPlus);
+    if (neededPlus == CurrentIon) {
         if(plusCount<finalPlusCount) {
             $(element).addClass('correctPlus');
             console.log('correctPlus added');
@@ -171,10 +278,11 @@ function feedbackOverlay(thisAnswer){
     HTML += '<div class ="btn btn-default sound-btn"><span class="glyphicon glyphicon-volume-up playAnswer"></span></div>';
     HTML += '<audio src="audio/NaCl.mp3" id="audioAnswer"></audio>'; //erstat med nedenstående når lyd er blevet indspillet
     //HTML += '<audio src="audio/'+ CorrectAnswers[thisAnswer].plus+CorrectAnswers[thisAnswer].minus+'.mp3" id="audioAnswer"></audio>';
-    HTML += '<div class="btn btn-default btn-next">Næste opgave</div>'
     HTML += "</div>";
     $('.DropZone').prepend(HTML);
     $("#overlay").fadeIn( "slow" );
+    //$('.feedback btn').append('<div class="btn btn-default btn-next">Næste opgave</div>');
+    $('.btn-next').css('visibility', 'visible');
     
     //læs op funktionaliteter
     var audioElement = $("#audioAnswer")[0];
@@ -186,9 +294,6 @@ function feedbackOverlay(thisAnswer){
             $('.sound-btn').removeClass('activeSound');       
         });
     });
-    //næste opg btn:
-
-    $('#overlay')
 }
 //########################################################################
 //                        Run code....
@@ -197,6 +302,8 @@ function feedbackOverlay(thisAnswer){
 
 $(document).ready(function() {
     feedbackTekst(roundCounter, correct);
+    shuffleArray(JsonObj.ions.plus);
+    shuffleArray(JsonObj.ions.minus);
     CreateIons(JsonObj);
     $('.draggable').mousedown(function(){
         original = true;
@@ -207,8 +314,17 @@ $(document).ready(function() {
         start: function() {
             var element = $(this);
             var IonHtml = $(this).html();
-            var CurrentIon = IonHtml.slice(4,6);
-            CurrentIon = CurrentIon.replace('<','');
+            console.log('IonHtml: '+IonHtml);
+            //gør html elementet sammenlignignsvenligt.
+            var CurrentIon = IonHtml.slice(4,13);
+            CurrentIon = CurrentIon.replace(/</g,'');
+            CurrentIon = CurrentIon.replace('sup','');
+            CurrentIon = CurrentIon.replace('>','');
+            CurrentIon = CurrentIon.replace('+','');
+            CurrentIon = CurrentIon.replace('-','');
+            CurrentIon = CurrentIon.replace('/','');
+            //console.log('CurrentIon: '+CurrentIon);
+
             CheckMinus(CorrectAnswers, CurrentIon, element);
             CheckPlus(CorrectAnswers, CurrentIon, element);
         },
