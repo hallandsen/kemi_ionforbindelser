@@ -56,7 +56,6 @@ var correct = 0;
 //                          Funktioner
 //########################################################################
 
-
 function AjaxCallback(JSONdata){
     //console.log("JsonObj - AjaxCallback: " + JSON.stringify(JSONdata));
 }
@@ -97,10 +96,10 @@ function opgaveTekst3 (CorrectAnswers) {
 }
 //feedback felt med antal rigtige genereres og opdateres
 function feedbackTekst (roundCounter, correct) {
-    $('.feedback').empty();
+    $('.feedback span').empty();
     var HTML='';
-    HTML += '<span class="QuestionTask">'+correct+'</span> / <span class="QuestionTask">'+maxRounds+'</span><div class="btn btn-default btn-next">Næste opgave</div>';
-    $('.feedback').append(HTML);
+    HTML += '<span class="QuestionTask">'+correct+'</span> <span>/</span> <span class="QuestionTask">'+maxRounds+'</span>';
+    $('.feedback').prepend(HTML);
 }
 
 function shuffleArray(array) {
@@ -116,10 +115,10 @@ function shuffleArray(array) {
 
 // ion elementer genereres
 function CreateIons(JsonObj) {
-
     var plusPresent = false;
     var minusPresent = false;
     var numberOfIons = 1;
+    console.log(JsonObj);
 
     for ( var i =0; i <=numberOfIons+2; i++) {
         //hvis ikke den positive ion man skal bruge for at klare opgaven er i objektet, så fjern et objekt og tilføj den rigtige ion
@@ -226,88 +225,11 @@ function CreateIons(JsonObj) {
         HTML +='<img src="'+ imgSrc +'"></div>';
         $('.ionsWrapper').append(HTML);
     }
+    // shuffleArray(JsonObj.ions.plus);
+    // shuffleArray(JsonObj.ions.minus);
 }
-
-
-//check om den negative ion brugeren dragger er den rigtige negative ion
-function CheckMinus(CorrectAnswers, CurrentIon, element){
-    //var correctMinus = CorrectAnswers[thisAnswer].minus;
-    console.log('neededMinus: '+neededMinus);
-    // console.log('correctMinus: '+correctMinus);
-    if (neededMinus == CurrentIon) {
-        if(minusCount<finalMinusCount) {
-            $(element).addClass('correctMinus');
-            console.log('correctMinus added');
-            console.log('minusCount: '+minusCount);
-        }
-    }
-}
-//check om den negative ion brugeren dragger er den rigtige positive ion
-function CheckPlus(CorrectAnswers, CurrentIon, element){
-    //var correctPlus = CorrectAnswers[thisAnswer].plus;
-    console.log('neededPlus: '+neededPlus);
-    if (neededPlus == CurrentIon) {
-        if(plusCount<finalPlusCount) {
-            $(element).addClass('correctPlus');
-            console.log('correctPlus added');
-            console.log('plusCount: '+plusCount);
-        }
-    }
-}
-//læg overlay på dropzonen hvis de er nok af de rigtige ion elementer i dropzonen.
-function CheckAnswer (minusCount, plusCount){
-    if (minusCount == finalMinusCount && plusCount == finalPlusCount) {
-        correct++;
-        feedbackTekst (roundCounter, correct);
-        feedbackOverlay(thisAnswer);
-    }
-}
-//generer overlay
-function feedbackOverlay(thisAnswer){
-
-    var HTML = "<div id='overlay'>";
-    if(step == '1') {           //hvis step 1 så:
-        HTML +="<h2>"+CorrectAnswers[thisAnswer].html+"</h2>";    
-    }
-    else if (step == '2'){      //hvis step 2 så:
-        HTML +="<h2>"+CorrectAnswers[thisAnswer].name+"</h2>";
-    }
-    else if (step == '3') {     //hvis step 3 så:
-        HTML += '<h2>'+CorrectAnswers[thisAnswer].html+'</h2>'
-    }
-    HTML += '<div class ="btn btn-default sound-btn"><span class="glyphicon glyphicon-volume-up playAnswer"></span></div>';
-    HTML += '<audio src="audio/NaCl.mp3" id="audioAnswer"></audio>'; //erstat med nedenstående når lyd er blevet indspillet
-    //HTML += '<audio src="audio/'+ CorrectAnswers[thisAnswer].plus+CorrectAnswers[thisAnswer].minus+'.mp3" id="audioAnswer"></audio>';
-    HTML += "</div>";
-    $('.DropZone').prepend(HTML);
-    $("#overlay").fadeIn( "slow" );
-    //$('.feedback btn').append('<div class="btn btn-default btn-next">Næste opgave</div>');
-    $('.btn-next').css('visibility', 'visible');
-    
-    //læs op funktionaliteter
-    var audioElement = $("#audioAnswer")[0];
-    $('.glyphicon-volume-up').click(function(){
-        $('.sound-btn').addClass('activeSound');
-        console.log('playing audio');
-        audioElement.play();
-        $('#audioAnswer').bind("ended", function(){
-            $('.sound-btn').removeClass('activeSound');       
-        });
-    });
-}
-//########################################################################
-//                        Run code....
-//########################################################################
-
-
-$(document).ready(function() {
-    feedbackTekst(roundCounter, correct);
-    shuffleArray(JsonObj.ions.plus);
-    shuffleArray(JsonObj.ions.minus);
-    CreateIons(JsonObj);
-    $('.draggable').mousedown(function(){
-        original = true;
-    })
+function makeDraggable (){
+    console.log('draggable is back');
     $('.draggable').draggable({ 
         revert: 'invalid',  // Makes the draggable revert back if does not have class correctPlus or correctMinus and is dropped in the corresponding div 
         helper: 'clone',
@@ -323,17 +245,20 @@ $(document).ready(function() {
             CurrentIon = CurrentIon.replace('+','');
             CurrentIon = CurrentIon.replace('-','');
             CurrentIon = CurrentIon.replace('/','');
-            //console.log('CurrentIon: '+CurrentIon);
 
-            CheckMinus(CorrectAnswers, CurrentIon, element);
-            CheckPlus(CorrectAnswers, CurrentIon, element);
+            CheckMinus(CurrentIon, this);
+            CheckPlus(CurrentIon, this);
         },
-        stop: function () {
+        stop: function (event, ui) {
             $('.draggable').draggable().data()['ui-draggable'].cancelHelperRemoval = true; //behold clone
             $(this).removeClass('correctMinus');
             $(this).removeClass('correctPlus');
         }
+
     });
+}
+
+function makeDroppable(){
     $('.DropMinus').droppable({
         accept: '.correctMinus',
         tolerance: 'intersect',
@@ -412,9 +337,222 @@ $(document).ready(function() {
                     },
                     stop: function () {
                         $(this).css({'z-index':'auto'});
+                        console.log('droppable is back');
                     }
                 });
             }
         }
     });
+}
+
+//check om den negative ion brugeren dragger er den rigtige negative ion
+function CheckMinus(CurrentIon, element){
+    console.log('neededMinus: '+neededMinus);
+    if (neededMinus == CurrentIon) {
+        if(minusCount<finalMinusCount) {
+            $(element).addClass('correctMinus');
+            console.log('correctMinus added');
+            console.log('minusCount: '+minusCount);
+        }
+    }
+}
+//check om den positive ion brugeren dragger er den rigtige positive ion
+function CheckPlus(CurrentIon, element){
+    console.log('neededPlus: '+neededPlus);
+    if (neededPlus == CurrentIon) {
+        if(plusCount<finalPlusCount) {
+            $(element).addClass('correctPlus');
+            console.log('correctPlus added');
+            console.log('plusCount: '+plusCount);
+        }
+    }
+}
+//læg overlay på dropzonen hvis de er nok af de rigtige ion elementer i dropzonen.
+function CheckAnswer (minusCount, plusCount){
+    if (minusCount == finalMinusCount && plusCount == finalPlusCount) {
+        correct++;
+        feedbackTekst (roundCounter, correct);
+        feedbackOverlay(thisAnswer);
+    }
+}
+//generer overlay
+function feedbackOverlay(thisAnswer){
+
+    var HTML = "<div id='overlay'>";
+    if(step == '1') {           //hvis step 1 så:
+        HTML +="<h2>"+CorrectAnswers[thisAnswer].html+"</h2>";    
+    }
+    else if (step == '2'){      //hvis step 2 så:
+        HTML +="<h2>"+CorrectAnswers[thisAnswer].name+"</h2>";
+    }
+    else if (step == '3') {     //hvis step 3 så:
+        HTML += '<h2>'+CorrectAnswers[thisAnswer].html+'</h2>'
+    }
+    HTML += '<div class ="btn btn-default sound-btn"><span class="glyphicon glyphicon-volume-up playAnswer"></span></div>';
+    HTML += '<audio src="audio/NaCl.mp3" id="audioAnswer"></audio>'; //erstat med nedenstående når lyd er blevet indspillet
+    //HTML += '<audio src="audio/'+ CorrectAnswers[thisAnswer].plus+CorrectAnswers[thisAnswer].minus+'.mp3" id="audioAnswer"></audio>';
+    HTML += "</div>";
+    $('.DropZone').prepend(HTML);
+    $("#overlay").fadeIn( "slow" );
+    $('.btn-next').css('visibility', 'visible');
+    
+    //læs op funktionaliteter
+    var audioElement = $("#audioAnswer")[0];
+    $('.glyphicon-volume-up').click(function(){
+        $('.sound-btn').addClass('activeSound');
+        console.log('playing audio');
+        audioElement.play();
+        $('#audioAnswer').bind("ended", function(){
+            $('.sound-btn').removeClass('activeSound');       
+        });
+    });
+}
+function resetAssignment() {
+    // shuffleArray(JsonObj.ions.plus);
+    // shuffleArray(JsonObj.ions.minus);
+    delete CorrectAnswers[thisAnswer];
+    console.log('længde: '+CorrectAnswers.length);
+    $('.ionsWrapper').empty();
+    $('#overlay').remove();
+    $('.DropPlus').empty();
+    $('.DropMinus').empty();
+    $('.btn-next').css('visibility', 'hidden');
+    plusCount =0;
+    minusCount =0;
+    CreateIons(JsonObj);
+    makeDraggable();
+    makeDroppable();
+}
+//########################################################################
+//                        Run code....
+//########################################################################
+
+
+$(document).ready(function() {
+    shuffleArray(JsonObj.ions.plus);
+    shuffleArray(JsonObj.ions.minus);
+    feedbackTekst(roundCounter, correct);
+    CreateIons(JsonObj);
+    makeDraggable();
+    makeDroppable();
+    $('.draggable').mousedown(function(){
+        original = true;
+    })
+
+    $('.btn-next').click(function(){
+        resetAssignment();
+        console.log('reset assignment');
+    });
+
+    // $('.draggable').draggable({ 
+    //     revert: 'invalid',  // Makes the draggable revert back if does not have class correctPlus or correctMinus and is dropped in the corresponding div 
+    //     helper: 'clone',
+    //     start: function() {
+    //         var element = $(this);
+    //         var IonHtml = $(this).html();
+    //         console.log('IonHtml: '+IonHtml);
+    //         //gør html elementet sammenlignignsvenligt.
+    //         var CurrentIon = IonHtml.slice(4,13);
+    //         CurrentIon = CurrentIon.replace(/</g,'');
+    //         CurrentIon = CurrentIon.replace('sup','');
+    //         CurrentIon = CurrentIon.replace('>','');
+    //         CurrentIon = CurrentIon.replace('+','');
+    //         CurrentIon = CurrentIon.replace('-','');
+    //         CurrentIon = CurrentIon.replace('/','');
+
+    //         CheckMinus(CorrectAnswers, CurrentIon, element);
+    //         CheckPlus(CorrectAnswers, CurrentIon, element);
+    //     },
+    //     stop: function () {
+    //         $('.draggable').draggable().data()['ui-draggable'].cancelHelperRemoval = true; //behold clone
+    //         $(this).removeClass('correctMinus');
+    //         $(this).removeClass('correctPlus');
+    //     }
+    // });
+    // function makeDroppable(){
+    //     $('.DropMinus').droppable({
+    //         accept: '.correctMinus',
+    //         tolerance: 'intersect',
+    //         drop: function(event, ui) {
+    //             if(original) {
+    //                 $(ui.draggable.clone()).detach().css({top: -20,left: 0, margin:0}).appendTo(this).addClass('clone'); //append clone til DropMinus
+    //                 original = false;
+    //                 minusCount++;
+    //                 $('.clone').draggable({
+    //                     revert: true,
+    //                 })
+    //             }
+    //             CheckAnswer (minusCount, plusCount);
+    //         },
+    //         out: function (event, ui) {
+    //             if (!original){
+    //                 $('.correctMinus').fadeTo('fast', 0.5);
+    //                 $('.correctMinus').draggable({
+    //                     revert: false,
+    //                     stop: function () {
+    //                         $('.correctMinus').remove();
+    //                         minusCount--;
+    //                     }
+    //                 })
+    //             }
+    //         },
+    //         over: function (event, ui) {
+    //             if (!original){
+    //                 $(ui.draggable).fadeTo('fast', 1.0);
+    //                 $('.clone').draggable ({
+    //                     revert: true,
+    //                     start: function () {
+    //                         $(this).css({'z-index':'10'});
+    //                         console.log('over');
+    //                     },
+    //                     stop: function () {
+    //                         $(this).css({'z-index':'auto'});
+    //                     }
+    //                 });
+    //             }
+    //         }
+    //     });
+    //     $('.DropPlus').droppable({
+    //         accept: '.correctPlus',
+    //         tolerance: 'intersect',
+    //         drop: function(event, ui) {
+    //             if(original) {
+    //                 $(ui.draggable.clone()).detach().css({top: 0,left: 0, margin:0}).appendTo(this).addClass('clone'); //append clone til DropPlus
+    //                 original = false;
+    //                 plusCount++;
+    //                 $('.clone').draggable({
+    //                     revert: true,
+    //                 })
+    //             }
+    //             CheckAnswer (minusCount, plusCount);
+    //         },
+    //         out: function (event, ui) {
+    //             if (!original){
+    //                 $('.correctPlus').fadeTo('fast', 0.5);
+    //                 $('.correctPlus').draggable({
+    //                     revert: false,
+    //                     stop: function () {
+    //                         $(this).remove();
+    //                         plusCount--;
+    //                     }
+    //                 })
+    //             }
+    //         },
+    //         over: function (event, ui) {
+    //             if (!original){
+    //                 $(ui.draggable).fadeTo('fast', 1.0);
+    //                 $('.clone').draggable ({
+    //                     revert: true,
+    //                     start: function () {
+    //                         $(this).css({'z-index':'10'});
+    //                     },
+    //                     stop: function () {
+    //                         $(this).css({'z-index':'auto'});
+    //                     }
+    //                 });
+    //             }
+    //         }
+    //     });
+    // }
+    
 });
