@@ -1,30 +1,30 @@
 //########################################################################
-//                          Data og indledende variable
+//                          Data og indledende variabler
 //########################################################################
 var CorrectAnswers = [
-{"name": "natriumklorid",   "plus":"Na",    "plusName":"natrium",   "plusCharge":"+",  "plusCount":"1",     "minus":"Cl",
-"minusName":"klor",    "minusCharge":"-",   "minusCount":"1",       "html":"NaCl"},
+{"name": "natriumklorid",   "plus":"Na",    "plusName":"natrium",   "plusCharge":"+",  "plusCount":"1",     "plusIonsNo":"",     "minus":"Cl",
+"minusName":"klor",    "minusCharge":"-",   "minusCount":"1",       "minusIonsNo":"",   "html":"NaCl"},
 
-{"name": "jernklorid",      "plus":"Fe",    "plusName":"jern",      "plusCharge":"2+", "plusCount":"1",     "minus":"Cl",
-"minusName":"klor",    "minusCharge":"-",   "minusCount":"2",       "html":"FeCl<sub>2</sub>"},
+{"name": "jernklorid",      "plus":"Fe",    "plusName":"jern",      "plusCharge":"2+", "plusCount":"1",     "plusIonsNo":"",     "minus":"Cl",
+"minusName":"klor",    "minusCharge":"-",   "minusCount":"2",       "minusIonsNo":"",   "html":"FeCl<sub>2</sub>"},
 
-{"name": "natriumoxid",     "plus":"Na",    "plusName":"natrium",   "plusCharge":"+",  "plusCount":"2",     "minus":"O",
-"minusName":"ilt",     "minusCharge":"2-",  "minusCount":"1",       "html":"Na<sub>2</sub>O"},
+{"name": "natriumoxid",     "plus":"Na",    "plusName":"natrium",   "plusCharge":"+",  "plusCount":"2",     "plusIonsNo":"",     "minus":"O",
+"minusName":"ilt",     "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"",   "html":"Na<sub>2</sub>O"},
 
-{"name": "kobberjod",       "plus":"Cu",    "plusName":"kobber",    "plusCharge":"2+", "plusCount":"1",     "minus":"I",
-"minusName":"jod",     "minusCharge":"-",   "minusCount":"2",       "html":"CuI<sub>2</sub>"},
+{"name": "kobberjod",       "plus":"Cu",    "plusName":"kobber",    "plusCharge":"2+", "plusCount":"1",     "plusIonsNo":"",     "minus":"I",
+"minusName":"jod",     "minusCharge":"-",   "minusCount":"2",       "minusIonsNo":"",   "html":"CuI<sub>2</sub>"},
 
-{"name": "sølvsulfid",      "plus":"Ag",    "plusName":"sølv",      "plusCharge":"+",  "plusCount":"2",     "minus":"S",
-"minusName":"svovl",   "minusCharge":"2-",  "minusCount":"1",       "html":"Ag<sub>2</sub>S"},
+{"name": "sølvsulfid",      "plus":"Ag",    "plusName":"sølv",      "plusCharge":"+",  "plusCount":"2",     "plusIonsNo":"",     "minus":"S",
+"minusName":"svovl",   "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"",   "html":"Ag<sub>2</sub>S"},
 
-{"name": "jernbromid",      "plus":"Fe",    "plusName":"jern",      "plusCharge":"3+", "plusCount":"1",     "minus":"Br",
-"minusName":"brom",    "minusCharge":"-",   "minusCount":"3",       "html":"FeBr<sub>3</sub>"},
+{"name": "jernbromid",      "plus":"Fe",    "plusName":"jern",      "plusCharge":"3+", "plusCount":"1",     "plusIonsNo":"",     "minus":"Br",
+"minusName":"brom",    "minusCharge":"-",   "minusCount":"3",       "minusIonsNo":"",   "html":"FeBr<sub>3</sub>"},
 
-{"name": "magnesiumbromid", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "minus":"Br",
-"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "html":"MgBr<sub>2</sub>"},
+{"name": "magnesiumbromid", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Br",
+"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"MgBr<sub>2</sub>"},
 
-{"name": "zinkbromid",      "plus":"Zn",    "plusName":"zink",      "plusCharge":"2+",  "plusCount":"1",    "minus":"Br",
-"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "html":"ZnBr<sub>2</sub>"}
+{"name": "zinkbromid",      "plus":"Zn",    "plusName":"zink",      "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Br",
+"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"ZnBr<sub>2</sub>"}
 ];
 
 var JsonObj;
@@ -75,6 +75,45 @@ function loadData(url) {
         }
     });
 }
+// var 
+
+//Bestem om ionens skrift skal være i sort eller hvid
+function getPlusFarve(ion, farve) {
+    var Arr = JsonObj.ions.plus;
+    for (var i in Arr) {
+        if (Arr[i].ion == ion) {
+            return Arr[i].farve;
+        }
+    }
+} 
+
+function getMinusFarve(ion, farve) {
+    var Arr = JsonObj.ions.minus;
+    for (var i in Arr) {
+        if (Arr[i].ion == ion) {
+            return Arr[i].farve;
+        }
+    }
+}
+
+//Hent iontallet (det sænkede tal)
+function getMinusCount(ion, farve) {
+    var Arr = JsonObj.ions.minus;
+    for (var i in Arr) {
+        if (Arr[i].ion == ion) {
+            return Arr[i].ionNumber;
+        }
+    }
+}
+function getPlusCount(ion, farve) {
+    var Arr = JsonObj.ions.plus;
+    for (var i in Arr) {
+        if (Arr[i].ion == ion) {
+            return Arr[i].ionNumber;
+        }
+    }
+}
+
 
 //opgavetekst genereres
 function opgaveTekst1 (CorrectAnswers) {
@@ -115,6 +154,8 @@ function shuffleArray(array) {
 
 // ion elementer genereres
 function CreateIons(JsonObj) {
+    shuffleArray(JsonObj.ions.plus);
+    shuffleArray(JsonObj.ions.minus);
     var plusPresent = false;
     var minusPresent = false;
     var numberOfIons = 1;
@@ -126,33 +167,44 @@ function CreateIons(JsonObj) {
         var actualPlusCharge = JsonObj.ions.plus[i].charge;
         actualPlusCharge = actualPlusCharge.replace('+','');
         actualPlus = actualPlus + actualPlusCharge;
-        //console.log('actualPlus: '+actualPlus);
-        // console.log('neededPlus: '+neededPlus);
-        // console.log('actualPlus: '+actualPlus);
 
         if (neededPlus == actualPlus) {
             console.log('the correct positive ion is present');
             plusPresent = true;
-
         }
         
     }
     if (plusPresent == false) {
-            
             //hvilket random element skal erstattes:
             var replacedObj = Math.floor(Math.random() * numberOfIons);
-            //console.log('replacedObj: '+replacedObj);
-            
-            //hent og erstat ion navnet
+
             var plus = CorrectAnswers[thisAnswer].plus;
+            console.log('plus: '+plus);
+            
+            //bestem om skriften skal være hvid eller sort
+            var color = getPlusFarve(plus,'farve');
+            console.log('color: '+color);
+            JsonObj.ions.plus[replacedObj].farve = color;
+
+            //hent antal ioner
+            var ionCount = getPlusCount(plus,ionNumber);
+            console.log('ionCount: '+ionCount);
+            JsonObj.ions.plus[replacedObj].ionNumber = ionCount;
+
+
+            //hent og erstat ion navnet
             JsonObj.ions.plus[replacedObj].ion = plus;
-            console.log(JsonObj.ions.plus[replacedObj].ion);
             
             //hent og erstat ionens ladning
             var charge = CorrectAnswers[thisAnswer].plusCharge;
             JsonObj.ions.plus[replacedObj].charge = charge;
             console.log(JsonObj.ions.plus[replacedObj].charge);
             
+            var name = CorrectAnswers[thisAnswer].plus;
+            var color = getPlusFarve(name,'farve');
+            console.log('color: '+color);
+
+
             //hent og erstat img src
             charge = charge.replace('+','');
             var img = 'img/plus_' + plus + charge + '.png';
@@ -163,25 +215,33 @@ function CreateIons(JsonObj) {
     for ( var i =0; i <=numberOfIons+2; i++) { 
         var plusIon = JsonObj.ions.plus[i].ion;
         var charge = JsonObj.ions.plus[i].charge;
-        var imgSrc = imgSrc = JsonObj.ions.plus[i].imgSrc;
+        var imgSrc = JsonObj.ions.plus[i].imgSrc;
         var chargeValue = charge.slice(-1);
         var chargeClass ='';
+        var ionNumber = JsonObj.ions.plus[i].ionNumber;
         var HTML = '';
+        var ionClass = '';
+        if (JsonObj.ions.plus[i].farve == 'sort'){
+            ionClass = 'ion black-ion';
+        }
+        else {
+            ionClass = 'ion';
+        }
         chargeClass = 'plus';
-        HTML += '<div class="ion draggable '+ chargeClass + '">';
-        HTML += '<h3>'+ plusIon + '<sup>'+ charge + '</sup></h3>';
+        HTML += '<div class="'+ ionClass +' draggable ' + chargeClass + '">';
+        HTML += '<h3>'+ plusIon + '<sub>' + ionNumber +'</sub>' + '<sup>'+ charge + '</sup></h3>';
         HTML +='<img src="'+ imgSrc +'"></div>';
         $('.ionsWrapper').append(HTML);
     
     }
     for ( var i =0; i <=numberOfIons+2; i++) {
-        //hvis ikke den negative ion man skal bruge for at klare opgaven er i objektet, så fjern et objekt og tilføj den rigtige ion
+        //hvis ikke den negative ion man skal bruge for at klare opgaven er i objektet, så fjernes et objekt og den rigtige ion tilføjes
         var actualMinus = JsonObj.ions.minus[i].ion;
         var actualMinusCharge = JsonObj.ions.minus[i].charge;
         actualMinusCharge = actualMinusCharge.replace('-','');
         actualMinus = actualMinus + actualMinusCharge;
-        console.log('neededMinus: '+neededMinus);
-        console.log('actualMinus: '+actualMinus);
+        // console.log('neededMinus: '+neededMinus);
+        // console.log('actualMinus: '+actualMinus);
 
         if (neededMinus == actualMinus) {
             console.log('the correct negative ion is present');
@@ -192,18 +252,25 @@ function CreateIons(JsonObj) {
             
             //hvilket random element skal erstattes:
             var replacedObj = Math.floor(Math.random() * numberOfIons);
-            //console.log('replacedObj: '+replacedObj);
             
-            //hent og erstat ion navnet
             var minus = CorrectAnswers[thisAnswer].minus;
+            
+            //bestem om skriften skal være hvid eller sort
+            var color = getMinusFarve(minus,'farve');
+            JsonObj.ions.minus[replacedObj].farve = color;
+
+            //hent antal ioner
+            var ionCount = getMinusCount(minus,ionNumber);
+            console.log('ionCount: '+ionCount);
+            JsonObj.ions.minus[replacedObj].ionNumber = ionCount;
+
+            //hent og erstat ion navnet
             JsonObj.ions.minus[replacedObj].ion = minus;
-            console.log(JsonObj.ions.minus[replacedObj].ion);
             
             //hent og erstat ionens ladning
             var charge = CorrectAnswers[thisAnswer].minusCharge;
-            JsonObj.ions.minus[replacedObj].charge = charge;
-            console.log(JsonObj.ions.minus[replacedObj].charge);
-            
+            JsonObj.ions.minus[replacedObj].charge = charge;       
+
             //hent og erstat img src
             charge = charge.replace('-','');
             var img = 'img/minus_' + minus + charge + '.png';
@@ -218,10 +285,18 @@ function CreateIons(JsonObj) {
         var imgSrc = imgSrc = JsonObj.ions.minus[i].imgSrc;
         var chargeValue = charge.slice(-1);
         var chargeClass ='';
+        var ionNumber = JsonObj.ions.minus[i].ionNumber;
         var HTML = '';
+        var ionClass = '';
+        if (JsonObj.ions.minus[i].farve == 'sort'){
+            ionClass = 'ion black-ion';
+        }
+        else {
+            ionClass = 'ion';
+        }
         chargeClass = 'minus';        
-        HTML += '<div class="ion draggable '+ chargeClass + '">';
-        HTML += '<h3>'+ minusIon + '<sup>'+ charge + '</sup></h3>';
+        HTML += '<div class="'+ ionClass +' draggable '+ chargeClass + '">';
+        HTML += '<h3>'+ minusIon + '<sub>' + ionNumber +'</sub>' + '<sup>'+ charge + '</sup></h3>';
         HTML +='<img src="'+ imgSrc +'"></div>';
         $('.ionsWrapper').append(HTML);
     }
@@ -236,16 +311,23 @@ function makeDraggable (){
         start: function() {
             var element = $(this);
             var IonHtml = $(this).html();
-            console.log('IonHtml: '+IonHtml);
             //gør html elementet sammenlignignsvenligt.
-            var CurrentIon = IonHtml.slice(4,13);
+            var CurrentIon = IonHtml.slice(4,24);
+            console.log('IonHtml: '+CurrentIon);
+            CurrentIon = CurrentIon.replace('<sub>3</sub>','');
+            CurrentIon = CurrentIon.replace('<sub>4</sub>','');
+            CurrentIon = CurrentIon.replace('</sub>','');
+            CurrentIon = CurrentIon.replace(/sub/g, '');
+            CurrentIon = CurrentIon.replace(/sup/g, '');
             CurrentIon = CurrentIon.replace(/</g,'');
-            CurrentIon = CurrentIon.replace('sup','');
-            CurrentIon = CurrentIon.replace('>','');
+            CurrentIon = CurrentIon.replace(/>/g,'');
             CurrentIon = CurrentIon.replace('+','');
             CurrentIon = CurrentIon.replace('-','');
             CurrentIon = CurrentIon.replace('/','');
 
+
+
+            console.log('CurrentIon: '+CurrentIon);
             CheckMinus(CurrentIon, this);
             CheckPlus(CurrentIon, this);
         },
@@ -408,17 +490,17 @@ function feedbackOverlay(thisAnswer){
     });
 }
 function resetAssignment() {
-    // shuffleArray(JsonObj.ions.plus);
-    // shuffleArray(JsonObj.ions.minus);
     delete CorrectAnswers[thisAnswer];
-    console.log('længde: '+CorrectAnswers.length);
+    arrayLength = CorrectAnswers.length;
+    console.log('længde: '+arrayLength);
+    thisAnswer = Math.floor(Math.random() * arrayLength);
     $('.ionsWrapper').empty();
     $('#overlay').remove();
     $('.DropPlus').empty();
     $('.DropMinus').empty();
     $('.btn-next').css('visibility', 'hidden');
-    plusCount =0;
-    minusCount =0;
+    plusCount = 0;
+    minusCount = 0;
     CreateIons(JsonObj);
     makeDraggable();
     makeDroppable();
@@ -429,8 +511,9 @@ function resetAssignment() {
 
 
 $(document).ready(function() {
-    shuffleArray(JsonObj.ions.plus);
-    shuffleArray(JsonObj.ions.minus);
+    // var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    // alphabet = alphabet.replace(/H.*S/, 'HS');
+    // console.log(alphabet);
     feedbackTekst(roundCounter, correct);
     CreateIons(JsonObj);
     makeDraggable();
@@ -438,6 +521,7 @@ $(document).ready(function() {
     $('.draggable').mousedown(function(){
         original = true;
     })
+
 
     $('.btn-next').click(function(){
         resetAssignment();

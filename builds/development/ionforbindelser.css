@@ -1,4 +1,7 @@
 body{}
+.container-fluid{
+	background-color: #F8F8F6;
+}
 .ionsWrapper{
 	margin-top: 10px; 
 	width: 600px;
@@ -44,6 +47,11 @@ body{}
 	position: absolute;
 	text-align: center;
 	color:white;
+}
+.black-ion h3 {
+	position: absolute;
+	text-align: center;
+	color:black;
 }
 .minus h3 {
 	top:20px;
