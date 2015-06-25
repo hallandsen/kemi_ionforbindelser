@@ -24,7 +24,14 @@ var CorrectAnswers = [
 "minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"MgBr<sub>2</sub>"},
 
 {"name": "zinkbromid",      "plus":"Zn",    "plusName":"zink",      "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Br",
-"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"ZnBr<sub>2</sub>"}
+"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"ZnBr<sub>2</sub>"},
+//ekstra dummy opgaver. de er dubletter
+{"name": "magnesiumbromid", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Br",
+"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"MgBr<sub>2</sub>"},
+
+{"name": "magnesiumbromid", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Br",
+"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"MgBr<sub>2</sub>"}
+
 ];
 
 var JsonObj;
@@ -35,6 +42,7 @@ var plusCount= 0;
 var finalMinusCount = CorrectAnswers[thisAnswer].minusCount;
 var finalPlusCount = CorrectAnswers[thisAnswer].plusCount;
 var step = $('.opgaveFormulering').html().slice(5,6);
+console.log('step: '+step);
 
 var neededPlus = CorrectAnswers[thisAnswer].plus;
 var neededPlusNumber = CorrectAnswers[thisAnswer].plusCharge;
@@ -113,24 +121,25 @@ function getPlusCount(ion, farve) {
         }
     }
 }
-
-
 //opgavetekst genereres
 function opgaveTekst1 (CorrectAnswers) {
     var HTML='';
     HTML += ' Byg ionforbindelsen der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plus+'<sup>'+CorrectAnswers[thisAnswer].plusCharge+
     '</sup></span> og <span class="QuestionTask">'+CorrectAnswers[thisAnswer].minus+'<sup>'+CorrectAnswers[thisAnswer].minusCharge+'</sup></span>';
+    $('#opgaveFormulering1').empty();
     $('#opgaveFormulering1').append(HTML); 
 }
 function opgaveTekst2 (CorrectAnswers) {
     var HTML='';
     HTML += ' Byg ionforbindelsen der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plusName+'</span> og <span class="QuestionTask">'
     +CorrectAnswers[thisAnswer].minusName+'</span> og afstem formlen.';
+    $('#opgaveFormulering2').empty();
     $('#opgaveFormulering2').append(HTML); 
 }
 function opgaveTekst3 (CorrectAnswers) {
     var HTML='';
     HTML += ' Byg ionforbindelsen <span class="QuestionTask">'+CorrectAnswers[thisAnswer].name +'</span>';
+    $('#opgaveFormulering3').empty();
     $('#opgaveFormulering3').append(HTML); 
 }
 //feedback felt med antal rigtige genereres og opdateres
@@ -150,8 +159,6 @@ function shuffleArray(array) {
     }
     return array;
 }
-
-
 // ion elementer genereres
 function CreateIons(JsonObj) {
     shuffleArray(JsonObj.ions.plus);
@@ -160,14 +167,12 @@ function CreateIons(JsonObj) {
     var minusPresent = false;
     var numberOfIons = 1;
     console.log(JsonObj);
-
     for ( var i =0; i <=numberOfIons+2; i++) {
         //hvis ikke den positive ion man skal bruge for at klare opgaven er i objektet, så fjern et objekt og tilføj den rigtige ion
         var actualPlus = JsonObj.ions.plus[i].ion;
         var actualPlusCharge = JsonObj.ions.plus[i].charge;
         actualPlusCharge = actualPlusCharge.replace('+','');
         actualPlus = actualPlus + actualPlusCharge;
-
         if (neededPlus == actualPlus) {
             console.log('the correct positive ion is present');
             plusPresent = true;
@@ -175,42 +180,31 @@ function CreateIons(JsonObj) {
         
     }
     if (plusPresent == false) {
-            //hvilket random element skal erstattes:
-            var replacedObj = Math.floor(Math.random() * numberOfIons);
-
-            var plus = CorrectAnswers[thisAnswer].plus;
-            console.log('plus: '+plus);
-            
-            //bestem om skriften skal være hvid eller sort
-            var color = getPlusFarve(plus,'farve');
-            console.log('color: '+color);
-            JsonObj.ions.plus[replacedObj].farve = color;
-
-            //hent antal ioner
-            var ionCount = getPlusCount(plus,ionNumber);
-            console.log('ionCount: '+ionCount);
-            JsonObj.ions.plus[replacedObj].ionNumber = ionCount;
-
-
-            //hent og erstat ion navnet
-            JsonObj.ions.plus[replacedObj].ion = plus;
-            
-            //hent og erstat ionens ladning
-            var charge = CorrectAnswers[thisAnswer].plusCharge;
-            JsonObj.ions.plus[replacedObj].charge = charge;
-            console.log(JsonObj.ions.plus[replacedObj].charge);
-            
-            var name = CorrectAnswers[thisAnswer].plus;
-            var color = getPlusFarve(name,'farve');
-            console.log('color: '+color);
-
-
-            //hent og erstat img src
-            charge = charge.replace('+','');
-            var img = 'img/plus_' + plus + charge + '.png';
-            console.log(img);  
-            JsonObj.ions.plus[replacedObj].imgSrc = img;
-        }
+        //hvilket random element skal erstattes:
+        var replacedObj = Math.floor(Math.random() * numberOfIons);
+        var plus = CorrectAnswers[thisAnswer].plus;  
+        //bestem om skriften skal være hvid eller sort
+        var color = getPlusFarve(plus,'farve');
+        console.log('color: '+color);
+        JsonObj.ions.plus[replacedObj].farve = color;
+        //hent antal ioner
+        var ionCount = getPlusCount(plus,ionNumber);
+        JsonObj.ions.plus[replacedObj].ionNumber = ionCount;
+        console.log(JsonObj);
+        console.log(JsonObj.ions.plus[replacedObj].ionNumber);
+        //hent og erstat ion navnet
+        JsonObj.ions.plus[replacedObj].ion = plus;
+        //hent og erstat ionens ladning
+        var charge = CorrectAnswers[thisAnswer].plusCharge;
+        JsonObj.ions.plus[replacedObj].charge = charge;         
+        var name = CorrectAnswers[thisAnswer].plus;
+        var color = getPlusFarve(name,'farve');
+        //hent og erstat img src
+        charge = charge.replace('+','');
+        var img = 'img/plus_' + plus + charge + '.png';
+        console.log(img);  
+        JsonObj.ions.plus[replacedObj].imgSrc = img;
+    }
     //generer de positive ioner
     for ( var i =0; i <=numberOfIons+2; i++) { 
         var plusIon = JsonObj.ions.plus[i].ion;
@@ -232,7 +226,6 @@ function CreateIons(JsonObj) {
         HTML += '<h3>'+ plusIon + '<sub>' + ionNumber +'</sub>' + '<sup>'+ charge + '</sup></h3>';
         HTML +='<img src="'+ imgSrc +'"></div>';
         $('.ionsWrapper').append(HTML);
-    
     }
     for ( var i =0; i <=numberOfIons+2; i++) {
         //hvis ikke den negative ion man skal bruge for at klare opgaven er i objektet, så fjernes et objekt og den rigtige ion tilføjes
@@ -240,42 +233,32 @@ function CreateIons(JsonObj) {
         var actualMinusCharge = JsonObj.ions.minus[i].charge;
         actualMinusCharge = actualMinusCharge.replace('-','');
         actualMinus = actualMinus + actualMinusCharge;
-        // console.log('neededMinus: '+neededMinus);
-        // console.log('actualMinus: '+actualMinus);
-
         if (neededMinus == actualMinus) {
             console.log('the correct negative ion is present');
             minusPresent= true;
         }
     }
     if (minusPresent == false) {
-            
-            //hvilket random element skal erstattes:
-            var replacedObj = Math.floor(Math.random() * numberOfIons);
-            
-            var minus = CorrectAnswers[thisAnswer].minus;
-            
-            //bestem om skriften skal være hvid eller sort
-            var color = getMinusFarve(minus,'farve');
-            JsonObj.ions.minus[replacedObj].farve = color;
-
-            //hent antal ioner
-            var ionCount = getMinusCount(minus,ionNumber);
-            console.log('ionCount: '+ionCount);
-            JsonObj.ions.minus[replacedObj].ionNumber = ionCount;
-
-            //hent og erstat ion navnet
-            JsonObj.ions.minus[replacedObj].ion = minus;
-            
-            //hent og erstat ionens ladning
-            var charge = CorrectAnswers[thisAnswer].minusCharge;
-            JsonObj.ions.minus[replacedObj].charge = charge;       
-
-            //hent og erstat img src
-            charge = charge.replace('-','');
-            var img = 'img/minus_' + minus + charge + '.png';
-            console.log(img);  
-            JsonObj.ions.minus[replacedObj].imgSrc = img;
+        //hvilket random element skal erstattes:
+        var replacedObj = Math.floor(Math.random() * numberOfIons);
+        var minus = CorrectAnswers[thisAnswer].minus;
+        //bestem om skriften skal være hvid eller sort
+        var color = getMinusFarve(minus,'farve');
+        JsonObj.ions.minus[replacedObj].farve = color;
+        //hent antal ioner
+        var ionCount = getMinusCount(minus,ionNumber);
+        JsonObj.ions.minus[replacedObj].ionNumber = ionCount;
+        console.log(JsonObj.ions.plus[replacedObj].ionNumber);
+        console.log(JsonObj);
+        //hent og erstat ion navnet
+        JsonObj.ions.minus[replacedObj].ion = minus;
+        //hent og erstat ionens ladning
+        var charge = CorrectAnswers[thisAnswer].minusCharge;
+        JsonObj.ions.minus[replacedObj].charge = charge;       
+        //hent og erstat img src
+        charge = charge.replace('-','');
+        var img = 'img/minus_' + minus + charge + '.png';
+        JsonObj.ions.minus[replacedObj].imgSrc = img;
     }
 
     //genererer de negative ioner
@@ -304,7 +287,6 @@ function CreateIons(JsonObj) {
     // shuffleArray(JsonObj.ions.minus);
 }
 function makeDraggable (){
-    console.log('draggable is back');
     $('.draggable').draggable({ 
         revert: 'invalid',  // Makes the draggable revert back if does not have class correctPlus or correctMinus and is dropped in the corresponding div 
         helper: 'clone',
@@ -313,7 +295,6 @@ function makeDraggable (){
             var IonHtml = $(this).html();
             //gør html elementet sammenlignignsvenligt.
             var CurrentIon = IonHtml.slice(4,24);
-            console.log('IonHtml: '+CurrentIon);
             CurrentIon = CurrentIon.replace('<sub>3</sub>','');
             CurrentIon = CurrentIon.replace('<sub>4</sub>','');
             CurrentIon = CurrentIon.replace('</sub>','');
@@ -324,8 +305,6 @@ function makeDraggable (){
             CurrentIon = CurrentIon.replace('+','');
             CurrentIon = CurrentIon.replace('-','');
             CurrentIon = CurrentIon.replace('/','');
-
-
 
             console.log('CurrentIon: '+CurrentIon);
             CheckMinus(CurrentIon, this);
@@ -345,30 +324,19 @@ function makeDroppable(){
         accept: '.correctMinus',
         tolerance: 'intersect',
         drop: function(event, ui) {
-            if(original) {
+            //if(original) {
                 $(ui.draggable.clone()).detach().css({top: -20,left: 0, margin:0}).appendTo(this).addClass('clone'); //append clone til DropMinus
                 original = false;
                 minusCount++;
                 $('.clone').draggable({
                     revert: true,
                 })
-            }
+            //}
             CheckAnswer (minusCount, plusCount);
         },
-        out: function (event, ui) {
-            if (!original){
-                $('.correctMinus').fadeTo('fast', 0.5);
-                $('.correctMinus').draggable({
-                    revert: false,
-                    stop: function () {
-                        $('.correctMinus').remove();
-                        minusCount--;
-                    }
-                })
-            }
-        },
         over: function (event, ui) {
-            if (!original){
+            console.log(original);
+            if (original){
                 $(ui.draggable).fadeTo('fast', 1.0);
                 $('.clone').draggable ({
                     revert: true,
@@ -387,30 +355,18 @@ function makeDroppable(){
         accept: '.correctPlus',
         tolerance: 'intersect',
         drop: function(event, ui) {
-            if(original) {
+            //if(original) {
                 $(ui.draggable.clone()).detach().css({top: 0,left: 0, margin:0}).appendTo(this).addClass('clone'); //append clone til DropPlus
                 original = false;
                 plusCount++;
                 $('.clone').draggable({
                     revert: true,
                 })
-            }
+            //}
             CheckAnswer (minusCount, plusCount);
         },
-        out: function (event, ui) {
-            if (!original){
-                $('.correctPlus').fadeTo('fast', 0.5);
-                $('.correctPlus').draggable({
-                    revert: false,
-                    stop: function () {
-                        $(this).remove();
-                        plusCount--;
-                    }
-                })
-            }
-        },
         over: function (event, ui) {
-            if (!original){
+            //if (!original){
                 $(ui.draggable).fadeTo('fast', 1.0);
                 $('.clone').draggable ({
                     revert: true,
@@ -422,7 +378,7 @@ function makeDroppable(){
                         console.log('droppable is back');
                     }
                 });
-            }
+            //}
         }
     });
 }
@@ -457,7 +413,7 @@ function CheckAnswer (minusCount, plusCount){
         feedbackOverlay(thisAnswer);
     }
 }
-//generer overlay
+//generer feedbackoverlay
 function feedbackOverlay(thisAnswer){
 
     var HTML = "<div id='overlay'>";
@@ -475,9 +431,24 @@ function feedbackOverlay(thisAnswer){
     //HTML += '<audio src="audio/'+ CorrectAnswers[thisAnswer].plus+CorrectAnswers[thisAnswer].minus+'.mp3" id="audioAnswer"></audio>';
     HTML += "</div>";
     $('.DropZone').prepend(HTML);
-    $("#overlay").fadeIn( "slow" );
+    $('#overlay').fadeIn( 'slow' );
+    setTimeout(function(){
+        $('#overlay h2, #overlay .btn').fadeIn('slow')
+    },300);
+    if (correct == 10) {
+        $('.btn-next').css('visibility', 'hidden');
+        setTimeout(function(){
+            if(step ==1) {    
+                UserMsgBox('body', 'Godt klaret, du har styr på ionforbindelserne. </br><a href="step1.html">Prøv igen</a>');
+            }else if (step ==2) {    
+                UserMsgBox('body', 'Godt klaret, du har styr på ionforbindelserne. </br><a href="step2.html">Prøv igen</a>');
+            }else if(step ==3) {    
+                UserMsgBox('body', 'Godt klaret, du har styr på ionforbindelserne. </br><a href="step3.html">Prøv igen</a>');
+            }
+        },2000);
+    }else{
     $('.btn-next').css('visibility', 'visible');
-    
+    }
     //læs op funktionaliteter
     var audioElement = $("#audioAnswer")[0];
     $('.glyphicon-volume-up').click(function(){
@@ -488,19 +459,48 @@ function feedbackOverlay(thisAnswer){
             $('.sound-btn').removeClass('activeSound');       
         });
     });
+    $('.ion').css('pointer-events', 'none');
 }
+//nulstil ioner, opgavekrav, opgavetekst og tøm dropzonen
 function resetAssignment() {
-    delete CorrectAnswers[thisAnswer];
+    console.log('REEESEEEEET');
+    loadData("ionforbindelser.json");
+    CorrectAnswers.splice(thisAnswer, 1);
     arrayLength = CorrectAnswers.length;
-    console.log('længde: '+arrayLength);
     thisAnswer = Math.floor(Math.random() * arrayLength);
+    console.log('længde: '+arrayLength);
+    shuffleArray(JsonObj.ions.plus);
+    shuffleArray(JsonObj.ions.minus);
+
+    finalMinusCount = CorrectAnswers[thisAnswer].minusCount;
+    finalPlusCount = CorrectAnswers[thisAnswer].plusCount;
+
+    neededPlus = CorrectAnswers[thisAnswer].plus;
+    neededPlusNumber = CorrectAnswers[thisAnswer].plusCharge;
+    neededPlusNumber = neededPlusNumber.replace('+','');
+    neededPlus = neededPlus+neededPlusNumber;
+
+    neededMinus = CorrectAnswers[thisAnswer].minus;
+    neededMinusNumber = CorrectAnswers[thisAnswer].minusCharge;
+    neededMinusNumber = neededMinusNumber.replace('-','');
+    neededMinus = neededMinus+neededMinusNumber;
+
+    $('.ion').css('pointer-events', 'auto');
     $('.ionsWrapper').empty();
-    $('#overlay').remove();
-    $('.DropPlus').empty();
-    $('.DropMinus').empty();
+    $('#overlay').fadeTo('fast', 0);
+    $('.ion').remove();
     $('.btn-next').css('visibility', 'hidden');
     plusCount = 0;
     minusCount = 0;
+    console.log('minusCount: '+minusCount);
+    console.log('plusCount: '+plusCount);
+    if (step==1) {
+        opgaveTekst1(CorrectAnswers);
+    }else if(step==2){
+        opgaveTekst2(CorrectAnswers);
+    }else if (step==2){
+        opgaveTekst3(CorrectAnswers);
+    }
     CreateIons(JsonObj);
     makeDraggable();
     makeDroppable();
@@ -511,9 +511,6 @@ function resetAssignment() {
 
 
 $(document).ready(function() {
-    // var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    // alphabet = alphabet.replace(/H.*S/, 'HS');
-    // console.log(alphabet);
     feedbackTekst(roundCounter, correct);
     CreateIons(JsonObj);
     makeDraggable();
@@ -525,118 +522,5 @@ $(document).ready(function() {
 
     $('.btn-next').click(function(){
         resetAssignment();
-        console.log('reset assignment');
     });
-
-    // $('.draggable').draggable({ 
-    //     revert: 'invalid',  // Makes the draggable revert back if does not have class correctPlus or correctMinus and is dropped in the corresponding div 
-    //     helper: 'clone',
-    //     start: function() {
-    //         var element = $(this);
-    //         var IonHtml = $(this).html();
-    //         console.log('IonHtml: '+IonHtml);
-    //         //gør html elementet sammenlignignsvenligt.
-    //         var CurrentIon = IonHtml.slice(4,13);
-    //         CurrentIon = CurrentIon.replace(/</g,'');
-    //         CurrentIon = CurrentIon.replace('sup','');
-    //         CurrentIon = CurrentIon.replace('>','');
-    //         CurrentIon = CurrentIon.replace('+','');
-    //         CurrentIon = CurrentIon.replace('-','');
-    //         CurrentIon = CurrentIon.replace('/','');
-
-    //         CheckMinus(CorrectAnswers, CurrentIon, element);
-    //         CheckPlus(CorrectAnswers, CurrentIon, element);
-    //     },
-    //     stop: function () {
-    //         $('.draggable').draggable().data()['ui-draggable'].cancelHelperRemoval = true; //behold clone
-    //         $(this).removeClass('correctMinus');
-    //         $(this).removeClass('correctPlus');
-    //     }
-    // });
-    // function makeDroppable(){
-    //     $('.DropMinus').droppable({
-    //         accept: '.correctMinus',
-    //         tolerance: 'intersect',
-    //         drop: function(event, ui) {
-    //             if(original) {
-    //                 $(ui.draggable.clone()).detach().css({top: -20,left: 0, margin:0}).appendTo(this).addClass('clone'); //append clone til DropMinus
-    //                 original = false;
-    //                 minusCount++;
-    //                 $('.clone').draggable({
-    //                     revert: true,
-    //                 })
-    //             }
-    //             CheckAnswer (minusCount, plusCount);
-    //         },
-    //         out: function (event, ui) {
-    //             if (!original){
-    //                 $('.correctMinus').fadeTo('fast', 0.5);
-    //                 $('.correctMinus').draggable({
-    //                     revert: false,
-    //                     stop: function () {
-    //                         $('.correctMinus').remove();
-    //                         minusCount--;
-    //                     }
-    //                 })
-    //             }
-    //         },
-    //         over: function (event, ui) {
-    //             if (!original){
-    //                 $(ui.draggable).fadeTo('fast', 1.0);
-    //                 $('.clone').draggable ({
-    //                     revert: true,
-    //                     start: function () {
-    //                         $(this).css({'z-index':'10'});
-    //                         console.log('over');
-    //                     },
-    //                     stop: function () {
-    //                         $(this).css({'z-index':'auto'});
-    //                     }
-    //                 });
-    //             }
-    //         }
-    //     });
-    //     $('.DropPlus').droppable({
-    //         accept: '.correctPlus',
-    //         tolerance: 'intersect',
-    //         drop: function(event, ui) {
-    //             if(original) {
-    //                 $(ui.draggable.clone()).detach().css({top: 0,left: 0, margin:0}).appendTo(this).addClass('clone'); //append clone til DropPlus
-    //                 original = false;
-    //                 plusCount++;
-    //                 $('.clone').draggable({
-    //                     revert: true,
-    //                 })
-    //             }
-    //             CheckAnswer (minusCount, plusCount);
-    //         },
-    //         out: function (event, ui) {
-    //             if (!original){
-    //                 $('.correctPlus').fadeTo('fast', 0.5);
-    //                 $('.correctPlus').draggable({
-    //                     revert: false,
-    //                     stop: function () {
-    //                         $(this).remove();
-    //                         plusCount--;
-    //                     }
-    //                 })
-    //             }
-    //         },
-    //         over: function (event, ui) {
-    //             if (!original){
-    //                 $(ui.draggable).fadeTo('fast', 1.0);
-    //                 $('.clone').draggable ({
-    //                     revert: true,
-    //                     start: function () {
-    //                         $(this).css({'z-index':'10'});
-    //                     },
-    //                     stop: function () {
-    //                         $(this).css({'z-index':'auto'});
-    //                     }
-    //                 });
-    //             }
-    //         }
-    //     });
-    // }
-    
 });
