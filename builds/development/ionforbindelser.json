@@ -6,10 +6,10 @@
 			{"name": "I1",   		"imgSrc":"img/minus_I.png", 		"ion":"I", 		"ionNumber":"",		"charge": "-",	"farve":"normal"},
 			{"name": "O2", 			"imgSrc":"img/minus_O2.png", 		"ion":"O", 		"ionNumber":"",		"charge": "2-",	"farve":"normal"},
 			{"name": "S2",       	"imgSrc":"img/minus_S2.png", 		"ion":"S", 		"ionNumber":"",		"charge": "2-",	"farve":"normal"},
-			{"name": "NO1",       	"imgSrc":"img/minus_NO1.png", 		"ion":"NO", 	"ionNumber":"3",	"charge": "-",	"farve":"sort"},
+			{"name": "NO1",       	"imgSrc":"img/minus_NO.png", 		"ion":"NO", 	"ionNumber":"3",	"charge": "-",	"farve":"sort"},
 			{"name": "SO2",       	"imgSrc":"img/minus_SO2.png", 		"ion":"SO", 	"ionNumber":"4",	"charge": "2-",	"farve":"sort"},
 			{"name": "CO2",       	"imgSrc":"img/minus_CO2.png", 		"ion":"CO", 	"ionNumber":"3",	"charge": "2-",	"farve":"sort"},
-			{"name": "OH1",       	"imgSrc":"img/minus_OH1.png", 		"ion":"OH", 	"ionNumber":"",		"charge": "-",	"farve":"sort"},
+			{"name": "OH1",       	"imgSrc":"img/minus_OH.png", 		"ion":"OH", 	"ionNumber":"",		"charge": "-",	"farve":"sort"},
 			{"name": "PO3",       	"imgSrc":"img/minus_PO3.png", 		"ion":"PO", 	"ionNumber":"4",	"charge": "3-",	"farve":"sort"}
 		],
 		"plus": [
@@ -20,8 +20,8 @@
 			{"name": "Mg2",		    "imgSrc":"img/plus_Mg2.png", 		"ion":"Mg", 	"ionNumber":"",		"charge": "2+",		"farve":"normal"},
 			{"name": "Na1",		   	"imgSrc":"img/plus_Na.png", 		"ion":"Na", 	"ionNumber":"",		"charge": "+",		"farve":"normal"},
 			{"name": "Zn2",		    "imgSrc":"img/plus_Zn2.png",	 	"ion":"Zn", 	"ionNumber":"",		"charge": "2+",		"farve":"normal"},
-			{"name": "K1",		    "imgSrc":"img/plus_K1.png",	 		"ion":"K", 		"ionNumber":"",		"charge": "+",		"farve":"sort"},
-			{"name": "NH1",		    "imgSrc":"img/plus_NH1.png",		"ion":"NH", 	"ionNumber":"4",	"charge": "+",		"farve":"sort"},
+			{"name": "K1",		    "imgSrc":"img/plus_K.png",	 		"ion":"K", 		"ionNumber":"",		"charge": "+",		"farve":"sort"},
+			{"name": "NH1",		    "imgSrc":"img/plus_NH.png",			"ion":"NH", 	"ionNumber":"4",	"charge": "+",		"farve":"sort"},
 			{"name": "Ca1",		    "imgSrc":"img/plus_Ca2.png",		"ion":"Ca", 	"ionNumber":"",		"charge": "2+",		"farve":"sort"},
 			{"name": "Ba1",		    "imgSrc":"img/plus_Ba2.png",		"ion":"Ba", 	"ionNumber":"",		"charge": "2+",		"farve":"sort"},
 			{"name": "Pb1",		    "imgSrc":"img/plus_Pb2.png",		"ion":"Pb", 	"ionNumber":"",		"charge": "2+",		"farve":"sort"}

@@ -1,10 +1,7 @@
 //########################################################################
-//                          Data og indledende variabler
+//                                  Data 
 //########################################################################
 var CorrectAnswers = [
-{"name": "natriumklorid",   "plus":"Na",    "plusName":"natrium",   "plusCharge":"+",  "plusCount":"1",     "plusIonsNo":"",     "minus":"Cl",
-"minusName":"klor",    "minusCharge":"-",   "minusCount":"1",       "minusIonsNo":"",   "html":"NaCl"},
-
 {"name": "jernklorid",      "plus":"Fe",    "plusName":"jern",      "plusCharge":"2+", "plusCount":"1",     "plusIonsNo":"",     "minus":"Cl",
 "minusName":"klor",    "minusCharge":"-",   "minusCount":"2",       "minusIonsNo":"",   "html":"FeCl<sub>2</sub>"},
 
@@ -25,17 +22,158 @@ var CorrectAnswers = [
 
 {"name": "zinkbromid",      "plus":"Zn",    "plusName":"zink",      "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Br",
 "minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"ZnBr<sub>2</sub>"},
-//ekstra dummy opgaver. de er dubletter
-{"name": "magnesiumbromid", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Br",
-"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"MgBr<sub>2</sub>"},
+
+{"name": "ammoniumchlorid", "plus":"NH",    "plusName":"ammonium",  "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"4",     "minus":"Cl",
+"minusName":"chlorid",     "minusCharge":"-",  "minusCount":"1",    "minusIonsNo":"",  "html":"NH<sub>4</sub>Cl"},
+
+{"name": "ammoniumnitrat", "plus":"NH",    "plusName":"ammonium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"4",     "minus":"NO",
+"minusName":"nitrat",     "minusCharge":"-",  "minusCount":"1",   "minusIonsNo":"3",   "html":"NH<sub>4</sub>NO<sub>3</sub>"},
+
+{"name": "ammoniumbromid", "plus":"NH",    "plusName":"ammonium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"4",     "minus":"Br",
+"minusName":"bromid",     "minusCharge":"-",  "minusCount":"1",   "minusIonsNo":"",   "html":"NH<sub>4</sub>Br"},
+
+{"name": "ammoniumiodid", "plus":"NH",    "plusName":"ammonium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"4",     "minus":"I",
+"minusName":"iodid",     "minusCharge":"-",  "minusCount":"1",   "minusIonsNo":"",   "html":"NH<sub>4</sub>I"},
+
+{"name": "ammoniumsulfat", "plus":"NH",    "plusName":"ammonium", "plusCharge":"+",  "plusCount":"2",    "plusIonsNo":"4",     "minus":"SO",
+"minusName":"sulfat",     "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"3",   "html":"(NH<sub>4</sub>)<sub>2</sub>SO<sub>4</sub>"},
+
+{"name": "ammoniumcarbonat", "plus":"NH",    "plusName":"ammonium", "plusCharge":"+",  "plusCount":"2",    "plusIonsNo":"4",     "minus":"CO",
+"minusName":"carbonat",     "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"3",   "html":"(NH<sub>4</sub>)<sub>2</sub>CO<sub>3</sub>"},
+
+{"name": "ammoniumhydroxid", "plus":"NH",    "plusName":"ammonium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"4",     "minus":"OH",
+"minusName":"hydroxid",     "minusCharge":"-",  "minusCount":"1",       "minusIonsNo":"",   "html":"NH<sub>4</sub>OH"},
+
+{"name": "ammoniumsulfid", "plus":"NH",    "plusName":"ammonium", "plusCharge":"+",  "plusCount":"2",    "plusIonsNo":"4",     "minus":"S",
+"minusName":"sulfid",     "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"3",   "html":"(NH<sub>4</sub>)<sub>2</sub>S"},
+
+{"name": "ammoniumphosphat", "plus":"NH",    "plusName":"ammonium", "plusCharge":"+",  "plusCount":"3",    "plusIonsNo":"4",     "minus":"PO",
+"minusName":"phosfat",     "minusCharge":"3-",  "minusCount":"1",       "minusIonsNo":"4",   "html":"(NH<sub>4</sub>)<sub>3</sub>PO<sub>4</sub>"},
+
+{"name": "ammoniumoxid", "plus":"NH",    "plusName":"ammonium", "plusCharge":"+",  "plusCount":"2",    "plusIonsNo":"4",     "minus":"O",
+"minusName":"oxid",     "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"",   "html":"(NH<sub>4</sub>)<sub>2</sub>O"},
+
+{"name": "natriumnitrat", "plus":"Na",    "plusName":"natrium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"NO",
+"minusName":"nitrat",     "minusCharge":"-",  "minusCount":"1",       "minusIonsNo":"3",   "html":"NaNO<sub>3</sub>"},
+
+{"name": "natriumchlorid", "plus":"Na",    "plusName":"natrium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Cl",
+"minusName":"chlorid",     "minusCharge":"-",  "minusCount":"1",       "minusIonsNo":"",   "html":"NaCl"},
+
+{"name": "natriumbromid", "plus":"Na",    "plusName":"natrium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Br",
+"minusName":"bromid",     "minusCharge":"-",  "minusCount":"1",       "minusIonsNo":"",   "html":"NaBr"},
+
+{"name": "natriumiodid", "plus":"Na",    "plusName":"natrium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"I",
+"minusName":"iodid",     "minusCharge":"-",  "minusCount":"1",       "minusIonsNo":"",   "html":"NaI"},
+
+{"name": "natriumsulfat", "plus":"Na",    "plusName":"natrium", "plusCharge":"+",  "plusCount":"2",    "plusIonsNo":"",     "minus":"SO",
+"minusName":"sulfat",     "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"4",   "html":"Na<sub>2</sub>SO<sub>4</sub>"},
+
+{"name": "natriumcarbonat", "plus":"Na",    "plusName":"natrium", "plusCharge":"+",  "plusCount":"2",    "plusIonsNo":"",     "minus":"CO",
+"minusName":"carbonat",     "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"3",   "html":"Na<sub>2</sub>CO<sub>3</sub>"},
+
+{"name": "natriumhydroxid", "plus":"Na",    "plusName":"natrium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"OH",
+"minusName":"hydroxid",     "minusCharge":"-",  "minusCount":"1",       "minusIonsNo":"",   "html":"NaOH"},
+
+{"name": "natriumsulfid", "plus":"Na",    "plusName":"natrium", "plusCharge":"+",  "plusCount":"2",    "plusIonsNo":"",     "minus":"S",
+"minusName":"sulfid",       "minusCharge":"-2",  "minusCount":"1",       "minusIonsNo":"",   "html":"Na<sub>2</sub>S"},
+
+{"name": "natriumphosphat", "plus":"Na",    "plusName":"natrium", "plusCharge":"+",  "plusCount":"3",    "plusIonsNo":"",     "minus":"PO",
+"minusName":"fosfat",       "minusCharge":"3-",  "minusCount":"1",       "minusIonsNo":"4",   "html":"Na<sub>3</sub>PO<sub>4</sub>"},
+
+{"name": "natriumoxid", "plus":"Na",    "plusName":"natrium", "plusCharge":"+",  "plusCount":"2",    "plusIonsNo":"",     "minus":"O",
+"minusName":"oxid",         "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"",   "html":"Na<sub>2</sub>O"},
+
+{"name": "kaliumnitrat", "plus":"K",    "plusName":"kalium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"NO",
+"minusName":"nitrat",       "minusCharge":"-",  "minusCount":"1",       "minusIonsNo":"3",   "html":"KNO<sub>3</sub>"},
+
+{"name": "kaliumchlorid", "plus":"K",    "plusName":"kalium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Cl",
+"minusName":"chlorid",      "minusCharge":"-",  "minusCount":"1",       "minusIonsNo":"",   "html":"KCl"},
+
+{"name": "kaliumbromid", "plus":"K",    "plusName":"kalium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Br",
+"minusName":"bromid",       "minusCharge":"-",  "minusCount":"1",       "minusIonsNo":"",   "html":"KBr"},
+
+{"name": "kaliumbromid", "plus":"K",    "plusName":"kalium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"I",
+"minusName":"iodid",        "minusCharge":"-",  "minusCount":"1",       "minusIonsNo":"",   "html":"KI"},
+
+{"name": "kaliumsulfat", "plus":"K",    "plusName":"kalium", "plusCharge":"+",  "plusCount":"2",    "plusIonsNo":"",     "minus":"SO",
+"minusName":"sulfat",       "minusCharge":"-2",  "minusCount":"1",       "minusIonsNo":"4",   "html":"K<sub>2</sub>SO<sub>4</sub>"},
+
+{"name": "kaliumcarbonat", "plus":"K",    "plusName":"kalium", "plusCharge":"+",  "plusCount":"2",    "plusIonsNo":"",     "minus":"CO",
+"minusName":"carbonat",     "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"3",   "html":"K<sub>2</sub>CO<sub>3</sub>"},
+
+{"name": "kaliumhydroxid", "plus":"K",    "plusName":"kalium", "plusCharge":"+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"OH",
+"minusName":"hydroxid",     "minusCharge":"-",  "minusCount":"1",       "minusIonsNo":"",   "html":"KOH"},
+
+{"name": "kaliumsulfid", "plus":"K",    "plusName":"kalium", "plusCharge":"+",  "plusCount":"2",    "plusIonsNo":"",     "minus":"S",
+"minusName":"sulfid",       "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"",   "html":"K<sub>2</sub>S"},
+
+{"name": "kaliumphosphat", "plus":"K",    "plusName":"kalium", "plusCharge":"+",  "plusCount":"3",    "plusIonsNo":"",     "minus":"PO",
+"minusName":"fosfat",       "minusCharge":"3-",  "minusCount":"1",       "minusIonsNo":"4",   "html":"K<sub>3</sub>PO<sub>4</sub>"},
+
+{"name": "kaliumoxid", "plus":"K",    "plusName":"kalium", "plusCharge":"+",  "plusCount":"2",    "plusIonsNo":"",     "minus":"O",
+"minusName":"oxid",         "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"",   "html":"K<sub>2</sub>O"},
+
+{"name": "magnesiumnitrat", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"NO",
+"minusName":"nitrat",       "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"3",   "html":"Mg(NO<sub>3</sub>)<sub>2</sub>"},
+
+{"name": "magnesiumchlorid", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Cl",
+"minusName":"chlorid",      "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"MgCl<sub>2</sub>"},
 
 {"name": "magnesiumbromid", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Br",
-"minusName":"brom",     "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"MgBr<sub>2</sub>"}
+"minusName":"bromid",       "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"MgBr<sub>2</sub>"},
 
+{"name": "magnesiumiodid", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"I",
+"minusName":"iodid",        "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"MgI<sub>2</sub>"},
+
+{"name": "magnesiumsulfat", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"SO",
+"minusName":"sulfat",       "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"4",   "html":"MgSO<sub>4</sub>"},
+
+{"name": "magnesiumcarbonat", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"CO",
+"minusName":"carbonat",     "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"3",   "html":"MgCO<sub>3</sub>"},
+
+{"name": "magnesiumhydroxid", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"OH",
+"minusName":"hydroxid",     "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"Mg(OH)<sub>2</sub>"},
+
+{"name": "magnesiumsulfid", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"S",
+"minusName":"sulfid",       "minusCharge":"-2",  "minusCount":"1",       "minusIonsNo":"",   "html":"MgS"},
+
+{"name": "magnesiumphosphat", "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"3",    "plusIonsNo":"",     "minus":"PO",
+"minusName":"fosfat",       "minusCharge":"3-",  "minusCount":"2",       "minusIonsNo":"4",   "html":"Mg<sub>3</sub>(PO<sub>4</sub>)<sub>2</sub>"},
+
+{"name": "magnesiumoxid",   "plus":"Mg",    "plusName":"magnesium", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"O",
+"minusName":"oxid",         "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"",   "html":"MgO"},
+
+{"name": "zinknitrat",      "plus":"Zn",    "plusName":"zink", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"NO",
+"minusName":"nitrat",       "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"3",   "html":"Zn(NO<sub>3</sub>)<sub>2</sub>"},
+
+{"name": "zinkchlorid",     "plus":"Zn",    "plusName":"zink", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Cl",
+"minusName":"chlorid",      "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"ZnCl<sub>2</sub>"},
+
+{"name": "zinkbromid",      "plus":"Zn",    "plusName":"zink", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"Br",
+"minusName":"bromid",       "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"ZnBr<sub>2</sub>"},
+
+{"name": "zinkiodid",       "plus":"Zn",    "plusName":"zink", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"I",
+"minusName":"iodid",        "minusCharge":"-",  "minusCount":"2",       "minusIonsNo":"",   "html":"ZnI<sub>2</sub>"},
+
+{"name": "zinksulfat",     "plus":"Zn",    "plusName":"zink", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"SO",
+"minusName":"sulfat",      "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"4",   "html":"ZnSO<sub>4</sub>"},
+
+{"name": "zinkcarbonat",   "plus":"Zn",    "plusName":"zink", "plusCharge":"2+",  "plusCount":"1",    "plusIonsNo":"",     "minus":"CO",
+"minusName":"car",         "minusCharge":"2-",  "minusCount":"1",       "minusIonsNo":"",   "html":"ZnCO<sub>3</sub>"}
+//53
 ];
 
+
+
+
+
+//########################################################################
+//                                  Variabler
+//########################################################################
+
+
 var JsonObj;
-var thisAnswer = Math.floor(Math.random() * 8);
+var thisAnswer = Math.floor(Math.random() * 53);
 var answersArray;
 var minusCount = 0;
 var plusCount= 0;
@@ -60,8 +198,10 @@ console.log('neededMinus: '+neededMinus);
 var roundCounter = 0;
 var maxRounds = 10;
 var correct = 0;
+
+
 //########################################################################
-//                          Funktioner
+//                              Funktioner
 //########################################################################
 
 function AjaxCallback(JSONdata){
@@ -124,14 +264,14 @@ function getPlusCount(ion, farve) {
 //opgavetekst genereres
 function opgaveTekst1 (CorrectAnswers) {
     var HTML='';
-    HTML += ' Byg ionforbindelsen der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plus+'<sup>'+CorrectAnswers[thisAnswer].plusCharge+
+    HTML += ' Byg ionforbindelsen, der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plus+'<sup>'+CorrectAnswers[thisAnswer].plusCharge+
     '</sup></span> og <span class="QuestionTask">'+CorrectAnswers[thisAnswer].minus+'<sup>'+CorrectAnswers[thisAnswer].minusCharge+'</sup></span>';
     $('#opgaveFormulering1').empty();
     $('#opgaveFormulering1').append(HTML); 
 }
 function opgaveTekst2 (CorrectAnswers) {
     var HTML='';
-    HTML += ' Byg ionforbindelsen der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plusName+'</span> og <span class="QuestionTask">'
+    HTML += ' Byg ionforbindelsen, der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plusName+'</span> og <span class="QuestionTask">'
     +CorrectAnswers[thisAnswer].minusName+'</span> og afstem formlen.';
     $('#opgaveFormulering2').empty();
     $('#opgaveFormulering2').append(HTML); 
@@ -498,7 +638,7 @@ function resetAssignment() {
         opgaveTekst1(CorrectAnswers);
     }else if(step==2){
         opgaveTekst2(CorrectAnswers);
-    }else if (step==2){
+    }else if (step==3){
         opgaveTekst3(CorrectAnswers);
     }
     CreateIons(JsonObj);
