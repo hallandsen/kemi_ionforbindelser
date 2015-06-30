@@ -140,7 +140,7 @@ a:active {
 	border-color: #167da5;
 }
 .opgaveFormulering, .feedback {
-	color:#999;
+	/*color:#999;*/
 }
 .container-fluid {
 	margin-top: 0 !important;

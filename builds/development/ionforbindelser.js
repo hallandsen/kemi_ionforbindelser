@@ -264,21 +264,21 @@ function getPlusCount(ion, farve) {
 //opgavetekst genereres
 function opgaveTekst1 (CorrectAnswers) {
     var HTML='';
-    HTML += ' Byg ionforbindelsen, der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plus+'<sup>'+CorrectAnswers[thisAnswer].plusCharge+
-    '</sup></span> og <span class="QuestionTask">'+CorrectAnswers[thisAnswer].minus+'<sup>'+CorrectAnswers[thisAnswer].minusCharge+'</sup></span>';
+    HTML += ' Byg ionforbindelsen der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plus+'<sup>'+CorrectAnswers[thisAnswer].plusCharge+
+    '</sup></span> og <span class="QuestionTask">'+CorrectAnswers[thisAnswer].minus+'<sup>'+CorrectAnswers[thisAnswer].minusCharge+'</sup></span> ved at trække de rigtige byggeklodser ind i feltet.';
     $('#opgaveFormulering1').empty();
     $('#opgaveFormulering1').append(HTML); 
 }
 function opgaveTekst2 (CorrectAnswers) {
     var HTML='';
-    HTML += ' Byg ionforbindelsen, der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plusName+'</span> og <span class="QuestionTask">'
-    +CorrectAnswers[thisAnswer].minusName+'</span> og afstem formlen.';
+    HTML += ' Byg ionforbindelsen der består af <span class="QuestionTask">'+CorrectAnswers[thisAnswer].plusName+'</span> og <span class="QuestionTask">'
+    +CorrectAnswers[thisAnswer].minusName+'</span> ved at trække de rigtige byggeklodser ind i feltet.';
     $('#opgaveFormulering2').empty();
     $('#opgaveFormulering2').append(HTML); 
 }
 function opgaveTekst3 (CorrectAnswers) {
     var HTML='';
-    HTML += ' Byg ionforbindelsen <span class="QuestionTask">'+CorrectAnswers[thisAnswer].name +'</span>';
+    HTML += ' Byg ionforbindelsen <span class="QuestionTask">'+CorrectAnswers[thisAnswer].name +'</span> ved at trække de rigtige byggeklodser ind i feltet.';
     $('#opgaveFormulering3').empty();
     $('#opgaveFormulering3').append(HTML); 
 }
