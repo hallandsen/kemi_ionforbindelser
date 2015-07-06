@@ -2,14 +2,14 @@
 //                                  Data 
 //########################################################################
 var CorrectAnswers = [{
-        "name": "jernklorid",
+        "name": "jernchlorid",
         "plus": "Fe",
         "plusName": "jern",
         "plusCharge": "2+",
         "plusCount": "1",
         "plusIonsNo": "",
         "minus": "Cl",
-        "minusName": "klor",
+        "minusName": "chlorid",
         "minusCharge": "-",
         "minusCount": "2",
         "minusIonsNo": "",
