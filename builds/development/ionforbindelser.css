@@ -44,7 +44,8 @@ body{}
 	margin: 5px;
 	vertical-align: bottom;
 	position: relative;
-	cursor: -webkit-grab; cursor: -moz-grab;
+	cursor:pointer;
+	cursor: -webkit-grab; cursor: -moz-grab; 
 	-webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
