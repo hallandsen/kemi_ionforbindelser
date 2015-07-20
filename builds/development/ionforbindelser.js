@@ -832,8 +832,7 @@ console.log('neededMinus: ' + neededMinus);
 //flow variabler
 var roundCounter = 0;
 var maxRounds = 10;
-var correct = 0;
-
+var correct = 1;
 
 //########################################################################
 //                              Funktioner
@@ -924,7 +923,7 @@ function opgaveTekst3(CorrectAnswers) {
 function feedbackTekst(roundCounter, correct) {
     $('.feedback span').empty();
     var HTML = '';
-    HTML += '<span class="QuestionTask">' + correct + '</span> <span>/</span> <span class="QuestionTask">' + maxRounds + '</span>';
+    HTML += '<span class="QuestionTask">Spørgsmål: ' + correct + '</span> <span>/</span> <span class="QuestionTask">' + maxRounds + '</span>';
     $('.feedback').prepend(HTML);
 }
 
@@ -1059,8 +1058,6 @@ function CreateIons(JsonObj) {
         HTML += '<img src="' + imgSrc + '"></div>';
         $('.ionsWrapper').append(HTML);
     }
-    // shuffleArray(JsonObj.ions.plus);
-    // shuffleArray(JsonObj.ions.minus);
 }
 
 function makeDraggable() {
@@ -1099,7 +1096,7 @@ function makeDraggable() {
 function makeDroppable() {
     $('.DropMinus').droppable({
         accept: '.correctMinus',
-        tolerance: 'intersect',
+        tolerance: 'touch',
         drop: function(event, ui) {
             //if(original) {
             $(ui.draggable.clone()).detach().css({
@@ -1138,7 +1135,7 @@ function makeDroppable() {
     });
     $('.DropPlus').droppable({
         accept: '.correctPlus',
-        tolerance: 'intersect',
+        tolerance: 'touch',
         drop: function(event, ui) {
             //if(original) {
             $(ui.draggable.clone()).detach().css({
@@ -1198,12 +1195,12 @@ function CheckPlus(CurrentIon, element) {
             }
         }
     }
-    //læg overlay på dropzonen hvis de er nok af de rigtige ion elementer i dropzonen.
+    //læg overlay på dropzonen hvis der er nok af de rigtige ion elementer i dropzonen.
 function CheckAnswer(minusCount, plusCount) {
         if (minusCount == finalMinusCount && plusCount == finalPlusCount) {
             correct++;
-            feedbackTekst(roundCounter, correct);
             feedbackOverlay(thisAnswer);
+            // feedbackTekst(roundCounter, correct);
         }
     }
     //generer feedbackoverlay
@@ -1226,8 +1223,9 @@ function feedbackOverlay(thisAnswer) {
     setTimeout(function() {
         $('#overlay h2, #overlay .btn').fadeIn('slow')
     }, 300);
-    if (correct == 10) {
+    if (correct == 11) {
         $('.btn-next').css('visibility', 'hidden');
+        correct = 10;
         setTimeout(function() {
             if (step == 1) {
                 UserMsgBox('body', 'Godt klaret, du har styr på ionforbindelserne. </br><a href="step1.html">Prøv igen</a>');
@@ -1248,6 +1246,7 @@ function feedbackOverlay(thisAnswer) {
         audioElement.play();
         audioElement.addEventListener('ended', playnextAudio);
     });
+    $('.sound-btn').removeClass('activeSound');
     $('.ion').css('pointer-events', 'none');
 }
 
@@ -1269,48 +1268,50 @@ function playfirstAudio() {
 }
 //nulstil ioner, opgavekrav, opgavetekst og tøm dropzonen
 function resetAssignment() {
-        console.log('REEESEEEEET');
-        loadData("ionforbindelser.json");
-        CorrectAnswers.splice(thisAnswer, 1);
-        arrayLength = CorrectAnswers.length;
-        thisAnswer = Math.floor(Math.random() * arrayLength);
-        console.log('længde: ' + arrayLength);
-        shuffleArray(JsonObj.ions.plus);
-        shuffleArray(JsonObj.ions.minus);
+    console.log('REEESEEEEET');
+    loadData("ionforbindelser.json");
+    CorrectAnswers.splice(thisAnswer, 1);
+    arrayLength = CorrectAnswers.length;
+    thisAnswer = Math.floor(Math.random() * arrayLength);
+    console.log('længde: ' + arrayLength);
+    shuffleArray(JsonObj.ions.plus);
+    shuffleArray(JsonObj.ions.minus);
+    feedbackTekst(roundCounter, correct);
 
-        finalMinusCount = CorrectAnswers[thisAnswer].minusCount;
-        finalPlusCount = CorrectAnswers[thisAnswer].plusCount;
+    finalMinusCount = CorrectAnswers[thisAnswer].minusCount;
+    finalPlusCount = CorrectAnswers[thisAnswer].plusCount;
 
-        neededPlus = CorrectAnswers[thisAnswer].plus;
-        neededPlusNumber = CorrectAnswers[thisAnswer].plusCharge;
-        neededPlusNumber = neededPlusNumber.replace('+', '');
-        neededPlus = neededPlus + neededPlusNumber;
+    neededPlus = CorrectAnswers[thisAnswer].plus;
+    neededPlusNumber = CorrectAnswers[thisAnswer].plusCharge;
+    neededPlusNumber = neededPlusNumber.replace('+', '');
+    neededPlus = neededPlus + neededPlusNumber;
 
-        neededMinus = CorrectAnswers[thisAnswer].minus;
-        neededMinusNumber = CorrectAnswers[thisAnswer].minusCharge;
-        neededMinusNumber = neededMinusNumber.replace('-', '');
-        neededMinus = neededMinus + neededMinusNumber;
+    neededMinus = CorrectAnswers[thisAnswer].minus;
+    neededMinusNumber = CorrectAnswers[thisAnswer].minusCharge;
+    neededMinusNumber = neededMinusNumber.replace('-', '');
+    neededMinus = neededMinus + neededMinusNumber;
 
-        $('.ion').css('pointer-events', 'auto');
-        $('.ionsWrapper').empty();
-        $('#overlay').fadeTo('fast', 0);
-        $('.ion').remove();
-        $('.btn-next').css('visibility', 'hidden');
-        plusCount = 0;
-        minusCount = 0;
-        console.log('minusCount: ' + minusCount);
-        console.log('plusCount: ' + plusCount);
-        if (step == 1) {
-            opgaveTekst1(CorrectAnswers);
-        } else if (step == 2) {
-            opgaveTekst2(CorrectAnswers);
-        } else if (step == 3) {
-            opgaveTekst3(CorrectAnswers);
-        }
-        CreateIons(JsonObj);
-        makeDraggable();
-        makeDroppable();
+    $('.ion').css('pointer-events', 'auto');
+    $('.ionsWrapper').empty();
+    $('#overlay').fadeTo('fast', 0);
+    $('#overlay').remove();
+    $('.ion').remove();
+    $('.btn-next').css('visibility', 'hidden');
+    plusCount = 0;
+    minusCount = 0;
+    console.log('minusCount: ' + minusCount);
+    console.log('plusCount: ' + plusCount);
+    if (step == 1) {
+        opgaveTekst1(CorrectAnswers);
+    } else if (step == 2) {
+        opgaveTekst2(CorrectAnswers);
+    } else if (step == 3) {
+        opgaveTekst3(CorrectAnswers);
     }
+    CreateIons(JsonObj);
+    makeDraggable();
+    makeDroppable();
+}
     //########################################################################
     //                        Run code....
     //########################################################################
