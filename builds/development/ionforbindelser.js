@@ -24,7 +24,7 @@ var CorrectAnswers = [{
         "plusCount": "2",
         "plusIonsNo": "",
         "minus": "O",
-        "minusName": "ilt",
+        "minusName": "oxid",
         "minusCharge": "2-",
         "minusCount": "1",
         "minusIonsNo": "",
@@ -32,14 +32,14 @@ var CorrectAnswers = [{
     },
 
     {
-        "name": "kobberjod",
+        "name": "kobberiodid",
         "plus": "Cu",
         "plusName": "kobber",
         "plusCharge": "2+",
         "plusCount": "1",
         "plusIonsNo": "",
         "minus": "I",
-        "minusName": "jod",
+        "minusName": "iodid",
         "minusCharge": "-",
         "minusCount": "2",
         "minusIonsNo": "",
@@ -54,7 +54,7 @@ var CorrectAnswers = [{
         "plusCount": "2",
         "plusIonsNo": "",
         "minus": "S",
-        "minusName": "svovl",
+        "minusName": "sulfid",
         "minusCharge": "2-",
         "minusCount": "1",
         "minusIonsNo": "",
@@ -177,7 +177,7 @@ var CorrectAnswers = [{
         "minusName": "sulfat",
         "minusCharge": "2-",
         "minusCount": "1",
-        "minusIonsNo": "3",
+        "minusIonsNo": "4",
         "html": "(NH<sub>4</sub>)<sub>2</sub>SO<sub>4</sub>"
     },
 
@@ -227,14 +227,14 @@ var CorrectAnswers = [{
     },
 
     {
-        "name": "ammoniumphosphat",
+        "name": "ammoniumfosfat",
         "plus": "NH",
         "plusName": "ammonium",
         "plusCharge": "+",
         "plusCount": "3",
         "plusIonsNo": "4",
         "minus": "PO",
-        "minusName": "phosfat",
+        "minusName": "fosfat",
         "minusCharge": "3-",
         "minusCount": "1",
         "minusIonsNo": "4",
@@ -377,7 +377,7 @@ var CorrectAnswers = [{
     },
 
     {
-        "name": "natriumphosphat",
+        "name": "natriumfosfat",
         "plus": "Na",
         "plusName": "natrium",
         "plusCharge": "+",
@@ -452,7 +452,7 @@ var CorrectAnswers = [{
     },
 
     {
-        "name": "kaliumbromid",
+        "name": "kaliumiodid",
         "plus": "K",
         "plusName": "kalium",
         "plusCharge": "+",
@@ -527,7 +527,7 @@ var CorrectAnswers = [{
     },
 
     {
-        "name": "kaliumphosphat",
+        "name": "kaliumfosfat",
         "plus": "K",
         "plusName": "kalium",
         "plusCharge": "+",
@@ -677,7 +677,7 @@ var CorrectAnswers = [{
     },
 
     {
-        "name": "magnesiumphosphat",
+        "name": "magnesiumfosfat",
         "plus": "Mg",
         "plusName": "magnesium",
         "plusCharge": "2+",
@@ -789,7 +789,7 @@ var CorrectAnswers = [{
         "plusCount": "1",
         "plusIonsNo": "",
         "minus": "CO",
-        "minusName": "car",
+        "minusName": "carbonat",
         "minusCharge": "2-",
         "minusCount": "1",
         "minusIonsNo": "",
@@ -815,7 +815,6 @@ var plusCount = 0;
 var finalMinusCount = CorrectAnswers[thisAnswer].minusCount;
 var finalPlusCount = CorrectAnswers[thisAnswer].plusCount;
 var step = $('.opgaveFormulering').html().slice(5, 6);
-console.log('step: ' + step);
 
 var neededPlus = CorrectAnswers[thisAnswer].plus;
 var neededPlusNumber = CorrectAnswers[thisAnswer].plusCharge;
@@ -943,7 +942,7 @@ function CreateIons(JsonObj) {
     var plusPresent = false;
     var minusPresent = false;
     var numberOfIons = 1;
-    console.log(JsonObj);
+    //console.log(JsonObj);
     for (var i = 0; i <= numberOfIons + 2; i++) {
         //hvis ikke den positive ion man skal bruge for at klare opgaven er i objektet, så fjern et objekt og tilføj den rigtige ion
         var actualPlus = JsonObj.ions.plus[i].ion;
@@ -962,13 +961,10 @@ function CreateIons(JsonObj) {
         var plus = CorrectAnswers[thisAnswer].plus;
         //bestem om skriften skal være hvid eller sort
         var color = getPlusFarve(plus, 'farve');
-        console.log('color: ' + color);
         JsonObj.ions.plus[replacedObj].farve = color;
         //hent antal ioner
         var ionCount = getPlusCount(plus, ionNumber);
         JsonObj.ions.plus[replacedObj].ionNumber = ionCount;
-        console.log(JsonObj);
-        console.log(JsonObj.ions.plus[replacedObj].ionNumber);
         //hent og erstat ion navnet
         JsonObj.ions.plus[replacedObj].ion = plus;
         //hent og erstat ionens ladning
@@ -979,7 +975,6 @@ function CreateIons(JsonObj) {
         //hent og erstat img src
         charge = charge.replace('+', '');
         var img = 'img/plus_' + plus + charge + '.png';
-        console.log(img);
         JsonObj.ions.plus[replacedObj].imgSrc = img;
     }
     //generer de positive ioner
@@ -1024,8 +1019,6 @@ function CreateIons(JsonObj) {
         //hent antal ioner
         var ionCount = getMinusCount(minus, ionNumber);
         JsonObj.ions.minus[replacedObj].ionNumber = ionCount;
-        console.log(JsonObj.ions.plus[replacedObj].ionNumber);
-        console.log(JsonObj);
         //hent og erstat ion navnet
         JsonObj.ions.minus[replacedObj].ion = minus;
         //hent og erstat ionens ladning
@@ -1068,12 +1061,15 @@ function makeDraggable() {
             var element = $(this);
             var IonHtml = $(this).html();
             //gør html elementet sammenlignignsvenligt.
-            var CurrentIon = IonHtml.slice(4, 24);
+            var CurrentIon = IonHtml.slice(4, 25);
+            console.log('Pre-Slice-CurrentIon: ' + CurrentIon);
             CurrentIon = CurrentIon.replace('<sub>3</sub>', '');
             CurrentIon = CurrentIon.replace('<sub>4</sub>', '');
             CurrentIon = CurrentIon.replace('</sub>', '');
             CurrentIon = CurrentIon.replace(/sub/g, '');
             CurrentIon = CurrentIon.replace(/sup/g, '');
+            CurrentIon = CurrentIon.replace('/', '');
+            CurrentIon = CurrentIon.replace(/<s/g, '');
             CurrentIon = CurrentIon.replace(/</g, '');
             CurrentIon = CurrentIon.replace(/>/g, '');
             CurrentIon = CurrentIon.replace('+', '');
@@ -1165,7 +1161,6 @@ function makeDroppable() {
                     $(this).css({
                         'z-index': 'auto'
                     });
-                    console.log('droppable is back');
                 }
             });
             //}
@@ -1246,7 +1241,6 @@ function feedbackOverlay(thisAnswer) {
         audioElement.play();
         audioElement.addEventListener('ended', playnextAudio);
     });
-    $('.sound-btn').removeClass('activeSound');
     $('.ion').css('pointer-events', 'none');
 }
 
@@ -1256,7 +1250,8 @@ function playnextAudio() {
     audioElement.play();
     audioElement.removeEventListener('ended', playnextAudio);
     audioElement.addEventListener('ended', playfirstAudio);
-     //$('.sound-btn').removeClass('activeSound');
+    console.log('removing activeSound class');
+    $('.sound-btn').removeClass('activeSound');
 
     //$("#audioAnswer").attr("src", "audio/" + CorrectAnswers[thisAnswer].minusName + ".mp3");
 }
@@ -1268,7 +1263,6 @@ function playfirstAudio() {
 }
 //nulstil ioner, opgavekrav, opgavetekst og tøm dropzonen
 function resetAssignment() {
-    console.log('REEESEEEEET');
     loadData("ionforbindelser.json");
     CorrectAnswers.splice(thisAnswer, 1);
     arrayLength = CorrectAnswers.length;
