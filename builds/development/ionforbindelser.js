@@ -49,7 +49,7 @@ var CorrectAnswers = [{
     {
         "name": "sølvsulfid",
         "plus": "Ag",
-        "plusName": "sølv",
+        "plusName": "solv",
         "plusCharge": "+",
         "plusCount": "2",
         "plusIonsNo": "",
@@ -1062,7 +1062,7 @@ function makeDraggable() {
             var IonHtml = $(this).html();
             //gør html elementet sammenlignignsvenligt.
             var CurrentIon = IonHtml.slice(4, 25);
-            console.log('Pre-Slice-CurrentIon: ' + CurrentIon);
+            //console.log('Pre-Slice-CurrentIon: ' + CurrentIon);
             CurrentIon = CurrentIon.replace('<sub>3</sub>', '');
             CurrentIon = CurrentIon.replace('<sub>4</sub>', '');
             CurrentIon = CurrentIon.replace('</sub>', '');
@@ -1094,7 +1094,6 @@ function makeDroppable() {
         accept: '.correctMinus',
         tolerance: 'touch',
         drop: function(event, ui) {
-            //if(original) {
             $(ui.draggable.clone()).detach().css({
                 top: -20,
                 left: 0,
@@ -1105,11 +1104,9 @@ function makeDroppable() {
             $('.clone').draggable({
                     revert: true,
                 })
-                //}
             CheckAnswer(minusCount, plusCount);
         },
         over: function(event, ui) {
-            console.log(original);
             if (original) {
                 $(ui.draggable).fadeTo('fast', 1.0);
                 $('.clone').draggable({
@@ -1133,7 +1130,6 @@ function makeDroppable() {
         accept: '.correctPlus',
         tolerance: 'touch',
         drop: function(event, ui) {
-            //if(original) {
             $(ui.draggable.clone()).detach().css({
                 top: 0,
                 left: 0,
@@ -1144,11 +1140,9 @@ function makeDroppable() {
             $('.clone').draggable({
                     revert: true,
                 })
-                //}
             CheckAnswer(minusCount, plusCount);
         },
         over: function(event, ui) {
-            //if (!original){
             $(ui.draggable).fadeTo('fast', 1.0);
             $('.clone').draggable({
                 revert: true,
@@ -1163,7 +1157,6 @@ function makeDroppable() {
                     });
                 }
             });
-            //}
         }
     });
 }
@@ -1195,7 +1188,6 @@ function CheckAnswer(minusCount, plusCount) {
         if (minusCount == finalMinusCount && plusCount == finalPlusCount) {
             correct++;
             feedbackOverlay(thisAnswer);
-            // feedbackTekst(roundCounter, correct);
         }
     }
     //generer feedbackoverlay
@@ -1210,7 +1202,6 @@ function feedbackOverlay(thisAnswer) {
         HTML += '<h2>' + CorrectAnswers[thisAnswer].html + '</h2>'
     }
     HTML += '<div class ="btn btn-default sound-btn"><span class="glyphicon glyphicon-volume-up playAnswer"></span></div>';
-    //HTML += '<audio src="audio/ammonium.mp3" id="audioAnswer"></audio>'; //erstat med nedenstående når lyd er blevet indspillet
     HTML += '<audio src="audio/' + CorrectAnswers[thisAnswer].plusName + '.mp3" id="audioAnswer"></audio>';
     HTML += "</div>";
     $('.DropZone').prepend(HTML);
@@ -1233,7 +1224,7 @@ function feedbackOverlay(thisAnswer) {
     } else {
         $('.btn-next').css('visibility', 'visible');
     }
-    //læs op funktionaliteter
+    //læs højt funktionaliteter
      audioElement = $("#audioAnswer")[0];
     $('.glyphicon-volume-up').click(function() {
         $('.sound-btn').addClass('activeSound');
@@ -1252,8 +1243,6 @@ function playnextAudio() {
     audioElement.addEventListener('ended', playfirstAudio);
     console.log('removing activeSound class');
     $('.sound-btn').removeClass('activeSound');
-
-    //$("#audioAnswer").attr("src", "audio/" + CorrectAnswers[thisAnswer].minusName + ".mp3");
 }
 
 function playfirstAudio() {
@@ -1267,7 +1256,6 @@ function resetAssignment() {
     CorrectAnswers.splice(thisAnswer, 1);
     arrayLength = CorrectAnswers.length;
     thisAnswer = Math.floor(Math.random() * arrayLength);
-    console.log('længde: ' + arrayLength);
     shuffleArray(JsonObj.ions.plus);
     shuffleArray(JsonObj.ions.minus);
     feedbackTekst(roundCounter, correct);

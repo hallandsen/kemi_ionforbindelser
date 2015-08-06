@@ -15,7 +15,7 @@ body{}
 	display: inline-block;
 	border: 1px solid #00F; 
 	line-height: 1.4;
-}  /* NOTE: 90/18 = 5%, og 5/18 = 0.27777% */
+}
 .DropZone {
 	width: 580px;
 	padding:20px;
@@ -113,6 +113,7 @@ body{}
 	cursor: pointer;
 	line-height: 1;
 	margin:0;
+	padding:0;
 }
 #overlay h2, #overlay .btn {
 	display: none;
@@ -127,6 +128,11 @@ body{}
 	margin-left:10px;
 	visibility: hidden;
 }
+.glyphicon {
+	padding: 6px 12px;
+	top:0;
+}
+
 a:active {
     outline: none;
 }
@@ -150,7 +156,16 @@ a:active {
 h1, .opgaveFormulering, .DropZone, .feedbackZone, .ionsWrapper {
 	margin: 0 auto;
 }
+/*Deisgnguide tilretning*/
 .opgaveFormulering {
-	margin-top: 11.5px;
-	margin-bottom: 11.5px;
+	margin-top: 0px;
+	margin-bottom: 20px;
+}
+h1 {
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+h5 {
+	margin-top: 10px;
+	margin-bottom: 15px;
 }
