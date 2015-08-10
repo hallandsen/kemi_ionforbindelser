@@ -1029,7 +1029,6 @@ function CreateIons(JsonObj) {
         var img = 'img/minus_' + minus + charge + '.png';
         JsonObj.ions.minus[replacedObj].imgSrc = img;
     }
-
     //genererer de negative ioner
     for (var i = 0; i <= numberOfIons + 2; i++) {
         var minusIon = JsonObj.ions.minus[i].ion;
@@ -1163,46 +1162,42 @@ function makeDroppable() {
 
 //check om den negative ion brugeren dragger er den rigtige negative ion
 function CheckMinus(CurrentIon, element) {
-        console.log('neededMinus: ' + neededMinus);
-        if (neededMinus == CurrentIon) {
-            if (minusCount < finalMinusCount) {
-                $(element).addClass('correctMinus');
-                console.log('correctMinus added');
-                console.log('minusCount: ' + minusCount);
-            }
+    console.log('neededMinus: ' + neededMinus);
+    if (neededMinus == CurrentIon) {
+        if (minusCount < finalMinusCount) {
+            $(element).addClass('correctMinus');
+            console.log('correctMinus added');
+            console.log('minusCount: ' + minusCount);
         }
     }
-    //check om den positive ion brugeren dragger er den rigtige positive ion
+}
+//check om den positive ion brugeren dragger er den rigtige positive ion
 function CheckPlus(CurrentIon, element) {
-        console.log('neededPlus: ' + neededPlus);
-        if (neededPlus == CurrentIon) {
-            if (plusCount < finalPlusCount) {
-                $(element).addClass('correctPlus');
-                console.log('correctPlus added');
-                console.log('plusCount: ' + plusCount);
-            }
+    console.log('neededPlus: ' + neededPlus);
+    if (neededPlus == CurrentIon) {
+        if (plusCount < finalPlusCount) {
+            $(element).addClass('correctPlus');
+            console.log('correctPlus added');
+            console.log('plusCount: ' + plusCount);
         }
     }
-    //læg overlay på dropzonen hvis der er nok af de rigtige ion elementer i dropzonen.
+}
+//læg overlay på dropzonen hvis der er nok af de rigtige ion elementer i dropzonen.
 function CheckAnswer(minusCount, plusCount) {
-        if (minusCount == finalMinusCount && plusCount == finalPlusCount) {
-            correct++;
-            feedbackOverlay(thisAnswer);
-        }
+    if (minusCount == finalMinusCount && plusCount == finalPlusCount) {
+        correct++;
+        feedbackOverlay(thisAnswer);
     }
-    //generer feedbackoverlay
+}
+//generer feedbackoverlay
 function feedbackOverlay(thisAnswer) {
-    console.log("Step: "+step);
     var HTML = "<div id='overlay'>";
     if (step == '1') { //hvis step 1 så:
         HTML += "<h2>" + CorrectAnswers[thisAnswer].html + "</h2>";
-        console.log(CorrectAnswers[thisAnswer].html);
     } else if (step == '2') { //hvis step 2 så:
         HTML += "<h2>" + CorrectAnswers[thisAnswer].name + "</h2>";
-        console.log(CorrectAnswers[thisAnswer].name);
     } else if (step == '3') { //hvis step 3 så:
         HTML += '<h2>' + CorrectAnswers[thisAnswer].html + '</h2>';
-        console.log(CorrectAnswers[thisAnswer].html);
     }
     HTML += '<div class ="btn btn-default sound-btn"><span class="glyphicon glyphicon-volume-up playAnswer"></span></div>';
     HTML += '<audio src="audio/' + CorrectAnswers[thisAnswer].plusName + '.mp3" id="audioAnswer"></audio>';
@@ -1212,7 +1207,7 @@ function feedbackOverlay(thisAnswer) {
     setTimeout(function() {
         $('#overlay h2, #overlay .btn').fadeIn('slow')
     }, 300);
-    if (correct == 11) {
+    if (correct == 2) {
         $('.btn-next').css('visibility', 'hidden');
         correct = 10;
         setTimeout(function() {
