@@ -1192,14 +1192,17 @@ function CheckAnswer(minusCount, plusCount) {
     }
     //generer feedbackoverlay
 function feedbackOverlay(thisAnswer) {
-
+    console.log("Step: "+step);
     var HTML = "<div id='overlay'>";
     if (step == '1') { //hvis step 1 så:
         HTML += "<h2>" + CorrectAnswers[thisAnswer].html + "</h2>";
+        console.log(CorrectAnswers[thisAnswer].html);
     } else if (step == '2') { //hvis step 2 så:
         HTML += "<h2>" + CorrectAnswers[thisAnswer].name + "</h2>";
+        console.log(CorrectAnswers[thisAnswer].name);
     } else if (step == '3') { //hvis step 3 så:
-        HTML += '<h2>' + CorrectAnswers[thisAnswer].html + '</h2>'
+        HTML += '<h2>' + CorrectAnswers[thisAnswer].html + '</h2>';
+        console.log(CorrectAnswers[thisAnswer].html);
     }
     HTML += '<div class ="btn btn-default sound-btn"><span class="glyphicon glyphicon-volume-up playAnswer"></span></div>';
     HTML += '<audio src="audio/' + CorrectAnswers[thisAnswer].plusName + '.mp3" id="audioAnswer"></audio>';
