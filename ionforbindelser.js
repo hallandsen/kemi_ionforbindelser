@@ -1080,7 +1080,7 @@ function makeDraggable() {
             CheckPlus(CurrentIon, this);
         },
         stop: function(event, ui) {
-            $('.draggable').draggable().data()['ui-draggable'].cancelHelperRemoval = true; //behold clone
+            // $('.draggable').draggable().data()['ui-draggable'].cancelHelperRemoval = true; //behold clone
             $(this).removeClass('correctMinus');
             $(this).removeClass('correctPlus');
         }
@@ -1120,6 +1120,7 @@ function makeDroppable() {
                         $(this).css({
                             'z-index': 'auto'
                         });
+                        $('.draggable').draggable().data()['ui-draggable'].cancelHelperRemoval = true; //behold clone
                     }
                 });
             }
@@ -1154,6 +1155,7 @@ function makeDroppable() {
                     $(this).css({
                         'z-index': 'auto'
                     });
+                    $('.draggable').draggable().data()['ui-draggable'].cancelHelperRemoval = true; //behold clone
                 }
             });
         }
