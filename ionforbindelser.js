@@ -1207,7 +1207,7 @@ function feedbackOverlay(thisAnswer) {
     setTimeout(function() {
         $('#overlay h2, #overlay .btn').fadeIn('slow')
     }, 300);
-    if (correct == 2) {
+    if (correct == 11) {
         $('.btn-next').css('visibility', 'hidden');
         correct = 10;
         setTimeout(function() {
