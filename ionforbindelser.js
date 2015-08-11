@@ -828,7 +828,7 @@ neededMinusNumber = neededMinusNumber.replace('-', '');
 neededMinus = neededMinus + neededMinusNumber;
 console.log('neededMinus: ' + neededMinus);
 
-//flow variabler
+//runde variabler
 var roundCounter = 0;
 var maxRounds = 10;
 var correct = 1;
@@ -942,7 +942,6 @@ function CreateIons(JsonObj) {
     var plusPresent = false;
     var minusPresent = false;
     var numberOfIons = 1;
-    //console.log(JsonObj);
     for (var i = 0; i <= numberOfIons + 2; i++) {
         //hvis ikke den positive ion man skal bruge for at klare opgaven er i objektet, så fjern et objekt og tilføj den rigtige ion
         var actualPlus = JsonObj.ions.plus[i].ion;
@@ -950,7 +949,6 @@ function CreateIons(JsonObj) {
         actualPlusCharge = actualPlusCharge.replace('+', '');
         actualPlus = actualPlus + actualPlusCharge;
         if (neededPlus == actualPlus) {
-            console.log('the correct positive ion is present');
             plusPresent = true;
         }
 
@@ -1005,7 +1003,6 @@ function CreateIons(JsonObj) {
         actualMinusCharge = actualMinusCharge.replace('-', '');
         actualMinus = actualMinus + actualMinusCharge;
         if (neededMinus == actualMinus) {
-            console.log('the correct negative ion is present');
             minusPresent = true;
         }
     }
@@ -1060,27 +1057,30 @@ function makeDraggable() {
             var element = $(this);
             var IonHtml = $(this).html();
             //gør html elementet sammenlignignsvenligt.
-            var CurrentIon = IonHtml.slice(4, 25);
+            var CurrentIon = IonHtml.slice(4, 35);
             //console.log('Pre-Slice-CurrentIon: ' + CurrentIon);
+            CurrentIon = CurrentIon.replace('<span class="CapitalI">', '');
+            CurrentIon = CurrentIon.replace('h3', '');
             CurrentIon = CurrentIon.replace('<sub>3</sub>', '');
             CurrentIon = CurrentIon.replace('<sub>4</sub>', '');
             CurrentIon = CurrentIon.replace('</sub>', '');
             CurrentIon = CurrentIon.replace(/sub/g, '');
             CurrentIon = CurrentIon.replace(/sup/g, '');
             CurrentIon = CurrentIon.replace('/', '');
+            CurrentIon = CurrentIon.replace(/<i/g, '');
             CurrentIon = CurrentIon.replace(/<s/g, '');
             CurrentIon = CurrentIon.replace(/</g, '');
             CurrentIon = CurrentIon.replace(/>/g, '');
             CurrentIon = CurrentIon.replace('+', '');
             CurrentIon = CurrentIon.replace('-', '');
             CurrentIon = CurrentIon.replace('/', '');
+            CurrentIon = CurrentIon.replace('pan', '');
 
             console.log('CurrentIon: ' + CurrentIon);
             CheckMinus(CurrentIon, this);
             CheckPlus(CurrentIon, this);
         },
         stop: function(event, ui) {
-            // $('.draggable').draggable().data()['ui-draggable'].cancelHelperRemoval = true; //behold clone
             $(this).removeClass('correctMinus');
             $(this).removeClass('correctPlus');
         }
@@ -1101,8 +1101,8 @@ function makeDroppable() {
             original = false;
             minusCount++;
             $('.clone').draggable({
-                    revert: true,
-                })
+                revert: true,
+            })
             CheckAnswer(minusCount, plusCount);
         },
         over: function(event, ui) {
@@ -1114,7 +1114,6 @@ function makeDroppable() {
                         $(this).css({
                             'z-index': '10'
                         });
-                        console.log('over');
                     },
                     stop: function() {
                         $(this).css({
@@ -1138,8 +1137,8 @@ function makeDroppable() {
             original = false;
             plusCount++;
             $('.clone').draggable({
-                    revert: true,
-                })
+                revert: true,
+            })
             CheckAnswer(minusCount, plusCount);
         },
         over: function(event, ui) {
@@ -1164,23 +1163,17 @@ function makeDroppable() {
 
 //check om den negative ion brugeren dragger er den rigtige negative ion
 function CheckMinus(CurrentIon, element) {
-    console.log('neededMinus: ' + neededMinus);
     if (neededMinus == CurrentIon) {
         if (minusCount < finalMinusCount) {
             $(element).addClass('correctMinus');
-            console.log('correctMinus added');
-            console.log('minusCount: ' + minusCount);
         }
     }
 }
 //check om den positive ion brugeren dragger er den rigtige positive ion
 function CheckPlus(CurrentIon, element) {
-    console.log('neededPlus: ' + neededPlus);
     if (neededPlus == CurrentIon) {
         if (plusCount < finalPlusCount) {
             $(element).addClass('correctPlus');
-            console.log('correctPlus added');
-            console.log('plusCount: ' + plusCount);
         }
     }
 }
@@ -1233,6 +1226,7 @@ function feedbackOverlay(thisAnswer) {
         audioElement.addEventListener('ended', playnextAudio);
     });
     $('.ion').css('pointer-events', 'none');
+    MarkIAndLAsSpecial(["#overlay h2"], ["I", "l"], ["CapitalI"],"#");
 }
 
 function playnextAudio() {
@@ -1293,6 +1287,28 @@ function resetAssignment() {
     CreateIons(JsonObj);
     makeDraggable();
     makeDroppable();
+    MarkIAndLAsSpecial([".QuestionTask", ".ion h3"], ["I", "l"], ["CapitalI"],"#");
+}
+//egen funktion til erstatning af I og l. Denne var nødvendig for at beholde markup til sænkning og hævning af koefficient tal
+function MarkIAndLAsSpecial(TargetSelectorArray, LetterArray, LetterClassArray, Delimiter) {
+    for (var TargetSelector in TargetSelectorArray) {
+        $(TargetSelectorArray[TargetSelector]).each(function(index, element) {
+            for (var l in LetterArray) { // First surround all letters (or clusters of letters) in LetterArray with delimiters, eg. If letter = L and delimiter = #, then #L#.
+                var ElementText = $(element).html();
+                if (ElementText.indexOf(LetterArray[l]) !== -1) {
+                    $(element).html(ElementText.replace(LetterArray[l], Delimiter + LetterArray[l] + Delimiter));
+                }
+            }
+
+            for (var l in LetterArray) { // second, replace all delimited letters, eg. #L#, with <span class="MyClass">L</span>
+                var LetterClass = (LetterClassArray.length == LetterArray.length) ? LetterClassArray[l] : LetterClassArray[0];
+                var ElementText = $(element).html();
+                if (ElementText.indexOf(LetterArray[l]) !== -1) {
+                    $(element).html(ElementText.replace(Delimiter + LetterArray[l] + Delimiter, '<span class="' + LetterClass + '">' + LetterArray[l] + '</span>'));
+                }
+            }
+        });
+    }
 }
     //########################################################################
     //                        Run code....
@@ -1307,6 +1323,7 @@ $(document).ready(function() {
     $('.draggable').mousedown(function() {
         original = true;
     })
+    MarkIAndLAsSpecial([".QuestionTask", ".ion h3"], ["I", "l"], ["CapitalI"],"#");
 
 
     $('.btn-next').click(function() {
