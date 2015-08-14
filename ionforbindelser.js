@@ -222,7 +222,8 @@ var CorrectAnswers = [{
         "minusName": "sulfid",
         "minusCharge": "2-",
         "minusCount": "1",
-        "minusIonsNo": "3",
+        // "minusIonsNo": "3",  Commented out by THAN 14-08-2015
+        "minusIonsNo": "",      // Added by THAN 14-08-2015
         "html": "(NH<sub>4</sub>)<sub>2</sub>S"
     },
 
@@ -901,8 +902,8 @@ function getPlusCount(ion, farve) {
     //opgavetekst genereres
 function opgaveTekst1(CorrectAnswers) {
     var HTML = '';
-    HTML += ' Byg ionforbindelsen der består af <span class="QuestionTask">' + CorrectAnswers[thisAnswer].plus + '<sup>' + CorrectAnswers[thisAnswer].plusCharge +
-        '</sup></span> og <span class="QuestionTask">' + CorrectAnswers[thisAnswer].minus + '<sup>' + CorrectAnswers[thisAnswer].minusCharge + '</sup></span> ved at trække de rigtige byggeklodser ind i feltet.';
+    HTML += ' Byg ionforbindelsen der består af <span class="QuestionTask">' + CorrectAnswers[thisAnswer].plus + '<sub>' + CorrectAnswers[thisAnswer].plusIonsNo + '</sub><sup>' + CorrectAnswers[thisAnswer].plusCharge +
+        '</sup></span> og <span class="QuestionTask">' + CorrectAnswers[thisAnswer].minus + '<sub>' + CorrectAnswers[thisAnswer].minusIonsNo + '</sub><sup>' + CorrectAnswers[thisAnswer].minusCharge + '</sup></span> ved at trække de rigtige byggeklodser ind i feltet.';
     $('#opgaveFormulering1').empty();
     $('#opgaveFormulering1').append(HTML);
 }
@@ -1227,7 +1228,7 @@ function feedbackOverlay(thisAnswer) {
             // }
 
             // New "assignment complete" feedback to the student. THAN 14-08-2015:
-            UserMsgBox("body", "<span class='feedbackbox_txtstyle_overskrift'>Flot</span><br/>Du har lavet " + maxRounds + " opgaver korrekt. <br/> Du havde " + SimpleError + ' fejl undervejs. <br/><br/>Klik <u>her</u> for at løse ' + maxRounds + ' nye opgaver.');
+            UserMsgBox("body", "<span class='feedbackbox_txtstyle_overskrift'>Flot</span><br/>Du har lavet " + maxRounds + " opgaver korrekt. <br/> Du havde " + SimpleError + ' fejl undervejs. <br/><br/>Klik <u><a href="step'+step+'.html">her</a></u> for at løse ' + maxRounds + ' nye opgaver.');
         }, 2000);
     } else {
         $('.btn-next').css('visibility', 'visible');
@@ -1344,4 +1345,5 @@ $(document).ready(function() {
     $('.btn-next').click(function() {
         resetAssignment();
     });
+
 });
