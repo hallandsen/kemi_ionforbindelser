@@ -833,6 +833,8 @@ var roundCounter = 0;
 var maxRounds = 10;
 var correct = 1;
 
+var SimpleError = 0; // Counts the total number of errors related to dragging draggables. If you drag a draggable not having the class "correctMinus" or "correctPlus", then the counter increases by one.
+
 //########################################################################
 //                              Funktioner
 //########################################################################
@@ -922,8 +924,9 @@ function opgaveTekst3(CorrectAnswers) {
 function feedbackTekst(roundCounter, correct) {
     $('.feedback span').empty();
     var HTML = '';
-    HTML += '<span class="QuestionTask">Spørgsmål: ' + correct + '</span> <span>/</span> <span class="QuestionTask">' + maxRounds + '</span>';
+    HTML += '<span class="QuestionTask">Spørgsmål: ' + correct + '</span> <span>/</span> <span class="QuestionTask">' + maxRounds + '</span>' + '<span class="QuestionTask"> Fejl: <span class="SError">' + SimpleError + '</span></span>';
     $('.feedback').prepend(HTML);
+    $('.SError:gt(0)').remove(); // The previous prepend(HTML) adds an extra error-counter - this removes the last added error-counter.
 }
 
 function shuffleArray(array) {
@@ -1081,6 +1084,11 @@ function makeDraggable() {
             CheckPlus(CurrentIon, this);
         },
         stop: function(event, ui) {
+            // If the dragged draggable does not have "correctPlus" or "correctMinus" as a class, then increase SimpleError by one:
+            if ( !$(this).hasClass( "correctPlus" ) && !$(this).hasClass( "correctMinus" ) ){
+                ++SimpleError;
+                $(".SError").text(SimpleError);
+            }
             $(this).removeClass('correctMinus');
             $(this).removeClass('correctPlus');
         }
@@ -1182,6 +1190,8 @@ function CheckAnswer(minusCount, plusCount) {
     if (minusCount == finalMinusCount && plusCount == finalPlusCount) {
         correct++;
         feedbackOverlay(thisAnswer);
+
+        $('.opgaveFormulering').html("Rigtigt <br/> &nbsp;");  // This gives a posetive feedback to th student. A line-break and a blank-space character is inserted to avoid a "page jump" in between questions.   
     }
 }
 //generer feedbackoverlay
@@ -1206,13 +1216,18 @@ function feedbackOverlay(thisAnswer) {
         $('.btn-next').css('visibility', 'hidden');
         correct = 10;
         setTimeout(function() {
-            if (step == 1) {
-                UserMsgBox('body', 'Godt klaret, du har styr på ionforbindelserne. </br><a href="step1.html">Prøv igen</a>');
-            } else if (step == 2) {
-                UserMsgBox('body', 'Godt klaret, du har styr på ionforbindelserne. </br><a href="step2.html">Prøv igen</a>');
-            } else if (step == 3) {
-                UserMsgBox('body', 'Godt klaret, du har styr på ionforbindelserne. </br><a href="step3.html">Prøv igen</a>');
-            }
+
+            // Commented out by THAN, 14-08-2015:
+            // if (step == 1) {  
+            //     UserMsgBox('body', 'Godt klaret, du har styr på ionforbindelserne. </br><a href="step1.html">Prøv igen</a>');
+            // } else if (step == 2) {
+            //     UserMsgBox('body', 'Godt klaret, du har styr på ionforbindelserne. </br><a href="step2.html">Prøv igen</a>');
+            // } else if (step == 3) {
+            //     UserMsgBox('body', 'Godt klaret, du har styr på ionforbindelserne. </br><a href="step3.html">Prøv igen</a>');
+            // }
+
+            // New "assignment complete" feedback to the student. THAN 14-08-2015:
+            UserMsgBox("body", "<span class='feedbackbox_txtstyle_overskrift'>Flot</span><br/>Du har lavet " + maxRounds + " opgaver korrekt. <br/> Du havde " + SimpleError + ' fejl undervejs. <br/><br/>Klik <u>her</u> for at løse ' + maxRounds + ' nye opgaver.');
         }, 2000);
     } else {
         $('.btn-next').css('visibility', 'visible');
