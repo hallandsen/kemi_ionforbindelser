@@ -1228,7 +1228,11 @@ function feedbackOverlay(thisAnswer) {
             // }
 
             // New "assignment complete" feedback to the student. THAN 14-08-2015:
-            UserMsgBox("body", "<span class='feedbackbox_txtstyle_overskrift'>Flot</span><br/>Du har lavet " + maxRounds + " opgaver korrekt. <br/> Du havde " + SimpleError + ' fejl undervejs. <br/><br/>Klik <u><a href="step'+step+'.html">her</a></u> for at løse ' + maxRounds + ' nye opgaver.');
+            UserMsgBox("body", "<span class='feedbackbox_txtstyle_overskrift'>Flot</span><br/>Du har lavet " + maxRounds + " opgaver korrekt. <br/> Du havde " + SimpleError + " fejl undervejs.<br/>Klik og tag 10 opgaver mere.")
+            $("#UserMsgBox").click(function() {
+                location.reload();
+            });
+
         }, 2000);
     } else {
         $('.btn-next').css('visibility', 'visible');
