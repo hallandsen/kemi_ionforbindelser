@@ -1316,7 +1316,8 @@ function MarkIAndLAsSpecial(TargetSelectorArray, LetterArray, LetterClassArray, 
             for (var l in LetterArray) { // First surround all letters (or clusters of letters) in LetterArray with delimiters, eg. If letter = L and delimiter = #, then #L#.
                 var ElementText = $(element).html();
                 if (ElementText.indexOf(LetterArray[l]) !== -1) {
-                    $(element).html(ElementText.replace(LetterArray[l], Delimiter + LetterArray[l] + Delimiter));
+                    // $(element).html(ElementText.replace(LetterArray[l], Delimiter + LetterArray[l] + Delimiter));
+                    $(element).html(ElementText.replace(new RegExp(LetterArray[l], 'g'), Delimiter + LetterArray[l] + Delimiter));
                 }
             }
 
@@ -1324,12 +1325,14 @@ function MarkIAndLAsSpecial(TargetSelectorArray, LetterArray, LetterClassArray, 
                 var LetterClass = (LetterClassArray.length == LetterArray.length) ? LetterClassArray[l] : LetterClassArray[0];
                 var ElementText = $(element).html();
                 if (ElementText.indexOf(LetterArray[l]) !== -1) {
-                    $(element).html(ElementText.replace(Delimiter + LetterArray[l] + Delimiter, '<span class="' + LetterClass + '">' + LetterArray[l] + '</span>'));
+                    // $(element).html(ElementText.replace(Delimiter + LetterArray[l] + Delimiter, '<span class="' + LetterClass + '">' + LetterArray[l] + '</span>'));
+                    $(element).html(ElementText.replace(new RegExp(Delimiter + LetterArray[l] + Delimiter, 'g'), '<span class="' + LetterClass + '">' + LetterArray[l] + '</span>'));
                 }
             }
         });
     }
 }
+
     //########################################################################
     //                        Run code....
     //########################################################################
@@ -1344,6 +1347,8 @@ $(document).ready(function() {
         original = true;
     })
     MarkIAndLAsSpecial([".QuestionTask", ".ion h3"], ["I", "l"], ["CapitalI"],"#");
+
+    MarkIAndLAsSpecial([".TATEST"], ["I", "l"], ["CapitalI"],"#");
 
 
     $('.btn-next').click(function() {
