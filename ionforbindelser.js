@@ -2,9 +2,9 @@
 //                                  Data 
 //########################################################################
 var CorrectAnswers = [{
-        "name": "jernchlorid",
+        "name": "jern(II)chlorid",
         "plus": "Fe",
-        "plusName": "jern",
+        "plusName": "jern(II)",
         "plusCharge": "2+",
         "plusCount": "1",
         "plusIonsNo": "",
@@ -32,9 +32,9 @@ var CorrectAnswers = [{
     },
 
     {
-        "name": "kobberiodid",
+        "name": "kobber(II)iodid",
         "plus": "Cu",
-        "plusName": "kobber",
+        "plusName": "kobber(II)",
         "plusCharge": "2+",
         "plusCount": "1",
         "plusIonsNo": "",
@@ -62,9 +62,9 @@ var CorrectAnswers = [{
     },
 
     {
-        "name": "jernbromid",
+        "name": "jern(III)bromid",
         "plus": "Fe",
-        "plusName": "jern",
+        "plusName": "jern(III)",
         "plusCharge": "3+",
         "plusCount": "1",
         "plusIonsNo": "",
