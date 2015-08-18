@@ -1227,7 +1227,7 @@ function feedbackOverlay(thisAnswer) {
             //     UserMsgBox('body', 'Godt klaret, du har styr på ionforbindelserne. </br><a href="step3.html">Prøv igen</a>');
             // }
 
-            // New "assignment complete" feedback to the student. THAN 14-08-2015:
+            // New "assignment complete" feedback to the student that resembles the one by ATO. THAN 14-08-2015:
             UserMsgBox("body", "<span class='feedbackbox_txtstyle_overskrift'>Flot</span><br/>Du har lavet " + maxRounds + " opgaver korrekt. <br/> Du havde " + SimpleError + " fejl undervejs.<br/>Klik og tag 10 opgaver mere.")
             $("#UserMsgBox").click(function() {
                 location.reload();
