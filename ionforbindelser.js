@@ -925,7 +925,7 @@ function opgaveTekst3(CorrectAnswers) {
 function feedbackTekst(roundCounter, correct) {
     $('.feedback span').empty();
     var HTML = '';
-    HTML += '<span class="QuestionTask">Spørgsmål: ' + correct + '</span> <span>/</span> <span class="QuestionTask">' + maxRounds + '</span>' + '<span class="QuestionTask"> Fejl: <span class="SError">' + SimpleError + '</span></span>';
+    HTML += 'Spørgsmål: <span class="QuestionTask">' + correct + '/' + maxRounds + '</span>' + ' Fejl: <span class="QuestionTask"><span class="SError">' + SimpleError + '</span></span>';
     $('.feedback').prepend(HTML);
     $('.SError:gt(0)').remove(); // The previous prepend(HTML) adds an extra error-counter - this removes the last added error-counter.
 }
