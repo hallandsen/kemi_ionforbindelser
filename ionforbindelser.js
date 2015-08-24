@@ -2,9 +2,9 @@
 //                                  Data 
 //########################################################################
 var CorrectAnswers = [{
-        "name": "jernchlorid",
+        "name": "jern(<span class='CapitalI'>II</span>)chlorid",
         "plus": "Fe",
-        "plusName": "jern",
+        "plusName": "jern(<span class='CapitalI'>II</span>)",
         "plusCharge": "2+",
         "plusCount": "1",
         "plusIonsNo": "",
@@ -32,9 +32,9 @@ var CorrectAnswers = [{
     },
 
     {
-        "name": "kobberiodid",
+        "name": "kobber(<span class='CapitalI'>II</span>)iodid",
         "plus": "Cu",
-        "plusName": "kobber",
+        "plusName": "kobber(<span class='CapitalI'>II</span>)",
         "plusCharge": "2+",
         "plusCount": "1",
         "plusIonsNo": "",
@@ -62,9 +62,9 @@ var CorrectAnswers = [{
     },
 
     {
-        "name": "jernbromid",
+        "name": "jern(<span class='CapitalI'>III</span>)bromid",
         "plus": "Fe",
-        "plusName": "jern",
+        "plusName": "jern(<span class='CapitalI'>III</span>)",
         "plusCharge": "3+",
         "plusCount": "1",
         "plusIonsNo": "",
@@ -1343,7 +1343,7 @@ $(document).ready(function() {
     $('.draggable').mousedown(function() {
         original = true;
     })
-    MarkIAndLAsSpecial([".QuestionTask", ".ion h3"], ["I", "l"], ["CapitalI"],"#");
+    MarkIAndLAsSpecial([".ion h3"], ["I", "l"], ["CapitalI"],"#");
 
 
     $('.btn-next').click(function() {
