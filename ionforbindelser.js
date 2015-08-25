@@ -923,9 +923,10 @@ function opgaveTekst3(CorrectAnswers) {
     }
     //feedback felt med antal rigtige genereres og opdateres
 function feedbackTekst(roundCounter, correct) {
-    $('.feedback span').empty();
+    $('.feedback .innerFeedbackWrapper').remove();
     var HTML = '';
-    HTML += 'Spørgsmål: <span class="QuestionTask">' + correct + '/' + maxRounds + '</span>' + ' Fejl: <span class="QuestionTask"><span class="SError">' + SimpleError + '</span></span>';
+    HTML += '<div class="innerFeedbackWrapper">Spørgsmål: <span class="QuestionTask">' + correct + '/' + maxRounds + '</span>' + ' Fejl: <span class="QuestionTask"><span class="SError">' + SimpleError + '</span></span></div>';
+    
     $('.feedback').prepend(HTML);
     $('.SError:gt(0)').remove(); // The previous prepend(HTML) adds an extra error-counter - this removes the last added error-counter.
 }
@@ -1307,7 +1308,7 @@ function resetAssignment() {
     CreateIons(JsonObj);
     makeDraggable();
     makeDroppable();
-    MarkIAndLAsSpecial([".QuestionTask", ".ion h3"], ["I", "l"], ["CapitalI"],"#");
+    MarkIAndLAsSpecial([".ion h3"], ["I", "l"], ["CapitalI"],"#");
 }
 //egen funktion til erstatning af I og l. Denne var nødvendig for at beholde markup til sænkning og hævning af koefficient tal
 function MarkIAndLAsSpecial(TargetSelectorArray, LetterArray, LetterClassArray, Delimiter) {

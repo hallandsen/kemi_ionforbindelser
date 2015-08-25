@@ -126,6 +126,9 @@
 	margin-left:10px;
 	visibility: hidden;
 }
+.innerFeedbackWrapper {
+	display: inline-block;
+}
 .glyphicon {
 	padding: 6px 12px;
 	top:0;
