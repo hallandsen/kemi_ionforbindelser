@@ -20,11 +20,11 @@
 			{"name": "Mg2",		    "imgSrc":"img/plus_Mg2.png", 		"ion":"Mg", 	"ionNumber":"",		"charge": "2+",		"farve":"normal"},
 			{"name": "Na1",		   	"imgSrc":"img/plus_Na.png", 		"ion":"Na", 	"ionNumber":"",		"charge": "+",		"farve":"normal"},
 			{"name": "Zn2",		    "imgSrc":"img/plus_Zn2.png",	 	"ion":"Zn", 	"ionNumber":"",		"charge": "2+",		"farve":"normal"},
-			{"name": "K1",		    "imgSrc":"img/plus_K.png",	 		"ion":"K", 		"ionNumber":"",		"charge": "+",		"farve":"sort"},
+			{"name": "K1",		    "imgSrc":"img/plus_K.png",	 		"ion":"K", 		"ionNumber":"",		"charge": "+",		"farve":"normal"},
 			{"name": "NH1",		    "imgSrc":"img/plus_NH.png",			"ion":"NH", 	"ionNumber":"4",	"charge": "+",		"farve":"sort"},
 			{"name": "Ca1",		    "imgSrc":"img/plus_Ca2.png",		"ion":"Ca", 	"ionNumber":"",		"charge": "2+",		"farve":"sort"},
-			{"name": "Ba1",		    "imgSrc":"img/plus_Ba2.png",		"ion":"Ba", 	"ionNumber":"",		"charge": "2+",		"farve":"sort"},
-			{"name": "Pb1",		    "imgSrc":"img/plus_Pb2.png",		"ion":"Pb", 	"ionNumber":"",		"charge": "2+",		"farve":"sort"}
+			{"name": "Ba1",		    "imgSrc":"img/plus_Ba2.png",		"ion":"Ba", 	"ionNumber":"",		"charge": "2+",		"farve":"normal"},
+			{"name": "Pb1",		    "imgSrc":"img/plus_Pb2.png",		"ion":"Pb", 	"ionNumber":"",		"charge": "2+",		"farve":"normal"}
 		]
 	}
 }
