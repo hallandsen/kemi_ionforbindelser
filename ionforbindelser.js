@@ -832,7 +832,7 @@ console.log('neededMinus: ' + neededMinus);
 //runde variabler
 var roundCounter = 0;
 var maxRounds = 10;
-var correct = 1;
+var correct = 0;
 
 var SimpleError = 0; // Counts the total number of errors related to dragging draggables. If you drag a draggable not having the class "correctMinus" or "correctPlus", then the counter increases by one.
 
@@ -923,9 +923,10 @@ function opgaveTekst3(CorrectAnswers) {
     }
     //feedback felt med antal rigtige genereres og opdateres
 function feedbackTekst(roundCounter, correct) {
-    $('.feedback span').empty();
+    $('.feedback .innerFeedbackWrapper').remove();
     var HTML = '';
-    HTML += '<span class="QuestionTask">Spørgsmål: ' + correct + '</span> <span>/</span> <span class="QuestionTask">' + maxRounds + '</span>' + '<span class="QuestionTask"> Fejl: <span class="SError">' + SimpleError + '</span></span>';
+    HTML += '<div class="innerFeedbackWrapper">Korrekte svar: <span class="QuestionTask">' + correct + '/' + maxRounds + '</span>' + ' Fejl: <span class="QuestionTask"><span class="SError">' + SimpleError + '</span></span></div>';
+    
     $('.feedback').prepend(HTML);
     $('.SError:gt(0)').remove(); // The previous prepend(HTML) adds an extra error-counter - this removes the last added error-counter.
 }
@@ -1191,7 +1192,7 @@ function CheckAnswer(minusCount, plusCount) {
     if (minusCount == finalMinusCount && plusCount == finalPlusCount) {
         correct++;
         feedbackOverlay(thisAnswer);
-
+        feedbackTekst(roundCounter, correct);
         $('.opgaveFormulering').html("Rigtigt <br/> &nbsp;");  // This gives a posetive feedback to th student. A line-break and a blank-space character is inserted to avoid a "page jump" in between questions.   
     }
 }
@@ -1213,7 +1214,7 @@ function feedbackOverlay(thisAnswer) {
     setTimeout(function() {
         $('#overlay h2, #overlay .btn').fadeIn('slow')
     }, 300);
-    if (correct == 11) {
+    if (correct == 10) {
         $('.btn-next').css('visibility', 'hidden');
         correct = 10;
         setTimeout(function() {
@@ -1272,7 +1273,7 @@ function resetAssignment() {
     thisAnswer = Math.floor(Math.random() * arrayLength);
     shuffleArray(JsonObj.ions.plus);
     shuffleArray(JsonObj.ions.minus);
-    feedbackTekst(roundCounter, correct);
+    // feedbackTekst(roundCounter, correct);
 
     finalMinusCount = CorrectAnswers[thisAnswer].minusCount;
     finalPlusCount = CorrectAnswers[thisAnswer].plusCount;
@@ -1307,7 +1308,7 @@ function resetAssignment() {
     CreateIons(JsonObj);
     makeDraggable();
     makeDroppable();
-    MarkIAndLAsSpecial([".QuestionTask", ".ion h3"], ["I", "l"], ["CapitalI"],"#");
+    MarkIAndLAsSpecial([".ion h3"], ["I", "l"], ["CapitalI"],"#");
 }
 //egen funktion til erstatning af I og l. Denne var nødvendig for at beholde markup til sænkning og hævning af koefficient tal
 function MarkIAndLAsSpecial(TargetSelectorArray, LetterArray, LetterClassArray, Delimiter) {
