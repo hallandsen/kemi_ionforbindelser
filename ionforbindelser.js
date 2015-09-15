@@ -1247,7 +1247,10 @@ function feedbackOverlay(thisAnswer) {
         audioElement.addEventListener('ended', playnextAudio);
     });
     $('.ion').css('pointer-events', 'none');
-    MarkIAndLAsSpecial(["#overlay h2"], ["I", "l"], ["CapitalI"],"#");
+    if (step!= 2){
+        console.log("this it not step 2"),
+        MarkIAndLAsSpecial(["#overlay h2"], ["I", "l"], ["CapitalI"],"#");
+    }
 }
 
 function playnextAudio() {
@@ -1308,7 +1311,7 @@ function resetAssignment() {
     CreateIons(JsonObj);
     makeDraggable();
     makeDroppable();
-    MarkIAndLAsSpecial([".ion h3"], ["I", "l"], ["CapitalI"],"#");
+    MarkIAndLAsSpecial([".ion h3", "#opgaveFormulering1 .QuestionTask"], ["I", "l"], ["CapitalI"],"#");
 }
 //egen funktion til erstatning af I og l. Denne var nødvendig for at beholde markup til sænkning og hævning af koefficient tal
 function MarkIAndLAsSpecial(TargetSelectorArray, LetterArray, LetterClassArray, Delimiter) {
@@ -1344,7 +1347,7 @@ $(document).ready(function() {
     $('.draggable').mousedown(function() {
         original = true;
     })
-    MarkIAndLAsSpecial([".ion h3"], ["I", "l"], ["CapitalI"],"#");
+    MarkIAndLAsSpecial([".ion h3", "#opgaveFormulering1 .QuestionTask"], ["I", "l"], ["CapitalI"],"#");
 
 
     $('.btn-next').click(function() {
