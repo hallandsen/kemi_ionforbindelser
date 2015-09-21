@@ -1,5 +1,6 @@
 .container-fluid{
 	background-color: #F8F8F6;
+	margin-top: 0;
 }
 .ionsWrapper{
 	width: 600px;
@@ -146,10 +147,6 @@ a:active {
 	color: #ffffff;
 	background-color: #1784ae;
 	border-color: #167da5;
-}
-.container-fluid {
-	margin-top: 0 !important;
-	padding-top:20px;
 }
 .feedbackZone, h1, .opgaveFormulering {
 	width: 580px;
