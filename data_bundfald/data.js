@@ -51,8 +51,10 @@ var reaktions_Array = [
         ["Zn<sup>2+</sup>(aq) + Br<sup>-</sup>(aq)", "ZnBr<sub>2</sub> (aq) ", "intet bundfald"],
         ["Zn<sup>2+</sup>(aq) + <span class='CapitalI'>I</span><sup>-</sup>(aq)", "ZnI<sub>2</sub> (aq) ", "intet bundfald"],
         ["Zn<sup>2+</sup>(aq) + SO<sub>4</sub><sup>2-</sup>(aq)", "ZnSO<sub>4</sub> (aq) ", "intet bundfald"],
-        ["Zn<sup>2+</sup>(aq) + CO<sub>3</sub><sup>2-</sup>(aq)", "ZnCO<sub>3</sub>(s)", "Zink(II)carbonat"],
-        ["Zn<sup>2+</sup>(aq) + 2OH<sup>-</sup>(aq)", "Zn(OH)<sub>2</sub>(s)", "Zink(II)hydroxid"],
+        // ["Zn<sup>2+</sup>(aq) + CO<sub>3</sub><sup>2-</sup>(aq)", "ZnCO<sub>3</sub>(s)", "Zink(II)carbonat"],  // Commented out by THAN 24-09-2015
+        ["Zn<sup>2+</sup>(aq) + CO<sub>3</sub><sup>2-</sup>(aq)", "ZnCO<sub>3</sub>(s)", "Zinkcarbonat"],         // Added by THAN 24-09-2015
+        // ["Zn<sup>2+</sup>(aq) + 2OH<sup>-</sup>(aq)", "Zn(OH)<sub>2</sub>(s)", "Zink(II)hydroxid"],            // Commented out by THAN 24-09-2015
+        ["Zn<sup>2+</sup>(aq) + 2OH<sup>-</sup>(aq)", "Zn(OH)<sub>2</sub>(s)", "Zinkhydroxid"],                   // Added by THAN 24-09-2015
         ["Zn<sup>2+</sup>(aq) + S<sub>2</sub><sup>-</sup>(aq)", "ZnS(s)", "Zink(II)sulfid"],
         ["3Zn<sup>2+</sup>(aq) + 2PO<sub>4</sub><sup>3-</sup>(aq)", "Zn<sub>3</sub>(PO<sub>4</sub>)<sub>2</sub>(s)", "Zink(II)phosphat"]
     ],

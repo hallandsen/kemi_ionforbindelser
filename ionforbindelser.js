@@ -1,7 +1,8 @@
 //########################################################################
 //                                  Data 
 //########################################################################
-var CorrectAnswers = [{
+var CorrectAnswers = [
+    {
         "name": "jern(<span class='CapitalI'>II</span>)chlorid",
         "plus": "Fe",
         "plusName": "jern(<span class='CapitalI'>II</span>)",
@@ -49,7 +50,7 @@ var CorrectAnswers = [{
     {
         "name": "sølvsulfid",
         "plus": "Ag",
-        "plusName": "solv",
+        "plusName": "sølv",
         "plusCharge": "+",
         "plusCount": "2",
         "plusIonsNo": "",
@@ -196,20 +197,21 @@ var CorrectAnswers = [{
         "html": "(NH<sub>4</sub>)<sub>2</sub>CO<sub>3</sub>"
     },
 
-    {
-        "name": "ammoniumhydroxid",
-        "plus": "NH",
-        "plusName": "ammonium",
-        "plusCharge": "+",
-        "plusCount": "1",
-        "plusIonsNo": "4",
-        "minus": "OH",
-        "minusName": "hydroxid",
-        "minusCharge": "-",
-        "minusCount": "1",
-        "minusIonsNo": "",
-        "html": "NH<sub>4</sub>OH"
-    },
+    // Commented out by THAN 24-09-2015
+    // {
+    //     "name": "ammoniumhydroxid",
+    //     "plus": "NH",
+    //     "plusName": "ammonium",
+    //     "plusCharge": "+",
+    //     "plusCount": "1",
+    //     "plusIonsNo": "4",
+    //     "minus": "OH",
+    //     "minusName": "hydroxid",
+    //     "minusCharge": "-",
+    //     "minusCount": "1",
+    //     "minusIonsNo": "",
+    //     "html": "NH<sub>4</sub>OH"
+    // },
 
     {
         "name": "ammoniumsulfid",
@@ -371,7 +373,8 @@ var CorrectAnswers = [{
         "plusIonsNo": "",
         "minus": "S",
         "minusName": "sulfid",
-        "minusCharge": "-2",
+        // "minusCharge": "-2",  // Commented out by THAN 24-09-2015
+        "minusCharge": "2-",     // Added by THAN 24-09-2015
         "minusCount": "1",
         "minusIonsNo": "",
         "html": "Na<sub>2</sub>S"
@@ -476,7 +479,8 @@ var CorrectAnswers = [{
         "plusIonsNo": "",
         "minus": "SO",
         "minusName": "sulfat",
-        "minusCharge": "-2",
+        // "minusCharge": "-2",  // Commented out by THAN 24-09-2015
+        "minusCharge": "2-",     // Added by THAN 24-09-2015
         "minusCount": "1",
         "minusIonsNo": "4",
         "html": "K<sub>2</sub>SO<sub>4</sub>"
@@ -671,7 +675,8 @@ var CorrectAnswers = [{
         "plusIonsNo": "",
         "minus": "S",
         "minusName": "sulfid",
-        "minusCharge": "-2",
+        // "minusCharge": "-2",  // Commented out by THAN 24-09-2015
+        "minusCharge": "2-",     // Added by THAN 24-09-2015
         "minusCount": "1",
         "minusIonsNo": "",
         "html": "MgS"
@@ -793,7 +798,8 @@ var CorrectAnswers = [{
         "minusName": "carbonat",
         "minusCharge": "2-",
         "minusCount": "1",
-        "minusIonsNo": "",
+        // "minusIonsNo": "",      // Commented out byt THAN 24-09-2015
+        "minusIonsNo": "3",        // Added by THAN 24-09-2015
         "html": "ZnCO<sub>3</sub>"
     }
     //53
@@ -809,7 +815,8 @@ var CorrectAnswers = [{
 
 var audioElement;
 var JsonObj;
-var thisAnswer = Math.floor(Math.random() * 53);
+// var thisAnswer = Math.floor(Math.random() * 53);  // Commented out by THAN 24-09-2015
+var thisAnswer = Math.floor(Math.random() * 52);     // Added by THAN 24-09-2015
 var answersArray;
 var minusCount = 0;
 var plusCount = 0;
